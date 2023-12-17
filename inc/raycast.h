@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 18:31:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 21:38:00 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 # define P3 3 * PI / 2
 # define MAX_DISTANCE 10000000
 # define SCREEN_WIDTH 1920
-# define SCREEN_HEIGHT 1040
+# define SCREEN_HEIGHT 1080
+# define SCREEN_HEIGHT2 540
 # define FIELD_OF_VIEW 60
 # define SPEED 0.02
 # define DR 0.0174533
@@ -163,6 +164,8 @@ typedef struct s_data
 	int					player_color;
 	int					line_color;
 	int					*map;
+	float				line_height;
+	float				line_offset;
 	float				tile_width;
 	float				tile_height;
 	float				min_distance;
