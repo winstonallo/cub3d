@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 18:45:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 19:46:30 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ t_line	draw_rays_horizontal(t_data *data, float angle)
 	horizontal_scan(&ray, data);
 	line.x0 = player->x_pos * data->tile_width;
 	line.y0 = player->y_pos * data->tile_height;
-	line.x1 = (ray.reach_x * data->tile_width);
-	line.y1 = (ray.reach_y * data->tile_height);
+	line.x1 = ray.reach_x * data->tile_width;
+	line.y1 = ray.reach_y * data->tile_height;
 	return (line);
 }
 
@@ -76,19 +76,25 @@ void	raycast(t_data *data)
 
 	i = -1;
 	data->error = SUCCESS;
-	angle = data->player.angle - DR * 30;
-	while (++i < 60)
+	// angle = data->player.angle - DR * 30;
+	// if (angle < 0)
+	// 	angle += 2 * PI;
+	// if (angle > 2 * PI)
+	// 	angle -= 2 * PI;
+	angle = 0;
+	while (++i < 1)
 	{
 		data->min_distance = 100000;
-		vertical = draw_rays_vertical(data, angle);
-		horizontal = draw_rays_horizontal(data, angle);
-		calculate_distance(data, horizontal);
-		calculate_distance(data, vertical);
-		draw_line(data, data->shortest_line, 0xff0000, 1);
-		angle += DR;
-		if (angle < 0)
-			angle += 2 * PI;
-		if (angle > 2 * PI)
-			angle -= 2* PI;
+		vertical = draw_rays_vertical(data, data->player.angle);
+		horizontal = draw_rays_horizontal(data, data->player.angle);
+		// calculate_distance(data, horizontal);
+		// calculate_distance(data, vertical);
+		draw_line(data, vertical, 0x00ff00, 4);
+		draw_line(data, horizontal, 0xff0000, 1);
+		// angle += DR;
+		// if (angle < 0)
+		// 	angle += 2 * PI;
+		// if (angle > 2 * PI)
+		// 	angle -= 2 * PI;
 	}
 }
