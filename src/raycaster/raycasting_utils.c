@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 22:34:26 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 23:32:40 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	init_vars_horizontal(t_raycast *ray, t_player *player)
 		ray->inc_y = 1;
 		ray->inc_x = -ray->inc_y * ray->a_tan;
 	}
-	else if (!ray->angle || ray->angle == PI)
+	else if (!ray->angle || ray->angle == (float)PI)
 	{
 		ray->reach_x = player->x_pos;
 		ray->reach_y = player->y_pos;
@@ -87,7 +87,7 @@ void	init_vars_vertical(t_raycast *ray, t_player *player)
 		ray->inc_x = 1;
 		ray->inc_y = -ray->inc_x * ray->n_tan;
 	}
-	else if (!ray->angle || ray->angle == PI)
+	else if (!ray->angle || ray->angle == (float)PI)
 	{
 		ray->reach_y = player->y_pos;	
 		ray->reach_x = player->x_pos;

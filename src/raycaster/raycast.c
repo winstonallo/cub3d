@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 23:25:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 23:32:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ t_line	draw_rays_vertical(t_data *data, float angle)
 
 void	init_3d_lines(t_line *line1, int i, t_data *data)
 {
-	line1->x0 = i * (SCREEN_WIDTH / 60);
-	line1->x1 = i * (SCREEN_WIDTH / 60);
+	line1->x0 = i * ((float)SCREEN_WIDTH / 60);
+	line1->x1 = i * ((float)SCREEN_WIDTH / 60);
 	line1->y0 = data->line_offset;
 	line1->y1 = data->line_height + data->line_offset;
 }
