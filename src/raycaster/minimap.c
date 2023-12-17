@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:36:10 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 14:17:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@ void draw_map(t_data *data)
 
 void	init_line(t_line *line, t_data *data, int length)
 {
-	line->x0 = data->player.x_screen_pos;
-	line->y0 = data->player.y_screen_pos;
-	line->x1 = data->player.x_screen_pos + data->player.x_dir * length;
-	line->y1 = data->player.y_screen_pos + data->player.y_dir * length;
+	line->x0 = data->player.x_pos * data->tile_width;
+	line->y0 = data->player.y_pos * data->tile_height;
+	line->x1 = (data->player.x_pos + data->player.x_dir * length) * data->tile_width;
+	line->y1 = (data->player.y_pos + data->player.y_dir * length) * data->tile_height;
 	line->thickness = 1;
 }
 
 void	draw_player(t_data *data)
 {
-	t_line	line;
+	// t_line	line;
 	
-	init_line(&line,  data, 10);
-	draw_circle(data, data->player.x_screen_pos, data->player.y_screen_pos, 8);
+	// init_line(&line,  data, 10);
+	draw_circle(data, data->player.x_pos, data->player.y_pos, 8);
 	raycast(data);
-	draw_line(data, line, 0x00f0ff, 4);
+	// draw_line(data, line, 0x00f0ff, 4);
 }

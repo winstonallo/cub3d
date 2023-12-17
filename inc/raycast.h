@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:37:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 13:46:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 # define PROJECTIONS_H
 
 # include <stdio.h>
+# include <stdlib.h>
 # include <mlx.h>
 # include <math.h>
 # include "../libft/include/libft.h"
+
+ #define MIN(a,b) a < b ? a : b;
 
 # define GREEN		"\e[92;5;118m"
 # define RED 		"\e[91m"
@@ -68,6 +71,12 @@ typedef enum s_move
 	STRAFE_RIGHT,
 	STRAFE_LEFT
 }	t_move;
+
+typedef enum s_error
+{
+	SUCCESS,
+	NO_WALL_HIT
+}	t_error;
 
 typedef struct s_dist
 {
@@ -139,7 +148,8 @@ typedef struct s_raycast
 } t_raycast;
 
 typedef struct s_data
-{	
+{
+	int					error;
 	int					view_dir;
 	int					map_width;
 	int					map_height;
@@ -154,6 +164,9 @@ typedef struct s_data
 	float				tile_width;
 	float				tile_height;
 	float				min_distance;
+	float				x_scale;
+	float				y_scale;
+	float				scale_factor;
 	struct s_player		player;
 	struct s_mlx		mlx;
 	struct s_img		img;
@@ -179,9 +192,9 @@ void	set_directions(t_data *data);
 //math
 void	raycast(t_data *data);
 void	horizontal_scan(t_raycast *ray, t_data *data);
-void	init_vars_horizontal(t_raycast *ray, t_player *player);
+void	init_vars_horizontal(t_raycast *ray, t_player *player, t_data *data);
 void	vertical_scan(t_raycast *ray, t_data *data);
-void	init_vars_vertical(t_raycast *ray, t_player *player);
+void	init_vars_vertical(t_raycast *ray, t_player *player, t_data *data);
 
 //drawing_utils
 void	put_pixel(t_data *data, int x, int y, int color);

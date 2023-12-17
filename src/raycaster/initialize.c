@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:36:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 13:44:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	initialize_data(t_data *data)
 	data->player.angle = PI / 2;
 	data->tile_width = (float)SCREEN_WIDTH / 8;
 	data->tile_height = (float)SCREEN_HEIGHT / 8;
+	data->scale_factor = MIN(data->tile_width, data->tile_height);
 	data->win_width = SCREEN_WIDTH;
 	data->win_height = SCREEN_HEIGHT;
 	data->floor_color = 0xffffff;

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:32:42 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:36:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 13:56:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void draw_circle(t_data *data, int x, int y, int size)
 	int	pos_y;
 	int	pos_x;
 
+	x *= data->tile_width;
+	y *= data->tile_height;
 	pos_y = y - size - 1;
 	while (++pos_y <= y + 16)
 	{

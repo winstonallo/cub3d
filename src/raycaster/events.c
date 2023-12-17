@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:36:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 13:53:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,23 @@ static int	move(int direction, t_data *data)
 {
 	if (direction == UP)
 	{
-		data->player.x_screen_pos += data->player.x_dir * 3;
-		data->player.y_screen_pos += data->player.y_dir * 3;
+		data->player.x_pos += data->player.x_dir * 3;
+		data->player.y_pos += data->player.y_dir * 3;
 	}
 	else if (direction == DOWN)
 	{
-		data->player.x_screen_pos -= data->player.x_dir * 3;
-		data->player.y_screen_pos -= data->player.y_dir * 3;
+		data->player.x_pos -= data->player.x_dir * 3;
+		data->player.y_pos -= data->player.y_dir * 3;
 	}
     if (direction == STRAFE_RIGHT)
     {
-        data->player.x_screen_pos -= data->player.y_dir * 3;
-        data->player.y_screen_pos += data->player.x_dir * 3;
+        data->player.x_pos -= data->player.y_dir * 3;
+        data->player.y_pos += data->player.x_dir * 3;
     }
     else if (direction == STRAFE_LEFT)
     {
-        data->player.x_screen_pos += data->player.y_dir * 3;
-        data->player.y_screen_pos -= data->player.x_dir * 3;
+        data->player.x_pos += data->player.y_dir * 3;
+        data->player.y_pos -= data->player.x_dir * 3;
     }
 	new_image(data);
 	return (EXIT_SUCCESS);
