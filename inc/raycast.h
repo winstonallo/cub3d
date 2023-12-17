@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 13:46:57 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 18:31:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1040
 # define FIELD_OF_VIEW 60
+# define SPEED 0.02
+# define DR 0.0174533
 
 //keys
 # define ESCAPE 65307
@@ -170,6 +172,7 @@ typedef struct s_data
 	struct s_player		player;
 	struct s_mlx		mlx;
 	struct s_img		img;
+	struct s_line		shortest_line;
 }	t_data;
 
 #ifndef MAP
@@ -198,7 +201,7 @@ void	init_vars_vertical(t_raycast *ray, t_player *player, t_data *data);
 
 //drawing_utils
 void	put_pixel(t_data *data, int x, int y, int color);
-void 	draw_rays_horizontal(t_data *data);
+t_line 	draw_rays_horizontal(t_data *data, float angle);
 void 	draw_circle(t_data *data, int x, int y, int size);
 void	draw_line(t_data *data, t_line line, int color, int size);
 

@@ -6,6 +6,8 @@ SRC_DIR = src/
 
 RAY_DIR = raycaster/
 
+STANDARD = /
+
 SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${RAY_DIR}raycast.c \
 		${SRC_DIR}${RAY_DIR}init_game.c \
@@ -17,7 +19,7 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${RAY_DIR}minimap.c \
 		${SRC_DIR}${RAY_DIR}raycasting_utils.c \
 
-OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+OBJS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 CC = cc
 
@@ -35,11 +37,12 @@ $(NAME): $(OBJS) $(LIBFT_OBJS)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/$(RAY_DIR)
 
 $(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o: libft/src/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 14:17:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 17:41:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	draw_player(t_data *data)
 	// t_line	line;
 	
 	// init_line(&line,  data, 10);
-	draw_circle(data, data->player.x_pos, data->player.y_pos, 8);
+	draw_circle(data, data->player.x_pos * data->tile_width, data->player.y_pos * data->tile_height, 8);
 	raycast(data);
 	// draw_line(data, line, 0x00f0ff, 4);
 }

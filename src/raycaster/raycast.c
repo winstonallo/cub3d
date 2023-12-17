@@ -6,90 +6,89 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 14:21:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 18:45:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-float	dist(t_dist dist)
+float	dist(t_line line)
 {
-	return (sqrt((dist.x1 - dist.x0) + (dist.y1 - dist.y0)));
+	return sqrt((line.x1 - line.x0) * (line.x1 - line.x0)
+			+ (line.y1 - line.y0) * (line.y1 - line.y0));
 }
 
-void	calculate_distance(t_raycast *ray, t_data *data)
+void	calculate_distance(t_data *data, t_line line)
 {
-	t_dist	distance;
-	int		min_dist;
+	float	min_dist;
 
-	distance.x0 = ray->map_x;
-	distance.y0 = ray->map_y;
-	distance.x1 = ray->reach_x;
-	distance.y1 = ray->reach_y;
-	// printf("x0: %f - y0: %f - x1: %f - y1: %f\n", distance.x0, distance.y0, distance.x1, distance.y1);
-	min_dist = dist(distance);
-	if (!data->min_distance || min_dist < data->min_distance)
+	min_dist = dist(line);
+	if (min_dist < data->min_distance)
+	{
 		data->min_distance = min_dist;
+		data->shortest_line = line;
+	}
 }
 
-void	draw_rays_horizontal(t_data *data)
+t_line	draw_rays_horizontal(t_data *data, float angle)
 {
 	t_raycast	ray;
 	t_player	*player;
 	t_line		line;
 
-	ray.loop_protection = -1;
 	player = &data->player;
-	ray.angle = player->angle;
-	ray.r = -1;
-	while (++ray.r < 1)
-	{
-		ray.max_depth = 0;
-		ray.a_tan = -1 / tan(ray.angle);
-		init_vars_horizontal(&ray, player, data);
-		horizontal_scan(&ray, data);
-	}
-	line.x0 = player->x_pos * data->tile_width;// + data->tile_width / 2;
-	line.y0 = player->y_pos * data->tile_height;// + data->tile_height / 2;
-	line.x1 = (ray.reach_x * data->tile_width);// + data->tile_width / 2;;
-	line.y1 = (ray.reach_y * data->tile_height);// + data->tile_height / 2;;
-	draw_circle(data, line.x1, line.y1, 8);
-	calculate_distance(&ray, data);
-	draw_line(data, line, 0x39ff14, 4);
+	ray.angle = angle;
+	ray.a_tan = -1 / tan(ray.angle);
+	init_vars_horizontal(&ray, player, data);
+	horizontal_scan(&ray, data);
+	line.x0 = player->x_pos * data->tile_width;
+	line.y0 = player->y_pos * data->tile_height;
+	line.x1 = (ray.reach_x * data->tile_width);
+	line.y1 = (ray.reach_y * data->tile_height);
+	return (line);
 }
 
-void	draw_rays_vertical(t_data *data)
+t_line	draw_rays_vertical(t_data *data, float angle)
 {
 	t_line		line;
 	t_player	*player;
 	t_raycast	ray;
 
-	ray.loop_protection = -1;
 	player = &data->player;
-	ray.angle = player->angle;
-	ray.r = -1;
-	while (++ray.r < 1)
-	{
-		ray.max_depth = 0;
-		ray.n_tan = -tan(ray.angle);
-		init_vars_vertical(&ray, player, data);
-		vertical_scan(&ray, data);
-	}
-	line.x0 = player->x_pos * data->tile_width;// + data->tile_width / 2;
-	line.y0 = player->y_pos * data->tile_height;// + data->tile_height / 2;
-	line.x1 = ray.reach_x * data->tile_width;// + data->tile_width / 2;
-	line.y1 = ray.reach_y * data->tile_height;// + data->tile_height / 2;
-	calculate_distance(&ray, data);
-	draw_line(data, line, 0xff0000, 2);
+	ray.angle = angle;
+	ray.max_depth = 0;
+	ray.n_tan = -tan(ray.angle);
+	init_vars_vertical(&ray, player, data);
+	vertical_scan(&ray, data);
+	line.x0 = player->x_pos * data->tile_width;
+	line.y0 = player->y_pos * data->tile_height;
+	line.x1 = ray.reach_x * data->tile_width;
+	line.y1 = ray.reach_y * data->tile_height;
+	return (line);
 }
 
 void	raycast(t_data *data)
 {
+	t_line	vertical;
+	t_line	horizontal;
+	int		i;
+	float	angle;	
+
+	i = -1;
 	data->error = SUCCESS;
-	draw_rays_horizontal(data);
-	draw_rays_vertical(data);
-	if (data->error == NO_WALL_HIT){
-		printf(BOLD);printf(RED);printf("\n----NO-WALL-HIT---\n\n");printf(RESET);	
+	angle = data->player.angle - DR * 30;
+	while (++i < 60)
+	{
+		data->min_distance = 100000;
+		vertical = draw_rays_vertical(data, angle);
+		horizontal = draw_rays_horizontal(data, angle);
+		calculate_distance(data, horizontal);
+		calculate_distance(data, vertical);
+		draw_line(data, data->shortest_line, 0xff0000, 1);
+		angle += DR;
+		if (angle < 0)
+			angle += 2 * PI;
+		if (angle > 2 * PI)
+			angle -= 2* PI;
 	}
-	// printf("MIN DISTANCE: %f\n", data->min_distance);
 }
