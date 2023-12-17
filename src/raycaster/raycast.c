@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 19:46:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 20:45:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_line	draw_rays_horizontal(t_data *data, float angle)
 
 	player = &data->player;
 	ray.angle = angle;
+	ray.max_depth = 0;
 	ray.a_tan = -1 / tan(ray.angle);
 	init_vars_horizontal(&ray, player, data);
 	horizontal_scan(&ray, data);
@@ -76,25 +77,23 @@ void	raycast(t_data *data)
 
 	i = -1;
 	data->error = SUCCESS;
-	// angle = data->player.angle - DR * 30;
-	// if (angle < 0)
-	// 	angle += 2 * PI;
-	// if (angle > 2 * PI)
-	// 	angle -= 2 * PI;
-	angle = 0;
-	while (++i < 1)
+	angle = data->player.angle - DR * 30;
+	if (angle < 0)
+		angle += 2 * PI;
+	if (angle > 2 * PI)
+		angle -= 2 * PI;
+	while (++i < 60)
 	{
 		data->min_distance = 100000;
-		vertical = draw_rays_vertical(data, data->player.angle);
-		horizontal = draw_rays_horizontal(data, data->player.angle);
-		// calculate_distance(data, horizontal);
-		// calculate_distance(data, vertical);
-		draw_line(data, vertical, 0x00ff00, 4);
-		draw_line(data, horizontal, 0xff0000, 1);
-		// angle += DR;
-		// if (angle < 0)
-		// 	angle += 2 * PI;
-		// if (angle > 2 * PI)
-		// 	angle -= 2 * PI;
+		vertical = draw_rays_vertical(data, angle);
+		horizontal = draw_rays_horizontal(data, angle);
+		calculate_distance(data, horizontal);
+		calculate_distance(data, vertical);
+		draw_line(data, data->shortest_line, 0x00ff00, 1);
+		angle += DR;
+		if (angle < 0)
+			angle += 2 * PI;
+		if (angle > 2 * PI)
+			angle -= 2 * PI;
 	}
 }

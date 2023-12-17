@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:35:02 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:35:46 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 20:18:22 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	print_test_raycasting(t_data *data, int loopbreak, int direction, t_raycast 
 	else{
 		printf(RESET);
 		printf(CURSIVE);
-		if (direction == WEST){
+		if (direction == HORIZONTAL){
 			printf(GREEN);
 			printf("--horizontal-ray--\n");
 		}
