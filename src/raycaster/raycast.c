@@ -96,12 +96,7 @@ void	raycast(t_data *data)
 	float	angle;	
 
 	i = -1;
-	data->error = SUCCESS;
-	angle = data->player.angle - DR * 30;
-	if (angle < 0)
-		angle += 2 * PI;
-	if (angle > 2 * PI)
-		angle -= 2 * PI;
+	angle = fmod(data->player.angle - DR * 30, 2 * PI);
 	while (++i < FIELD_OF_VIEW)
 	{
 		data->min_distance = 100000;
