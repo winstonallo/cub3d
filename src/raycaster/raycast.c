@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 23:17:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 23:25:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	raycast(t_data *data)
 		vertical = draw_rays_vertical(data, angle);
 		horizontal = draw_rays_horizontal(data, angle);
 		calculate_distance(data, horizontal, vertical);
-		draw_line(data, data->shortest_line, 0xff0000, 1);
+		draw_line(data, data->shortest_line, 0xffffff, 1);
 		float fisheye = data->player.angle - angle;
 		fisheye = fmod(fisheye + PI, 2 * PI) - PI;
 		data->min_distance *= cos(fisheye);

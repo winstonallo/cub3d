@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:32:42 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 23:13:07 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 23:30:22 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ void draw_circle(t_data *data, int x, int y, int size)
 	int	pos_y;
 	int	pos_x;
 
-	// x *= data->tile_width;
-	// y *= data->tile_height;
 	pos_y = y - size - 1;
-	while (++pos_y <= y + 16)
+	while (++pos_y <= y + size)
 	{
 		pos_x = x - size - 1;
 		while (++pos_x <= x + size)
@@ -78,10 +76,10 @@ void	draw_line(t_data *data, t_line line, int color, int size)
 
 	if (line.scale == MAPSIZE)
 	{
-		line.x0 /= data->tile_width; 
-		line.x1 /= data->tile_width; 
-		line.y0 /= data->tile_height; 
-		line.y1 /= data->tile_height; 
+		line.x0 = line.x0 / data->tile_width * 30; 
+		line.x1 = line.x1 / data->tile_width * 30; 
+		line.y0 = line.y0 / data->tile_height * 30; 
+		line.y1 = line.y1 / data->tile_height * 30; 
 	} 
 	set_line_vars(&line, size);
     while (++line.step <= line.max)

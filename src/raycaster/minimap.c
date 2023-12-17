@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 23:06:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 23:28:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void draw_map(t_data *data)
             if (data->map[y * data->map_width + x] == 1)
                 color = 0xffffff;
             else
-                color = 0x000000;
+                continue ;
             line.x0 = x * 30;
             line.y0 = y * 30;
             line.x1 = (x + 1) * 30;  
@@ -47,10 +47,10 @@ void	init_line(t_line *line, t_data *data, int length)
 {
 	if (!length)
 		length = 1;
-	line->x0 = data->player.x_pos * 30;
-	line->y0 = data->player.y_pos * 30;
-	line->x1 = (data->player.x_pos + data->player.x_dir) * 30;
-	line->y1 = (data->player.y_pos + data->player.y_dir) * 30;
+	line->x0 = data->player.x_pos;
+	line->y0 = data->player.y_pos;
+	line->x1 = (data->player.x_pos + data->player.x_dir);
+	line->y1 = (data->player.y_pos + data->player.y_dir);
 	line->thickness = 1;
 }
 
