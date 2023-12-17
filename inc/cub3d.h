@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_public.c                                       :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 12:42:13 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:44:08 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/12/17 12:47:40 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/12/17 12:48:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/map.h"
+#ifndef CUB3D_H
+# define CUB3D_H
 
-int	mpl(char *map)
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "../libft/include/libft.h"
+
+typedef struct s_texture
 {
-	int	i;
+	char	*color_fds[2];
+	int		texture_fds[4];
+	int		err_code;
+}				t_texture;
 
-	i = 0;
-	while (map[i])
-	{
-		if (map[i] == '\n')
-			break ;
-		i++;
-	}
-	return (i);
-}
+int			*map(char *map);
+int			map_get_player_pos(int *map);
+t_texture	map_get_textures(char *map);
 
-int	map_get_player(int *map)
-{
-	int	i;
+int	replace(char *fname, char *pos, char *content);
 
-	i = 0;
-	while (map[i] != -2)
-	{
-		if (map[i] > 2)
-			break ;
-		i++;
-	}
-	return (i);
-}
+#endif
