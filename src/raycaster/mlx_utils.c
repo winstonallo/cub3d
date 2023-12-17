@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:22 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 21:06:22 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 22:58:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,13 @@ void	new_image(t_data *data)
 		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
 	data->mlx.img = mlx_new_image(data->mlx.mlx, data->win_width, data->win_height);
 	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp, &data->img.l_l, &data->img.endian);
+	for (int i = 0; i < SCREEN_HEIGHT; i++)
+	{
+		for (int j = 0; j < SCREEN_WIDTH; j++)
+			put_pixel(data, i, j, 0xE4F6F8);
+	}
 	raycast(data);
+	draw_map(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
 }
 

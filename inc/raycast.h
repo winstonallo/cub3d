@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 21:38:00 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 23:17:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@
 # define PI 3.1415926535
 # define P2 PI / 2
 # define P3 3 * PI / 2
-# define MAX_DISTANCE 10000000
-# define SCREEN_WIDTH 1920
-# define SCREEN_HEIGHT 1080
-# define SCREEN_HEIGHT2 540
+# define MAX_DISTANCE 1000
+# define SCREEN_WIDTH 1000
+# define SCREEN_HEIGHT 1000
+# define SCREEN_HEIGHT2 400
 # define FIELD_OF_VIEW 60
 # define SPEED 0.02
 # define DR 0.0174533
+# define FIELD_OF_VIEW 60
 
 //keys
 # define ESCAPE 65307
@@ -49,6 +50,12 @@
 # define D 100
 # define E 101
 # define Q 113
+
+typedef enum s_scale
+{
+	MAPSIZE,
+	SCREEN
+}	t_scale;
 
 typedef enum s_ray
 {
@@ -110,6 +117,7 @@ typedef struct s_line
 	float			y0;
 	float			x1;
 	float			y1;
+	int				scale;
 	int				thickness;
 	int				length;
 	int				neg_size;
@@ -198,9 +206,9 @@ void	set_directions(t_data *data);
 //math
 void	raycast(t_data *data);
 void	horizontal_scan(t_raycast *ray, t_data *data);
-void	init_vars_horizontal(t_raycast *ray, t_player *player, t_data *data);
+void	init_vars_horizontal(t_raycast *ray, t_player *player);
 void	vertical_scan(t_raycast *ray, t_data *data);
-void	init_vars_vertical(t_raycast *ray, t_player *player, t_data *data);
+void	init_vars_vertical(t_raycast *ray, t_player *player);
 
 //drawing_utils
 void	put_pixel(t_data *data, int x, int y, int color);

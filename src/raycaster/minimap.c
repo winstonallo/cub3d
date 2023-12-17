@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 21:05:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 23:06:35 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,36 +28,33 @@ void draw_map(t_data *data)
         for (x = 0; x < data->map_width; x++)
         {
             if (data->map[y * data->map_width + x] == 1)
-                color = data->wall_color;
+                color = 0xffffff;
             else
-                color = data->floor_color;
-            line.x0 = x * data->tile_width;
-            line.y0 = y * data->tile_height;
-            line.x1 = (x + 1) * data->tile_width -2;  
-            line.y1 = (y + 1) * data->tile_height -2;
+                color = 0x000000;
+            line.x0 = x * 30;
+            line.y0 = y * 30;
+            line.x1 = (x + 1) * 30;  
+            line.y1 = (y + 1) * 30;
             for (int py = line.y0; py < line.y1; py++)
                 for (int px = line.x0; px < line.x1; px++)
                     put_pixel(data, px, py, color);
         }
     }
-    draw_player(data);
+	draw_player(data);
 }
 
 void	init_line(t_line *line, t_data *data, int length)
 {
-	line->x0 = data->player.x_pos * data->tile_width;
-	line->y0 = data->player.y_pos * data->tile_height;
-	line->x1 = (data->player.x_pos + data->player.x_dir * length) * data->tile_width;
-	line->y1 = (data->player.y_pos + data->player.y_dir * length) * data->tile_height;
+	if (!length)
+		length = 1;
+	line->x0 = data->player.x_pos * 30;
+	line->y0 = data->player.y_pos * 30;
+	line->x1 = (data->player.x_pos + data->player.x_dir) * 30;
+	line->y1 = (data->player.y_pos + data->player.y_dir) * 30;
 	line->thickness = 1;
 }
 
 void	draw_player(t_data *data)
 {
-	// t_line	line;
-	
-	// init_line(&line,  data, 10);
-	// draw_circle(data, data->player.x_pos * data->tile_width, data->player.y_pos * data->tile_height, 8);
-	raycast(data);
-	// draw_line(data, line, 0x00f0ff, 4);
+	draw_circle(data, data->player.x_pos * 30, data->player.y_pos * 30, 8);
 }

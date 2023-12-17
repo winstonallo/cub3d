@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 21:38:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/17 23:17:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,16 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	min_dist2 = dist(line2);
 	if (min_dist1 < min_dist2)
 	{
+		data->wall_color = 0xF4C2C2;
 		data->min_distance = min_dist1;
+		line1.scale = MAPSIZE;
 		data->shortest_line = line1;
 	}
 	else
 	{
+		data->wall_color = 0xC154C1;
 		data->min_distance = min_dist2;
+		line2.scale = MAPSIZE;
 		data->shortest_line = line2;
 	}
 }
@@ -47,7 +51,7 @@ t_line	draw_rays_horizontal(t_data *data, float angle)
 	ray.angle = angle;
 	ray.max_depth = 0;
 	ray.a_tan = -1 / tan(ray.angle);
-	init_vars_horizontal(&ray, player, data);
+	init_vars_horizontal(&ray, player);
 	horizontal_scan(&ray, data);
 	line.x0 = player->x_pos * data->tile_width;
 	line.y0 = player->y_pos * data->tile_height;
@@ -66,7 +70,7 @@ t_line	draw_rays_vertical(t_data *data, float angle)
 	ray.angle = angle;
 	ray.max_depth = 0;
 	ray.n_tan = -tan(ray.angle);
-	init_vars_vertical(&ray, player, data);
+	init_vars_vertical(&ray, player);
 	vertical_scan(&ray, data);
 	line.x0 = player->x_pos * data->tile_width;
 	line.y0 = player->y_pos * data->tile_height;
@@ -98,22 +102,24 @@ void	raycast(t_data *data)
 		angle += 2 * PI;
 	if (angle > 2 * PI)
 		angle -= 2 * PI;
-	while (++i < 60)
+	while (++i < FIELD_OF_VIEW)
 	{
 		data->min_distance = 100000;
 		vertical = draw_rays_vertical(data, angle);
 		horizontal = draw_rays_horizontal(data, angle);
 		calculate_distance(data, horizontal, vertical);
-		angle += DR;
-		if (angle < 0)
-			angle += 2 * PI;
-		if (angle > 2 * PI)
-			angle -= 2 * PI;
-		data->line_height = data->min_distance;
+		draw_line(data, data->shortest_line, 0xff0000, 1);
+		float fisheye = data->player.angle - angle;
+		fisheye = fmod(fisheye + PI, 2 * PI) - PI;
+		data->min_distance *= cos(fisheye);
+		data->line_height = SCREEN_HEIGHT2 / (data->min_distance / 2);
 		if (data->line_height > SCREEN_HEIGHT2)
 			data->line_height = SCREEN_HEIGHT2;
 		data->line_offset = (SCREEN_HEIGHT2) - (data->line_height / 2);
 		init_3d_lines(&line1, i, data);
-		draw_line(data, line1, 0xff0000, 16);
+		draw_line(data, line1, data->wall_color, 4);
+		angle += DR;
+		angle = fmod(angle, 2 * PI);
 	}
+	draw_map(data);
 }
