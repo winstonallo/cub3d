@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 22:59:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:12:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 int map[]=
 {
 	1,1,1,1,1,1,1,1,
-	1,0,0,0,0,1,0,1,
-	1,0,0,1,1,1,0,1,
 	1,0,0,0,0,0,0,1,
-	1,1,1,0,0,0,'N',1,
-	1,0,1,0,0,0,0,1,
+	1,0,0,0,0,0,0,1,
+	1,0,0,0,0,0,0,1,
+	1,0,0,0,0,0,'N',1,
+	1,0,0,0,0,0,0,1,
 	1,0,0,0,0,0,0,1,
 	1,1,1,1,1,1,1,1,
 };
@@ -32,11 +32,6 @@ void	play_game(t_data *data)
 	if (!data->mlx.img)
 		exit_failure(data, "Error\nimage initialization failed");
 	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp, &data->img.l_l, &data->img.endian);
-	for (int i = 0; i < SCREEN_HEIGHT; i++)
-	{
-		for (int j = 0; j < SCREEN_WIDTH; j++)
-			put_pixel(data, i, j, 0xE4F6F8);
-	}
 	raycast(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
 	mlx_hook(data->mlx.win, 2, 1L, event, data);
