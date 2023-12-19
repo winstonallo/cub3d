@@ -15,7 +15,6 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${RAY_DIR}initialize.c \
 		${SRC_DIR}${RAY_DIR}mlx_utils.c \
 		${SRC_DIR}${RAY_DIR}events.c \
-		${SRC_DIR}${RAY_DIR}testing_utils.c \
 		${SRC_DIR}${RAY_DIR}minimap.c \
 		${SRC_DIR}${RAY_DIR}raycasting_utils.c \
 
