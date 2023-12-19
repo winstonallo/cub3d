@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 10:20:00 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:17:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,41 +41,35 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	}
 }
 
-t_line	draw_rays_horizontal(t_data *data, float angle)
+void	draw_rays(t_data *data, float angle)
 {
-	t_raycast	ray;
-	t_line		line;
+	t_line		v_line;
+	t_line		h_line;
+	t_raycast	vertical;
+	t_raycast	horizontal;
 
-	ray.angle = angle;
-	ray.max_depth = 0;
-	ray.a_tan = -1 / tan(ray.angle);
-	init_vars_horizontal(&ray, &data->player);
-	horizontal_scan(&ray, data);
-	line.x0 = data->player.x_pos * data->tile_width;
-	line.y0 = data->player.y_pos * data->tile_height;
-	line.x1 = ray.reach_x * data->tile_width;
-	line.y1 = ray.reach_y * data->tile_height;
-	line.scale = SCREEN;
-	return (line);
+	horizontal.angle = angle;
+	horizontal.max_depth = 0;
+	horizontal.a_tan = -1 / tan(horizontal.angle);
+	init_vars_horizontal(&horizontal, &data->player);
+	horizontal_scan(&horizontal, data);
+	h_line.x0 = data->player.x_pos * data->tile_width;
+	h_line.y0 = data->player.y_pos * data->tile_height;
+	h_line.x1 = horizontal.reach_x * data->tile_width;
+	h_line.y1 = horizontal.reach_y * data->tile_height;
+	h_line.scale = SCREEN;
+	vertical.angle = angle;
+	vertical.max_depth = 0;
+	vertical.n_tan = -tan(vertical.angle);
+	init_vars_vertical(&vertical, &data->player);
+	vertical_scan(&vertical, data);
+	v_line.x0 = data->player.x_pos * data->tile_width;
+	v_line.y0 = data->player.y_pos * data->tile_height;
+	v_line.x1 = vertical.reach_x * data->tile_width;
+	v_line.y1 = vertical.reach_y * data->tile_height;
+	return (calculate_distance(data, v_line, h_line));
 }
 
-t_line	draw_rays_vertical(t_data *data, float angle)
-{
-	t_line		line;
-	t_raycast	ray;
-
-	ray.angle = angle;
-	ray.max_depth = 0;
-	ray.n_tan = -tan(ray.angle);
-	init_vars_vertical(&ray, &data->player);
-	vertical_scan(&ray, data);
-	line.x0 = data->player.x_pos * data->tile_width;
-	line.y0 = data->player.y_pos * data->tile_height;
-	line.x1 = ray.reach_x * data->tile_width;
-	line.y1 = ray.reach_y * data->tile_height;
-	line.scale = SCREEN;
-	return (line);
-}
 
 void	init_3d_lines(t_line *line1, int i, t_data *data)
 {
@@ -88,8 +82,6 @@ void	init_3d_lines(t_line *line1, int i, t_data *data)
 
 void	raycast(t_data *data)
 {
-	t_line	vertical;
-	t_line	horizontal;
 	t_line	line1;
 	int		i;
 	float	angle;	
@@ -99,9 +91,7 @@ void	raycast(t_data *data)
 	while (++i < FIELD_OF_VIEW)
 	{
 		data->min_distance = 100000;
-		vertical = draw_rays_vertical(data, angle);
-		horizontal = draw_rays_horizontal(data, angle);
-		calculate_distance(data, horizontal, vertical);
+		draw_rays(data, angle);
 		draw_line(data, data->shortest_line, 0xffffff, 1);
 		float fisheye = data->player.angle - angle;
 		fisheye = fmod(fisheye + PI, 2 * PI) - PI;
