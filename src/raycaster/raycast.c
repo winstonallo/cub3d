@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 15:44:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 15:59:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,6 @@ void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 	}
 }
 
-void	scan(t_raycast *ray, t_data *data)
-{
-	while (ray->max_depth < 8)
-	{
-		ray->map_x = ((int)ray->reach_x);
-		ray->map_y = ((int)ray->reach_y);
-		ray->map_pos = ray->map_y * data->map_width + ray->map_x;
-		if (ray->map_pos > 0 && ray->map_pos < data->map_size
-			&& data->map[ray->map_pos] == 1)
-			ray->max_depth = 8;
-		else
-		{
-			ray->reach_x += ray->inc_x;
-			ray->reach_y += ray->inc_y;
-			ray->max_depth++;
-		}
-	}
-}
 
 void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 {
@@ -86,6 +68,29 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 		v_ray->reach_y = player->y_pos;
 		v_ray->reach_x = player->x_pos;
 		v_ray->max_depth = 8;
+	}
+}
+
+void	scan(t_raycast *ray, t_data *data)
+{
+	while (ray->max_depth < 8)
+	{
+		ray->map_x = ((int)ray->reach_x);
+		ray->map_y = ((int)ray->reach_y);
+		ray->map_pos = ray->map_y * data->map_width + ray->map_x;
+		if (ray->map_pos > 0 && ray->map_pos < data->map_size
+			&& data->map[ray->map_pos] == 1)
+		{
+			ray->map_x -= (int)ray->reach_x; 
+			ray->map_y -= (int)ray->reach_y; 
+			ray->max_depth = 8;
+		}
+		else
+		{
+			ray->reach_x += ray->inc_x;
+			ray->reach_y += ray->inc_y;
+			ray->max_depth++;
+		}
 	}
 }
 
