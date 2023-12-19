@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 13:17:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:20:32 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ void	raycast(t_data *data)
 		float fisheye = data->player.angle - angle;
 		fisheye = fmod(fisheye + PI, 2 * PI) - PI;
 		data->min_distance *= cos(fisheye);
-		data->line_height = SCREEN_HEIGHT2 / (data->min_distance / 2);
-		if (data->line_height > SCREEN_HEIGHT2)
-			data->line_height = SCREEN_HEIGHT2;
+		data->line_height = SCREEN_HEIGHT / (data->min_distance / 4);
+		if (data->line_height > SCREEN_HEIGHT)
+			data->line_height = SCREEN_HEIGHT;
 		data->line_offset = (SCREEN_HEIGHT2) - (data->line_height / 2);
 		init_3d_lines(&line1, i, data);
 		draw_line(data, line1, data->wall_color, 4);

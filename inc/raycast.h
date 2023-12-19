@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 23:17:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 13:21:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define MAX_DISTANCE 1000
 # define SCREEN_WIDTH 1000
 # define SCREEN_HEIGHT 1000
-# define SCREEN_HEIGHT2 400
+# define SCREEN_HEIGHT2 500
 # define FIELD_OF_VIEW 60
 # define SPEED 0.02
 # define DR 0.0174533
