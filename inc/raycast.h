@@ -6,20 +6,18 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 14:19:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 15:21:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECTIONS_H
-# define PROJECTIONS_H
+#ifndef RAYCAST_H
+# define RAYCAST_H
 
 # include <stdio.h>
 # include <stdlib.h>
 # include <mlx.h>
 # include <math.h>
 # include "../libft/include/libft.h"
-
- #define MIN(a,b) a < b ? a : b;
 
 # define GREEN		"\e[92;5;118m"
 # define RED 		"\e[91m"
@@ -31,16 +29,16 @@
 
 //constants
 # define PI 3.1415926535
-# define P2 PI / 2
-# define P3 3 * PI / 2
+# define P2 1.570796327
+# define P3 4.71238898
 # define MAX_DISTANCE 1000
 # define SCREEN_WIDTH 1000
 # define SCREEN_HEIGHT 1000
 # define SCREEN_HEIGHT2 500
-# define FIELD_OF_VIEW 60
 # define SPEED 0.02
-# define DR 0.0174533
+# define DR 0.00872665
 # define FIELD_OF_VIEW 60
+# define MAX_DIST 1000000
 
 //keys
 # define ESCAPE 65307
@@ -156,7 +154,7 @@ typedef struct s_raycast
 	float				vertical_distance;
 	float				horizontal_distance;
 	struct s_dist		dist;
-} t_raycast;
+}	t_raycast;
 
 typedef struct s_data
 {
@@ -187,33 +185,30 @@ typedef struct s_data
 	struct s_line		shortest_line;
 }	t_data;
 
-#ifndef MAP
-#define MAP
-
-#endif
-
 //init
 void	set_data_view(t_data *data);
 
 //map
-void 	draw_map(t_data *data);
+void	draw_map(t_data *data);
 void	draw_player(t_data *data);
-
-
 void	initialize_data(t_data *data);
 int		isdirection(char c);
 void	set_directions(t_data *data);
 
 //math
 void	raycast(t_data *data);
+void	get_3d_line(t_line *line1, int i, t_data *data);
+void	adjust_vars(t_data *data, float angle);
 void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle);
+void	get_line(t_line *line, t_raycast ray, t_data *data);
+void	calculate_distance(t_data *data, t_line line1, t_line line2);
 void	scan(t_raycast *ray, t_data *data);
 void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle);
 
 //drawing_utils
 void	put_pixel(t_data *data, int x, int y, int color);
-t_line 	draw_rays_horizontal(t_data *data, float angle);
-void 	draw_circle(t_data *data, int x, int y, int size);
+t_line	draw_rays_horizontal(t_data *data, float angle);
+void	draw_circle(t_data *data, int x, int y, int size);
 void	draw_line(t_data *data, t_line line, int color, int size);
 
 //memory management
@@ -223,8 +218,9 @@ void	new_image(t_data *data);
 
 //tests
 int		*get_map(void);
-int		print_test_raycasting(t_data *data, int loopbreak, int direction, t_raycast *ray);
-void	print_test(t_data *data, int color, int value, int x, int y);
+int		print_test_raycasting(t_data *data, int loopbreak, int direction,
+			t_raycast *ray);
+// void	print_test(t_data *data, int color, int value, int x, int y);
 
 //game
 int		event(int key, t_data *data);

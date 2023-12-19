@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 23:01:57 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 15:33:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@ static int	move(int direction, t_data *data)
 		data->player.x_pos -= data->player.x_dir * SPEED;
 		data->player.y_pos -= data->player.y_dir * SPEED;
 	}
-    if (direction == STRAFE_RIGHT)
-    {
-        data->player.x_pos -= data->player.y_dir * SPEED;
-        data->player.y_pos += data->player.x_dir * SPEED;
-    }
-    else if (direction == STRAFE_LEFT)
-    {
-        data->player.x_pos += data->player.y_dir * SPEED;
-        data->player.y_pos -= data->player.x_dir * SPEED;
-    }
+	if (direction == STRAFE_RIGHT)
+	{
+		data->player.x_pos -= data->player.y_dir * SPEED;
+		data->player.y_pos += data->player.x_dir * SPEED;
+	}
+	else if (direction == STRAFE_LEFT)
+	{
+		data->player.x_pos += data->player.y_dir * SPEED;
+		data->player.y_pos -= data->player.x_dir * SPEED;
+	}
 	new_image(data);
 	return (EXIT_SUCCESS);
 }

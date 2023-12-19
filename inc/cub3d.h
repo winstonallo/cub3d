@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:47:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:48:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 15:13:37 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_texture
 int			*map(char *map);
 int			map_get_player_pos(int *map);
 t_texture	map_get_textures(char *map);
-
-int	replace(char *fname, char *pos, char *content);
+int			replace(char *fname, char *pos, char *content);
 
 #endif

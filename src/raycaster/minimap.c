@@ -6,41 +6,47 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 23:28:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 15:49:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-void draw_map(t_data *data)
+void	draw_map_element(t_line line, t_data *data, int x)
 {
-    int 	x;
+	while (++line.y0 < line.y1)
+	{
+		line.x0 = x;
+		while (++line.x0 < line.x1)
+			put_pixel(data, line.x0, line.y0, 0xffffff);
+	}
+}
+
+void	draw_map(t_data *data)
+{
+	int		x;
+	int		xx;
 	int		y;
-    int 	color;
-    t_line line;
-	
-	x = 0;
-	y = 0;
-    data->tile_width = (float)SCREEN_WIDTH / data->map_width;
-    data->tile_height = (float)SCREEN_HEIGHT / data->map_height;
-    for (y = 0; y < data->map_height; y++)
-    {
-        for (x = 0; x < data->map_width; x++)
-        {
-            if (data->map[y * data->map_width + x] == 1)
-                color = 0xffffff;
-            else
-                continue ;
-            line.x0 = x * 30;
-            line.y0 = y * 30;
-            line.x1 = (x + 1) * 30;  
-            line.y1 = (y + 1) * 30;
-            for (int py = line.y0; py < line.y1; py++)
-                for (int px = line.x0; px < line.x1; px++)
-                    put_pixel(data, px, py, color);
-        }
-    }
-	draw_player(data);
+	t_line	line;
+
+	y = -1;
+	while (++y < data->map_height)
+	{
+		x = -1;
+		while (++x < data->map_width)
+		{
+			if (data->map[y * data->map_width + x] == 1)
+			{
+				xx = x * 30 - 1;
+				line.y0 = y * 30 - 1;
+				line.x1 = (x + 1) * 30 - 2;
+				line.y1 = (y + 1) * 30 - 2;
+				draw_map_element(line, data, xx);
+			}
+			else
+				continue ;
+		}
+	}
 }
 
 void	init_line(t_line *line, t_data *data, int length)

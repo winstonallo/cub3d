@@ -6,32 +6,31 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 13:12:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 15:51:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/raycast.h"
-#include <mlx.h>
-#include <stdlib.h>
 
-int map[]=
-{
-	1,1,1,1,1,1,1,1,
-	1,0,0,0,0,0,0,1,
-	1,0,0,0,0,0,0,1,
-	1,0,0,0,0,0,0,1,
-	1,0,0,0,0,0,'N',1,
-	1,0,0,0,0,0,0,1,
-	1,0,0,0,0,0,0,1,
-	1,1,1,1,1,1,1,1,
+int	g_map[] = {
+	1, 1, 1, 1, 1, 1, 1, 1,
+	1, 0, 0, 0, 0, 0, 0, 1,
+	1, 0, 0, 0, 0, 0, 0, 1,
+	1, 0, 0, 0, 0, 0, 0, 1,
+	1, 0, 0, 0, 0, 0, 'N', 1,
+	1, 0, 0, 0, 0, 0, 0, 1,
+	1, 0, 0, 0, 0, 0, 0, 1,
+	1, 1, 1, 1, 1, 1, 1, 1
 };
 
 void	play_game(t_data *data)
 {
-	data->mlx.img = mlx_new_image(data->mlx.mlx, data->win_width, data->win_height);
+	data->mlx.img = mlx_new_image(data->mlx.mlx,
+			data->win_width, data->win_height);
 	if (!data->mlx.img)
 		exit_failure(data, "Error\nimage initialization failed");
-	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp, &data->img.l_l, &data->img.endian);
+	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp,
+			&data->img.l_l, &data->img.endian);
 	raycast(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
 	mlx_hook(data->mlx.win, 2, 1L, event, data);
@@ -39,15 +38,15 @@ void	play_game(t_data *data)
 	mlx_loop(data->mlx.mlx);
 }
 
-void start_game(t_data *data)
+void	start_game(t_data *data)
 {
 	data->mlx.mlx = mlx_init();
 	if (!data->mlx.mlx)
 		exit_failure(data, "Error\nmlx initialization failed");
-	data->mlx.win = mlx_new_window(data->mlx.mlx, data->win_width, data->win_height, "cub3d");
+	data->mlx.win = mlx_new_window(data->mlx.mlx, data->win_width,
+			data->win_height, "cub3d");
 	if (!data->mlx.win)
 		exit_failure(data, "Error\nwindow initialization failed");
-
 	play_game(data);
 }
 
@@ -55,8 +54,7 @@ int	main(void)
 {
 	t_data	data;
 
-
-	data.map = map;
+	data.map = g_map;
 	initialize_data(&data);
 	set_data_view(&data);
 	start_game(&data);
