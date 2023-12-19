@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 10:06:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 10:20:00 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,15 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 t_line	draw_rays_horizontal(t_data *data, float angle)
 {
 	t_raycast	ray;
-	t_player	*player;
 	t_line		line;
 
-	player = &data->player;
 	ray.angle = angle;
 	ray.max_depth = 0;
 	ray.a_tan = -1 / tan(ray.angle);
-	init_vars_horizontal(&ray, player);
+	init_vars_horizontal(&ray, &data->player);
 	horizontal_scan(&ray, data);
-	line.x0 = player->x_pos * data->tile_width;
-	line.y0 = player->y_pos * data->tile_height;
+	line.x0 = data->player.x_pos * data->tile_width;
+	line.y0 = data->player.y_pos * data->tile_height;
 	line.x1 = ray.reach_x * data->tile_width;
 	line.y1 = ray.reach_y * data->tile_height;
 	line.scale = SCREEN;
@@ -64,17 +62,15 @@ t_line	draw_rays_horizontal(t_data *data, float angle)
 t_line	draw_rays_vertical(t_data *data, float angle)
 {
 	t_line		line;
-	t_player	*player;
 	t_raycast	ray;
 
-	player = &data->player;
 	ray.angle = angle;
 	ray.max_depth = 0;
 	ray.n_tan = -tan(ray.angle);
-	init_vars_vertical(&ray, player);
+	init_vars_vertical(&ray, &data->player);
 	vertical_scan(&ray, data);
-	line.x0 = player->x_pos * data->tile_width;
-	line.y0 = player->y_pos * data->tile_height;
+	line.x0 = data->player.x_pos * data->tile_width;
+	line.y0 = data->player.y_pos * data->tile_height;
 	line.x1 = ray.reach_x * data->tile_width;
 	line.y1 = ray.reach_y * data->tile_height;
 	line.scale = SCREEN;
@@ -99,12 +95,7 @@ void	raycast(t_data *data)
 	float	angle;	
 
 	i = -1;
-	data->error = SUCCESS;
-	angle = data->player.angle - DR * 30;
-	if (angle < 0)
-		angle += 2 * PI;
-	if (angle > 2 * PI)
-		angle -= 2 * PI;
+	angle = fmod(data->player.angle - DR * 30, 2 * PI);
 	while (++i < FIELD_OF_VIEW)
 	{
 		data->min_distance = 100000;
