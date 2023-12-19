@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 12:45:23 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:45:36 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/12/14 16:03:43 by yatabay           #+#    #+#             */
+/*   Updated: 2023/12/14 22:09:53 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/input.h"
+#include "../cub3d.h"
 
 int	input(char *fname, char *pos, char *content);
 

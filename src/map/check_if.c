@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_if.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 12:39:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:40:22 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/12/13 21:42:22 by yatabay           #+#    #+#             */
+/*   Updated: 2023/12/14 15:26:44 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/map.h"
+#include "map.h"
 
 char	*input(char *map);
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 12:41:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:44:05 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/12/13 21:42:07 by yatabay           #+#    #+#             */
+/*   Updated: 2023/12/18 14:47:07 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/map.h"
+#include "map.h"
 
 static	char	*remove_textures_and_rgb(char *map)
 {

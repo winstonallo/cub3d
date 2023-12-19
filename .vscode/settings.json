@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "numbers": "c",
+        "unistd.h": "c",
+        "random": "c",
+        "cub3d.h": "c",
+        "input.h": "c",
+        "map.h": "c",
+        "fcntl.h": "c",
+        "array": "c"
+    }
+}

@@ -4,18 +4,26 @@ OBJ_DIR = obj
 
 SRC_DIR = src/
 
-RAY_DIR = raycaster/
+MAP_DIR = font/
 
 SRCS = 	${SRC_DIR}main.c \
-		${SRC_DIR}${RAY_DIR}raycast.c \
-		${SRC_DIR}${RAY_DIR}init_game.c \
-		${SRC_DIR}${RAY_DIR}drawing_utils.c \
-		${SRC_DIR}${RAY_DIR}initialize.c \
-		${SRC_DIR}${RAY_DIR}mlx_utils.c \
-		${SRC_DIR}${RAY_DIR}events.c \
-		${SRC_DIR}${RAY_DIR}testing_utils.c \
-		${SRC_DIR}${RAY_DIR}minimap.c \
-		${SRC_DIR}${RAY_DIR}raycasting_utils.c \
+		${SRC_DIR}${MAP_DIR}font.c\
+		${SRC_DIR}${MAP_DIR}font_init.c\
+		${SRC_DIR}${MAP_DIR}font_init_helper.c\
+		${SRC_DIR}${MAP_DIR}font_write.c\
+		${SRC_DIR}${MAP_DIR}image_edit.c\
+		# ${SRC_DIR}${MAP_DIR}check_if_helper.c \
+		# ${SRC_DIR}${MAP_DIR}check_if.c \
+		# ${SRC_DIR}${MAP_DIR}general_helper.c \
+		# ${SRC_DIR}${MAP_DIR}general_helper2.c \
+		# ${SRC_DIR}${MAP_DIR}map_check.c \
+		# ${SRC_DIR}${MAP_DIR}map_public.c \
+		# ${SRC_DIR}${MAP_DIR}map_valid_helper.c \
+		# ${SRC_DIR}${MAP_DIR}map_valid_helper2.c \
+		# ${SRC_DIR}${MAP_DIR}map_valid.c \
+		# ${SRC_DIR}${MAP_DIR}map.c \
+# SRCS = 	${SRC_DIR}main.c \
+# 		${SRC_DIR}${FONT_DIR}font.c
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 

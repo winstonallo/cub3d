@@ -3,41 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 12:37:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:39:53 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/12/13 21:42:00 by yatabay           #+#    #+#             */
+/*   Updated: 2023/12/18 14:56:35 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/map.h"
+#include "map.h"
 
 char	**fill_params(int flag)
 {
 	char	**array;
+	char	*temp;
 
 	array = (char **)malloc(sizeof(char *) * 7);
 	if (!array)
 		return (printf("Fill param allocation failed\n"), NULL);
 	if (flag == 0)
 	{
-		array[0] = ft_strdup("NO");
-		array[1] = ft_strdup("SO");
-		array[2] = ft_strdup("WE");
-		array[3] = ft_strdup("EA");
-		array[4] = ft_strdup("F");
-		array[5] = ft_strdup("C");
+		temp = ft_strdup("NO,SO,WE,EA,F,C");
+		if (!temp)
+			return (printf("Fill param allocation failed\n"), NULL);
 	}
 	else
 	{
-		array[0] = ft_strdup("North");
-		array[1] = ft_strdup("South");
-		array[2] = ft_strdup("West");
-		array[3] = ft_strdup("East");
-		array[4] = ft_strdup("Floor");
-		array[5] = ft_strdup("Ceiling");
+		temp = ft_strdup("North,South,West,East,Floor,Ceiling");
+		if (!temp)
+			return (printf("Fill param allocation failed\n"), NULL);
 	}
-	array[6] = 0;
+	array = ft_split(temp, ',');
+	free(temp);
+	if (!array)
+		return (printf("Fill param allocation failed\n"), NULL);
 	return (array);
 }
 

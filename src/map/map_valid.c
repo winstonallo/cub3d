@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:43:27 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/12/13 21:42:14 by yatabay           #+#    #+#             */
+/*   Updated: 2023/12/14 22:32:32 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/map.h"
+#include "map.h"
 
 static char	*replace(char *loaded)
 {

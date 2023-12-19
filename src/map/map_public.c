@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   map_public.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 12:42:13 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:44:08 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/12/13 21:42:09 by yatabay           #+#    #+#             */
+/*   Updated: 2023/12/14 15:13:40 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../inc/map.h"
 
 int	mpl(char *map)
 {

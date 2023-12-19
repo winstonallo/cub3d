@@ -1,63 +1,81 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:50:52 by abied-ch         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// #include "cub3d.h"
+#include "font/font.h"
 
-#include "../inc/raycast.h"
-#include <mlx.h>
-#include <stdlib.h>
-
-int map[]=
+void	free_game(t_game *game)
 {
-	1,1,1,1,1,1,1,1,
-	1,0,0,0,0,1,0,1,
-	1,0,0,1,1,1,0,1,
-	1,0,0,0,0,0,0,1,
-	1,1,1,0,0,0,'N',1,
-	1,0,1,0,0,0,0,1,
-	1,0,0,0,0,0,0,1,
-	1,1,1,1,1,1,1,1,
-};
+	int	letter;
 
-void	play_game(t_data *data)
-{
-	data->mlx.img = mlx_new_image(data->mlx.mlx, data->win_width, data->win_height);
-	if (!data->mlx.img)
-		exit_failure(data, "Error\nimage initialization failed");
-	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp, &data->img.l_l, &data->img.endian);
-	draw_map(data);
-	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
-	mlx_hook(data->mlx.win, 2, 1L, event, data);
-	mlx_hook(data->mlx.win, 17, 0, exit_success, data);
-	mlx_loop(data->mlx.mlx);
+	letter = 0;
+	while (letter < 26)
+	{
+		mlx_destroy_image(game->mlx, game->font->xl_font.letter[letter].img);
+		mlx_destroy_image(game->mlx, game->font->big_font.letter[letter].img);
+		mlx_destroy_image(game->mlx,
+							game->font->medium_font.letter[letter].img);
+		mlx_destroy_image(game->mlx, game->font->small_font.letter[letter].img);
+		letter++;
+	}
+	free(game->font->xl_font.letter);
+	free(game->font->big_font.letter);
+	free(game->font->medium_font.letter);
+	free(game->font->small_font.letter);
+	free(game->font);
+	mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	free(game);
 }
 
-void start_game(t_data *data)
+void	destroy(t_game *game)
 {
-	data->mlx.mlx = mlx_init();
-	if (!data->mlx.mlx)
-		exit_failure(data, "Error\nmlx initialization failed");
-	data->mlx.win = mlx_new_window(data->mlx.mlx, data->win_width, data->win_height, "cub3d");
-	if (!data->mlx.win)
-		exit_failure(data, "Error\nwindow initialization failed");
-	play_game(data);
+	mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	free(game);
 }
 
-int	main(void)
+int main()
 {
-	t_data	data;
 
-	data.map = map;
-	initialize_data(&data);
-	// get_map(&data);
-	set_data_view(&data);
-	start_game(&data);
+	// t_texture	txts;
+	// int			*game;
+	t_game	*game;
+	t_img	img;
+
+	game = (t_game *)malloc(sizeof(t_game));
+	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx, 1260, 720, "Test");
+	game->font = font_init(game->mlx);
+	if (!game->font)
+		return (destroy(game), -1);
+	write(1, "font finished\n", 13);
+	game->cords.img_x = 10;
+	game->cords.img_y = 10;
+	img.img = mlx_xpm_file_to_image(game->mlx, "src/font/fonts/test.xpm", &img.width, &img.height);
+	// game = map("wow.cub");
+	// if (!game)
+	// 	return (free(game), 1);
+	// // printf("Playerpos: %i\n", map_get_player_pos(game));
+	// txts = map_get_textures("wow.cub");
+	// if (txts.err_code != 0)
+	// 	return (1);
+	// // printf("%i\n", txts.texture_fds[1]);
+	// free(txts.color_fds[0]);
+	// free(txts.color_fds[1]);
+	// free(game);
+	font_write("Hello world", game, &img, 4);
+	game->cords.img_x = 10;
+	game->cords.img_y = 100;
+	font_write("Hello world", game, &img, 3);
+	game->cords.img_x = 10;
+	game->cords.img_y = 160;
+	font_write("Hello world", game, &img, 2);
+	game->cords.img_x = 10;
+	game->cords.img_y = 210;
+	font_write("Hello world", game, &img, 1);
+	mlx_put_image_to_window(game->mlx, game->win, img.img, 0, 0);
+	mlx_loop(game->mlx);
+	mlx_destroy_image(game->mlx, img.img);
+	free_game(game);
 	return (0);
 }
