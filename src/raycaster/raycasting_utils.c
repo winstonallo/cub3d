@@ -6,13 +6,39 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 10:05:09 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 14:10:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-void	horizontal_scan(t_raycast *ray, t_data *data)
+void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
+{	h_ray->angle = angle;
+	h_ray->max_depth = 0;
+	h_ray->a_tan = -1 / tan(h_ray->angle);
+
+	if (angle > PI)
+	{
+		h_ray->reach_y = (int)player->y_pos - 0.0001;
+		h_ray->reach_x = ((player->y_pos - h_ray->reach_y) * h_ray->a_tan + player->x_pos);
+		h_ray->inc_y = -1;
+		h_ray->inc_x = -h_ray->inc_y * h_ray->a_tan;
+	}
+	else if (h_ray->angle < PI)
+	{
+		h_ray->reach_y = (int)player->y_pos + 1;
+		h_ray->reach_x = (player->y_pos - h_ray->reach_y) * h_ray->a_tan + player->x_pos;
+		h_ray->inc_y = 1;
+		h_ray->inc_x = -h_ray->inc_y * h_ray->a_tan;
+	}
+	else if (!h_ray->angle || h_ray->angle == (float)PI)
+	{
+		h_ray->reach_x = player->x_pos;
+		h_ray->reach_y = player->y_pos;
+		h_ray->max_depth = 8;	
+	}
+}
+void	scan(t_raycast *ray, t_data *data)
 {
 	while (ray->max_depth < 8)
 	{
@@ -30,67 +56,29 @@ void	horizontal_scan(t_raycast *ray, t_data *data)
 	}
 }
 
-void	init_vars_horizontal(t_raycast *ray, t_player *player)
+void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 {
-	if (ray->angle > PI)
+	v_ray->angle = angle;
+	v_ray->max_depth = 0;
+	v_ray->n_tan = -tan(v_ray->angle);
+	if (v_ray->angle > P2 && v_ray->angle < P3)
 	{
-		ray->reach_y = (int)player->y_pos - 0.0001;
-		ray->reach_x = ((player->y_pos - ray->reach_y) * ray->a_tan + player->x_pos);
-		ray->inc_y = -1;
-		ray->inc_x = -ray->inc_y * ray->a_tan;
+		v_ray->reach_x = (int)player->x_pos;
+		v_ray->reach_y = (player->x_pos - v_ray->reach_x) * v_ray->n_tan + player->y_pos;
+		v_ray->inc_x = -1;
+		v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
 	}
-	else if (ray->angle < PI)
+	else if (v_ray->angle < P2 || v_ray->angle > P3)
 	{
-		ray->reach_y = (int)player->y_pos + 1;
-		ray->reach_x = (player->y_pos - ray->reach_y) * ray->a_tan + player->x_pos;
-		ray->inc_y = 1;
-		ray->inc_x = -ray->inc_y * ray->a_tan;
+		v_ray->reach_x = (int)player->x_pos + 1;
+		v_ray->reach_y = (player->x_pos - v_ray->reach_x) * v_ray->n_tan + player->y_pos;
+		v_ray->inc_x = 1;
+		v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
 	}
-	else if (!ray->angle || ray->angle == (float)PI)
+	else if (!v_ray->angle || v_ray->angle == (float)PI)
 	{
-		ray->reach_x = player->x_pos;
-		ray->reach_y = player->y_pos;
-		ray->max_depth = 8;	
-	}
-}
-void	vertical_scan(t_raycast *ray, t_data *data)
-{
-	while (ray->max_depth < 8)
-	{
-		ray->map_x = ((int)ray->reach_x);
-		ray->map_y = ((int)ray->reach_y);
-		ray->map_pos = ray->map_y * data->map_width + ray->map_x;
-		if (ray->map_pos > 0 && ray->map_pos < data->map_size && data->map[ray->map_pos] == 1)
-			ray->max_depth = 8;
-		else
-		{
-			ray->reach_x += ray->inc_x;
-			ray->reach_y += ray->inc_y;
-			ray->max_depth++;
-		}
-	}
-}
-
-void	init_vars_vertical(t_raycast *ray, t_player *player)
-{
-	if (ray->angle > P2 && ray->angle < P3)
-	{
-		ray->reach_x = (int)player->x_pos;
-		ray->reach_y = (player->x_pos - ray->reach_x) * ray->n_tan + player->y_pos;
-		ray->inc_x = -1;
-		ray->inc_y = -ray->inc_x * ray->n_tan;
-	}
-	else if (ray->angle < P2 || ray->angle > P3)
-	{
-		ray->reach_x = (int)player->x_pos + 1;
-		ray->reach_y = (player->x_pos - ray->reach_x) * ray->n_tan + player->y_pos;
-		ray->inc_x = 1;
-		ray->inc_y = -ray->inc_x * ray->n_tan;
-	}
-	else if (!ray->angle || ray->angle == (float)PI)
-	{
-		ray->reach_y = player->y_pos;	
-		ray->reach_x = player->x_pos;
-		ray->max_depth = 8;	
+		v_ray->reach_y = player->y_pos;	
+		v_ray->reach_x = player->x_pos;
+		v_ray->max_depth = 8;	
 	}
 }

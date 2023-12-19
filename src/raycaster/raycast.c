@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 13:20:32 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 14:09:08 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,20 @@ void	draw_rays(t_data *data, float angle)
 	t_raycast	vertical;
 	t_raycast	horizontal;
 
-	horizontal.angle = angle;
-	horizontal.max_depth = 0;
-	horizontal.a_tan = -1 / tan(horizontal.angle);
-	init_vars_horizontal(&horizontal, &data->player);
-	horizontal_scan(&horizontal, data);
+	init_vars_horizontal(&horizontal, &data->player, angle);
+	scan(&horizontal, data);
 	h_line.x0 = data->player.x_pos * data->tile_width;
 	h_line.y0 = data->player.y_pos * data->tile_height;
 	h_line.x1 = horizontal.reach_x * data->tile_width;
 	h_line.y1 = horizontal.reach_y * data->tile_height;
 	h_line.scale = SCREEN;
-	vertical.angle = angle;
-	vertical.max_depth = 0;
-	vertical.n_tan = -tan(vertical.angle);
-	init_vars_vertical(&vertical, &data->player);
-	vertical_scan(&vertical, data);
+	init_vars_vertical(&vertical, &data->player, angle);
+	scan(&vertical, data);
 	v_line.x0 = data->player.x_pos * data->tile_width;
 	v_line.y0 = data->player.y_pos * data->tile_height;
 	v_line.x1 = vertical.reach_x * data->tile_width;
 	v_line.y1 = vertical.reach_y * data->tile_height;
+	v_line.scale = SCREEN;
 	return (calculate_distance(data, v_line, h_line));
 }
 

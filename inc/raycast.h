@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 13:21:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/19 14:07:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,10 +205,9 @@ void	set_directions(t_data *data);
 
 //math
 void	raycast(t_data *data);
-void	horizontal_scan(t_raycast *ray, t_data *data);
-void	init_vars_horizontal(t_raycast *ray, t_player *player);
-void	vertical_scan(t_raycast *ray, t_data *data);
-void	init_vars_vertical(t_raycast *ray, t_player *player);
+void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle);
+void	scan(t_raycast *ray, t_data *data);
+void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle);
 
 //drawing_utils
 void	put_pixel(t_data *data, int x, int y, int color);
