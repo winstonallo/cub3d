@@ -1,25 +1,7 @@
-// #include "cub3d.h"
-#include "font/font.h"
+#include "cub3d.h"
 
 void	free_game(t_game *game)
 {
-	int	letter;
-
-	letter = 0;
-	while (letter < 26)
-	{
-		mlx_destroy_image(game->mlx, game->font->xl_font.letter[letter].img);
-		mlx_destroy_image(game->mlx, game->font->big_font.letter[letter].img);
-		mlx_destroy_image(game->mlx,
-							game->font->medium_font.letter[letter].img);
-		mlx_destroy_image(game->mlx, game->font->small_font.letter[letter].img);
-		letter++;
-	}
-	free(game->font->xl_font.letter);
-	free(game->font->big_font.letter);
-	free(game->font->medium_font.letter);
-	free(game->font->small_font.letter);
-	free(game->font);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
@@ -39,8 +21,9 @@ int main()
 
 	// t_texture	txts;
 	// int			*game;
-	t_game	*game;
-	t_img	img;
+	t_font_setting	fs;
+	t_game			*game;
+	t_img			img;
 
 	game = (t_game *)malloc(sizeof(t_game));
 	game->mlx = mlx_init();
@@ -48,9 +31,7 @@ int main()
 	game->font = font_init(game->mlx);
 	if (!game->font)
 		return (destroy(game), -1);
-	write(1, "font finished\n", 13);
-	game->cords.img_x = 10;
-	game->cords.img_y = 10;
+	write(1, "font finished\n", 14);
 	img.img = mlx_xpm_file_to_image(game->mlx, "src/font/fonts/test.xpm", &img.width, &img.height);
 	// game = map("wow.cub");
 	// if (!game)
@@ -63,19 +44,19 @@ int main()
 	// free(txts.color_fds[0]);
 	// free(txts.color_fds[1]);
 	// free(game);
-	font_write("Hello world", game, &img, 4);
-	game->cords.img_x = 10;
-	game->cords.img_y = 100;
-	font_write("Hello world", game, &img, 3);
-	game->cords.img_x = 10;
-	game->cords.img_y = 160;
-	font_write("Hello world", game, &img, 2);
-	game->cords.img_x = 10;
-	game->cords.img_y = 210;
-	font_write("Hello world", game, &img, 1);
+
+	fs = font_settings(10, 10, 0x00FFFFFF, 4);
+	font_write("Hello world", game, &img, fs);
+	fs = font_settings(10, 100, 0x0000FFFF, 3);
+	font_write("Hello world", game, &img, fs);
+	fs = font_settings(10, 160, DARK_AQUA, 2);
+	font_write("Hello world", game, &img, fs);
+	fs = font_settings(10, 210, 0x00FFFF00, 1);
+	font_write("Hello world", game, &img, fs);
 	mlx_put_image_to_window(game->mlx, game->win, img.img, 0, 0);
 	mlx_loop(game->mlx);
 	mlx_destroy_image(game->mlx, img.img);
+	font_delete(game);
 	free_game(game);
 	return (0);
 }

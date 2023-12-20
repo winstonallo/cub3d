@@ -6,7 +6,7 @@
 /*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:32:56 by yatabay           #+#    #+#             */
-/*   Updated: 2023/12/19 23:25:37 by yatabay          ###   ########.fr       */
+/*   Updated: 2023/12/20 15:43:48 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,35 +41,36 @@ static	int	space(int identifier)
 	return (spacing);
 }
 
-static	int	font_to_img(int identifier, t_game *game, int integer, t_img *base)
+static	int	font_to_img(t_font_setting fo, t_game *ga, int integer, t_img *base)
 {
-	int	spacing;
-
-	spacing = 0;
-	if (identifier == 4)
+	if (fo.identifier == 4)
 	{
-		image_edit(game, base, game->font->xl_font.letter[integer], 1);
-		spacing += game->font->xl_font.letter[integer].width;
+		ga->font->xl_font.letter[integer].color = fo.color;
+		image_edit(ga, base, ga->font->xl_font.letter[integer], 1);
+		return (ga->font->xl_font.letter[integer].width);
 	}
-	else if (identifier == 3)
+	else if (fo.identifier == 3)
 	{
-		image_edit(game, base, game->font->big_font.letter[integer], 1);
-		spacing += game->font->big_font.letter[integer].width;
+		ga->font->big_font.letter[integer].color = fo.color;
+		image_edit(ga, base, ga->font->big_font.letter[integer], 1);
+		return (ga->font->big_font.letter[integer].width);
 	}
-	else if (identifier == 2)
+	else if (fo.identifier == 2)
 	{
-		image_edit(game, base, game->font->medium_font.letter[integer], 1);
-		spacing += game->font->medium_font.letter[integer].width;
+		ga->font->medium_font.letter[integer].color = fo.color;
+		image_edit(ga, base, ga->font->medium_font.letter[integer], 1);
+		return (ga->font->medium_font.letter[integer].width);
 	}
-	else if (identifier == 1)
+	else if (fo.identifier == 1)
 	{
-		image_edit(game, base, game->font->small_font.letter[integer], 1);
-		spacing += game->font->small_font.letter[integer].width;
+		ga->font->small_font.letter[integer].color = fo.color;
+		image_edit(ga, base, ga->font->small_font.letter[integer], 1);
+		return (ga->font->small_font.letter[integer].width);
 	}
-	return (spacing);
+	return (0);
 }
 
-void	font_write_to_image(t_game *game, t_img *base, char *to_write, int iden)
+void	font_write_to_image(t_game *ga, t_img *ba, char *to, t_font_setting fo)
 {
 	int	integer;
 	int	spacing;
@@ -77,18 +78,18 @@ void	font_write_to_image(t_game *game, t_img *base, char *to_write, int iden)
 	int	i;
 
 	i = 0;
-	shift = game->cords.img_x;
+	shift = ga->cords.img_x;
 	spacing = 0;
-	while (to_write[i])
+	while (to[i])
 	{
-		if (to_write[i] == 32)
-			spacing += space(iden);
+		if (to[i] == 32)
+			spacing += space(fo.identifier);
 		else
 		{
-			integer = to_write[i] - 97;
-			spacing += font_to_img(iden, game, integer, base);
+			integer = to[i] - 97;
+			spacing += font_to_img(fo, ga, integer, ba);
 		}
-		game->cords.img_x = spacing + shift;
+		ga->cords.img_x = spacing + shift;
 		i++;
 	}
 }

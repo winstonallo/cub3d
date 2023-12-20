@@ -6,7 +6,7 @@
 /*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 15:27:06 by yatabay           #+#    #+#             */
-/*   Updated: 2023/12/19 23:43:06 by yatabay          ###   ########.fr       */
+/*   Updated: 2023/12/20 17:29:25 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static	int	change_pixel(t_img *img_data, int x, int y, int color)
 	return (0);
 }
 
-void	image_edit(t_game *g, t_img *base, t_img to_copy, int identifier)
+void	image_edit_master(t_game *g, t_img *base, t_img to_copy, int identifier)
 {
 	t_color	p_c;
 	int		x;
@@ -70,7 +70,7 @@ void	image_edit(t_game *g, t_img *base, t_img to_copy, int identifier)
 			if (identifier == 1)
 				if (p_c.r == 255 && p_c.g == 255 && p_c.b == 255)
 					change_pixel(base, x + g->cords.img_x,
-						y + g->cords.img_y, 0x00FFFFFF);
+						y + g->cords.img_y, to_copy.color);
 			if (identifier != 1)
 				change_pixel(base, x + g->cords.img_x,
 					y + g->cords.img_y, change_pixel(base, x, y, -1));

@@ -8,6 +8,7 @@ MAP_DIR = font/
 
 SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${MAP_DIR}font.c\
+		${SRC_DIR}${MAP_DIR}font_public.c\
 		${SRC_DIR}${MAP_DIR}font_init.c\
 		${SRC_DIR}${MAP_DIR}font_init_helper.c\
 		${SRC_DIR}${MAP_DIR}font_write.c\

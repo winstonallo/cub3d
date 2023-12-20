@@ -6,7 +6,7 @@
 /*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:11:49 by yatabay           #+#    #+#             */
-/*   Updated: 2023/12/19 23:36:35 by yatabay          ###   ########.fr       */
+/*   Updated: 2023/12/20 15:36:09 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static	int	all_clear(char **names, char *path)
 	return (0);
 }
 
-t_font	*font_init(void *mlx)
+t_font	*font_init_master(void *mlx)
 {
 	t_font	*font;
 	char	**names;
@@ -98,7 +98,7 @@ t_font	*font_init(void *mlx)
 	return (font);
 }
 
-int	font_write(char *word, t_game *game, t_img *copy, int identifier)
+int	font_write_master(char *word, t_game *game, t_img *copy, t_font_setting s)
 {
 	char	*to_write;
 
@@ -106,7 +106,7 @@ int	font_write(char *word, t_game *game, t_img *copy, int identifier)
 	if (!to_write)
 		return (printf("Error\nAlloc failed in font_write\n"), -1);
 	font_to_lower(to_write);
-	font_write_to_image(game, copy, to_write, identifier);
+	font_write_to_image(game, copy, to_write, s);
 	free(to_write);
 	return (0);
 }
