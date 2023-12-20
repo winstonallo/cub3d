@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 17:25:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:22:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,39 @@ void	draw_rays(t_data *data, float angle)
 	return (calculate_distance(data, v_line, h_line));
 }
 
+int	get_pixel(t_data *data, int x, int y)
+{
+	int		color;
+	char	*dst;
+
+	dst = data->texture.addr + (y * data->img.l_l + x * (data->img.bpp / 8));
+	color = *(unsigned int *)dst;
+	return (color);
+}
+
+void	draw_texture(t_data *data, t_line line, int x, int y)
+{
+	int		i;
+	int		j;
+	int		color;
+	float	scale_x;
+	float	scale_y;
+
+	i = -1;
+	scale_x = (float)line.scale / (float)line.x1;
+	scale_y = (float)line.scale / (float)line.y1;
+	while (++i < line.x1)
+	{
+		j = -1;
+		while (++j < line.y1)
+		{
+			color = get_pixel(data, x + i * scale_x, y + j * scale_y);
+			if (color != 0x000000)
+				put_pixel(data, line.x0 + i, line.y0 + j, color);
+		}
+	}
+}
+
 void	raycast(t_data *data)
 {
 	t_line	line1;
@@ -132,7 +165,7 @@ void	raycast(t_data *data)
 		draw_line(data, data->shortest_line, 0x00ff00, 1);
 		adjust_vars(data, angle);
 		get_3d_line(&line1, i, data);
-		draw_line(data, line1, data->wall_color, 2);
+		draw_texture(data, line1, data->wall_color, 2);
 		angle += (float)DR;
 		angle = fmod(angle, 2 * PI);
 	}

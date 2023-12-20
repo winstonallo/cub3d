@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 15:02:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:21:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,17 @@ typedef struct s_raycast
 	struct s_dist		dist;
 }	t_raycast;
 
+typedef struct s_texture
+{
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				l_l;
+	int				endian;
+	int				width;
+	int				height;
+}	t_texture;
+
 typedef struct s_data
 {
 	int					error;
@@ -186,6 +197,7 @@ typedef struct s_data
 	float				y_scale;
 	float				scale_factor;
 	float				fisheye;
+	struct s_texture	texture;
 	struct s_player		player;
 	struct s_mlx		mlx;
 	struct s_img		img;
