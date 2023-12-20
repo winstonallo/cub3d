@@ -6,13 +6,17 @@ SRC_DIR = src/
 
 MAP_DIR = font/
 
+BUTTON_DIR = button/
+
 SRCS = 	${SRC_DIR}main.c \
-		${SRC_DIR}${MAP_DIR}font.c\
-		${SRC_DIR}${MAP_DIR}font_public.c\
-		${SRC_DIR}${MAP_DIR}font_init.c\
-		${SRC_DIR}${MAP_DIR}font_init_helper.c\
-		${SRC_DIR}${MAP_DIR}font_write.c\
-		${SRC_DIR}${MAP_DIR}image_edit.c\
+		${SRC_DIR}${BUTTON_DIR}button.c\
+		${SRC_DIR}${BUTTON_DIR}button_init.c\
+		# ${SRC_DIR}${MAP_DIR}font.c\
+		# ${SRC_DIR}${MAP_DIR}font_public.c\
+		# ${SRC_DIR}${MAP_DIR}font_init.c\
+		# ${SRC_DIR}${MAP_DIR}font_init_helper.c\
+		# ${SRC_DIR}${MAP_DIR}font_write.c\
+		# ${SRC_DIR}${MAP_DIR}image_edit.c\
 		# ${SRC_DIR}${MAP_DIR}check_if_helper.c \
 		# ${SRC_DIR}${MAP_DIR}check_if.c \
 		# ${SRC_DIR}${MAP_DIR}general_helper.c \

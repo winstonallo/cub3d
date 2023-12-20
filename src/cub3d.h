@@ -6,7 +6,7 @@
 /*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:40:15 by yatabay           #+#    #+#             */
-/*   Updated: 2023/12/20 17:36:50 by yatabay          ###   ########.fr       */
+/*   Updated: 2023/12/20 21:31:05 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,63 +365,63 @@
 // }				t_font;
 
 
-typedef struct s_img
-{
-	void	*img;
-	char	*addr;
-	int		width;
-	int		height;
-	int		bps;
-	int		line_len;
-	int		bits_per_pixel;
-	int		endian;
-	int		color;
-}			t_img;
+// typedef struct s_img
+// {
+// 	void	*img;
+// 	char	*addr;
+// 	int		width;
+// 	int		height;
+// 	int		bps;
+// 	int		line_len;
+// 	int		bits_per_pixel;
+// 	int		endian;
+// 	int		color;
+// }			t_img;
 
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-	int	a;
-}				t_color;
+// typedef struct s_color
+// {
+// 	int	r;
+// 	int	g;
+// 	int	b;
+// 	int	a;
+// }				t_color;
 
-typedef struct s_font_inner
-{
-	t_img	*letter;
-	int		del;
-}				t_font_inner;
+// typedef struct s_font_inner
+// {
+// 	t_img	*letter;
+// 	int		del;
+// }				t_font_inner;
 
-typedef struct s_font
-{
-	t_font_inner	xl_font;
-	t_font_inner	big_font;
-	t_font_inner	medium_font;
-	t_font_inner	small_font;
-}				t_font;
+// typedef struct s_font
+// {
+// 	t_font_inner	xl_font;
+// 	t_font_inner	big_font;
+// 	t_font_inner	medium_font;
+// 	t_font_inner	small_font;
+// }				t_font;
 
 
-typedef struct s_texture
-{
-	char	*color_fds[2];
-	int		texture_fds[4];
-	int		err_code;
-}				t_texture;
+// typedef struct s_texture
+// {
+// 	char	*color_fds[2];
+// 	int		texture_fds[4];
+// 	int		err_code;
+// }				t_texture;
 
-typedef struct s_cords
-{
-	int	copy_x;
-	int	copy_y;
-	int	img_x;
-	int	img_y;
-}				t_cords;
+// typedef struct s_cords
+// {
+// 	int	copy_x;
+// 	int	copy_y;
+// 	int	img_x;
+// 	int	img_y;
+// }				t_cords;
 
 typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
-	t_font	*font;
-	t_cords	cords;
+	// t_font	*font;
+	// t_cords	cords;
 }				t_game;
 
 typedef struct s_font_setting
@@ -439,12 +439,12 @@ typedef struct s_font_setting
 // int	replace(char *fname, char *pos, char *content);
 
 // font //
-t_font			*font_init(void *mlx);
-int				font_write(char *word, t_game *game, t_img *copy, t_font_setting f_setting);
-t_font_setting	font_settings(int posx, int posy, int color, int identifier);
-void			font_delete(t_game *game);
+// t_font			*font_init(void *mlx);
+// int				font_write(char *word, t_game *game, t_img *copy, t_font_setting f_setting);
+// t_font_setting	font_settings(int posx, int posy, int color, int identifier);
+// void			font_delete(t_game *game);
 
 // image edit //
-void	image_edit(t_game *g, t_img *base, t_img to_copy, int identifier);
+// void	image_edit(t_game *g, t_img *base, t_img to_copy, int identifier);
 
 #endif
