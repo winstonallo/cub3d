@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 15:30:51 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 10:16:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	adjust_vars(t_data *data, float angle)
 	data->fisheye = fmod(data->fisheye + PI, 2 * PI) - PI;
 	data->min_distance *= cos(data->fisheye);
 	data->line_height = SCREEN_HEIGHT / (data->min_distance / 4);
-	if (data->line_height > SCREEN_HEIGHT)
-		data->line_height = SCREEN_HEIGHT;
+	if (data->line_height > SCREEN_HEIGHT2)
+		data->line_height = SCREEN_HEIGHT2;
 	data->line_offset = (SCREEN_HEIGHT2) - (data->line_height / 2);
 }
 

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 15:21:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 10:10:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ typedef struct s_data
 	int					*map;
 	float				line_height;
 	float				line_offset;
+	float				target_line_height;
 	float				tile_width;
 	float				tile_height;
 	float				min_distance;

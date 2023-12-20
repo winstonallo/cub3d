@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 15:59:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 09:58:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	raycast(t_data *data)
 		draw_line(data, data->shortest_line, 0x00ff00, 1);
 		adjust_vars(data, angle);
 		get_3d_line(&line1, i, data);
-		draw_line(data, line1, data->wall_color, 6);
+		draw_line(data, line1, data->wall_color, 2);
 		angle += (float)DR;
 		angle = fmod(angle, 2 * PI);
 	}
