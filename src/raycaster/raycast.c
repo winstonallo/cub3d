@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 17:22:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:25:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 static int	collision(t_data *data, float new_x, float new_y)
 {
 	int map_pos;
-	// int map_neg;
-
 
 	map_pos = (int)(new_y) * data->map_width + (int)(new_x);
 	if (map_pos < 0 || map_pos > data->map_width * data->map_height)
