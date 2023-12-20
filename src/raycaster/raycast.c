@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 22:29:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 23:36:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,9 @@ void	draw_rays(t_data *data, float angle)
 	return (calculate_distance(data, v_line, h_line));
 }
 
+
+
+
 int	get_pixel(t_texture *texture, int x, int y)
 {
 	int		color;
@@ -129,23 +132,43 @@ int	get_pixel(t_texture *texture, int x, int y)
 	return (color);
 }
 
+float calculate_scale_factor(float ray_distance, float map_tile_size)
+{
+    const float perceived_tile_size_at_one_unit_distance = 0.5f;
+
+    // Prevent division by zero
+    if (ray_distance <= 0.0f) {
+        ray_distance = 0.01f;
+    }
+
+    // Calculate the scale factor based on the distance
+    float scale_factor = perceived_tile_size_at_one_unit_distance / ray_distance;
+
+    // Adjust the scale factor based on the actual size of your map tiles
+    scale_factor *= map_tile_size / perceived_tile_size_at_one_unit_distance;
+
+    return scale_factor;
+}
+
+
 void draw_texture(t_data *data, int x, int wall_height, t_line line, t_texture *texture)
 {
     int color;
-	{}
-    for (int y = 0; y < wall_height; y++) {
-        // Calculate where this pixel is in relation to the texture
-        float percent_of_texture = (float)y / (float)wall_height;
-        int tex_y = (int)(percent_of_texture * texture->height);
-        color = get_pixel(texture, x % texture->width, tex_y % texture->height);
+    int y;
+    int texture_y;
+    int screen_y;
+    float percent_of_texture;
+    // float texture_scale_factor = calculate_scale_factor(data->min_distance, 1);
 
-        // Calculate the screen y coordinate
-        int screen_y = line.y0 + y;
-        
-        // Draw the pixel if it's within screen bounds
-        if (screen_y >= 0 && screen_y < SCREEN_HEIGHT) {
+    y = -1;
+    while (++y < wall_height)
+    {
+        percent_of_texture = (float)y / (float)wall_height;
+        texture_y = (int)(percent_of_texture * texture->height/*  * texture_scale_factor */) % texture->height;
+        color = get_pixel(texture, x % texture->width, texture_y);
+        screen_y = line.y0 + y;
+        if (screen_y >= 0 && screen_y < SCREEN_HEIGHT)
             put_pixel(data, x, screen_y, color);
-        }
     }
 }
 
@@ -157,7 +180,6 @@ void	raycast(t_data *data)
 	int		i;
 
 	i = -1;
-
 	float angle = data->player.angle + (-FIELD_OF_VIEW / 2);
 	while (++i < SCREEN_WIDTH)
 	{
@@ -167,8 +189,11 @@ void	raycast(t_data *data)
 		adjust_vars(data, angle);
 		get_3d_line(&line1, i, data);
 		int projected_wall_height = line1.y1 - line1.y0;
-		draw_texture(data, i, projected_wall_height, line1, &data->brick);
-		angle += FIELD_OF_VIEW / SCREEN_WIDTH;
+		if (data->hit == NORTH)
+			draw_texture(data, i, projected_wall_height, line1, &data->brick);
+		else if (data->hit == EAST)
+			draw_texture(data, i, projected_wall_height, line1, &data->stone);
+		angle += FIELD_OF_VIEW / (SCREEN_WIDTH);
 		angle = fmod(angle, 2 * PI);
 	}
 	draw_map(data);

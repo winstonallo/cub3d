@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 22:25:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 22:42:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	main(void)
 
 	data.map = g_map;
 	initialize_data(&data);
-	set_data_view(&data);
 	start_game(&data);
 	return (0);
 }

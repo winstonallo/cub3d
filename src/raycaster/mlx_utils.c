@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:22 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 20:09:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 22:54:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	exit_failure(t_data *data, char *msg)
 	perror(msg);
 	if (data->mlx.img)
 		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
+	if (data->stone.img)
+		mlx_destroy_image(data->mlx.mlx, data->stone.img);
+	if (data->brick.img)
+		mlx_destroy_image(data->mlx.mlx, data->brick.img);
 	if (data->mlx.win)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
 	if (data->mlx.mlx)
@@ -42,6 +46,10 @@ int	exit_success(t_data *data)
 {
 	if (data->mlx.img)
 		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
+	if (data->stone.img)
+		mlx_destroy_image(data->mlx.mlx, data->stone.img);
+	if (data->brick.img)
+		mlx_destroy_image(data->mlx.mlx, data->brick.img);
 	if (data->mlx.win)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
 	if (data->mlx.mlx)

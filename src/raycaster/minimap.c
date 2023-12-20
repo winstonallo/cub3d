@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 17:21:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 22:49:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	init_line(t_line *line, t_data *data, int length)
 	line->y0 = data->player.y_pos;
 	line->x1 = (data->player.x_pos + data->player.x_dir);
 	line->y1 = (data->player.y_pos + data->player.y_dir);
-	line->thickness = 1;
 }
 
 void	draw_player(t_data *data)

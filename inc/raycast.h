@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 22:21:22 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 23:33:40 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ typedef struct s_line
 	float			x1;
 	float			y1;
 	int				scale;
-	int				thickness;
 	int				length;
 	int				neg_size;
 	float			x_step;
@@ -144,8 +143,6 @@ typedef struct s_player
 
 typedef struct s_raycast
 {
-	int					loop_protection;
-	int					r;
 	int					map_x;
 	int					map_y;
 	int					map_pos;
@@ -157,8 +154,6 @@ typedef struct s_raycast
 	float				inc_y;
 	float				a_tan;
 	float				n_tan;
-	float				vertical_distance;
-	float				horizontal_distance;
 	struct s_dist		dist;
 }	t_raycast;
 
@@ -175,28 +170,23 @@ typedef struct s_texture
 
 typedef struct s_data
 {
-	int					error;
 	int					view_dir;
 	int					map_width;
 	int					map_height;
 	int					map_size;
 	int					win_width;
 	int					win_height;
-	int					wall_color;
-	int					floor_color;
-	int					player_color;
 	int					line_color;
-	int					*map;
 	float				line_height;
 	float				line_offset;
 	float				target_line_height;
-	float				tile_width;
-	float				tile_height;
-	float				min_distance;
 	float				x_scale;
 	float				y_scale;
-	float				scale_factor;
 	float				fisheye;
+	float				min_distance;
+	float					hit_pos;
+	int					hit;
+	int					*map;	
 	struct s_texture	brick;
 	struct s_texture	stone;
 	struct s_player		player;
