@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 15:04:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:22:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 	v_ray->n_tan = -tan(v_ray->angle);
 	if (v_ray->angle > P2 && v_ray->angle < P3)
 	{
-		v_ray->reach_x = (int)player->x_pos;
+		v_ray->reach_x = (int)player->x_pos - 0.0001;
 		v_ray->reach_y = (player->x_pos - v_ray->reach_x)
 			* v_ray->n_tan + player->y_pos;
 		v_ray->inc_x = -1;
@@ -71,16 +71,29 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 	}
 }
 
+static int	collision(t_data *data, float new_x, float new_y)
+{
+	int map_pos;
+	// int map_neg;
+
+
+	map_pos = (int)(new_y) * data->map_width + (int)(new_x);
+	if (map_pos < 0 || map_pos > data->map_width * data->map_height)
+		return (EXIT_FAILURE);
+	if (data->map[map_pos] != 1)
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
+}
+
 void	scan(t_raycast *ray, t_data *data)
 {
-	while (ray->max_depth < 8)
+	while (ray->max_depth < data->map_width)
 	{
 		ray->map_x = ((int)ray->reach_x);
 		ray->map_y = ((int)ray->reach_y);
 		ray->map_pos = ray->map_y * data->map_width + ray->map_x;
-		if (ray->map_pos > 0 && ray->map_pos < data->map_size
-			&& data->map[ray->map_pos] == 1)
-			ray->max_depth = data->map_width;
+		if (collision(data, ray->reach_x, ray->reach_y))
+			break ;
 		else
 		{
 			ray->reach_x += ray->inc_x;
