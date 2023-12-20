@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 13:13:23 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:02:40 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ typedef enum s_dir
 	NORTH,
 	SOUTH,
 	EAST,
-	WEST
+	WEST,
+	NORTH_EAST,
+	NORTH_WEST,
+	SOUTH_EAST,
+	SOUTH_WEST
 }	t_dir;
 
 typedef enum s_move
@@ -201,7 +205,7 @@ void	set_directions(t_data *data);
 //math
 void	raycast(t_data *data);
 void	get_3d_line(t_line *line1, int i, t_data *data);
-void	adjust_vars(t_data *data, float angle, int i);
+void	adjust_vars(t_data *data, float angle);
 void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle);
 void	get_line(t_line *line, t_raycast ray, t_data *data);
 void	calculate_distance(t_data *data, t_line line1, t_line line2);

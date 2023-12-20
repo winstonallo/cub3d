@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 13:50:31 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:37:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,41 +36,16 @@ static int	turn(int direction, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-int	get_direction(t_data *data)
-{
-	if (data->player.angle > (7 * PI) / 4 || data->player.angle < PI / 4)
-		return (NORTH);
-	else if (data->player.angle > PI / 4 && data->player.angle < (3 * PI) / 4)
-		return (EAST);
-	else if (data->player.angle > (3 * PI) / 4 && data->player.angle < (5 * PI) / 4)
-		return (SOUTH);
-	else if (data->player.angle > (5 * PI) / 4 && data->player.angle < (7 * PI) / 4)
-		return (WEST);
-    return 0;
-}
-
-void	slide_on_walls(t_data *data)
-{
-	int direction;
-
-	direction = get_direction(data);
-	if (direction == NORTH || direction == SOUTH)
-		data->player.x_pos += data->player.x_dir * SPEED;
-	else if (direction == EAST || direction == WEST)
-		data->player.y_pos += data->player.y_dir * SPEED;
-}
-
 static int	check_collision(t_data *data, float new_x, float new_y)
 {
 	int map_pos;
 	int map_neg;
-	
+
+
 	map_pos = (int)(new_y + COLL_SENS) * data->map_width + (int)(new_x + COLL_SENS);
 	map_neg = (int)(new_y - COLL_SENS) * data->map_width + (int)(new_x - COLL_SENS);
-	if (data->map[map_pos] == 0 && data->map[map_neg] == 0){
+	if (data->map[map_pos] != 1 && data->map[map_neg] != 1)
 		return (EXIT_SUCCESS);
-	}
-	printf("map_pos: %d\n", map_pos);
 	return (EXIT_FAILURE);
 }
 
@@ -87,7 +62,12 @@ int	adjust(t_data *data, float x_dir, float y_dir)
 	    data->player.y_pos = new_y;
 	}
 	else
-        slide_on_walls(data);
+	{
+		if (!check_collision(data, data->player.x_pos, new_y))
+			data->player.y_pos = new_y;
+		if (!check_collision(data, new_x, data->player.y_pos))
+			data->player.x_pos = new_x;	
+	}
 	new_image(data);
 	return (EXIT_SUCCESS);
 }
