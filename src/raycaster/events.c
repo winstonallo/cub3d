@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 16:59:20 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:17:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,80 +47,46 @@ void	slide_on_walls(int direction, t_data *data)
 	// 	data->player.y_pos += data->player.y_dir * SPEED;
 }
 
-static int move(int direction, t_data *data)
+static int	check_collision(t_data *data, float new_x, float new_y)
 {
-    float new_x = data->player.x_pos;
-    float new_y = data->player.y_pos;
+	int map_pos;
+	int map_neg;
+	
+	map_pos = (int)(new_y + COLL_SENS) * data->map_width + (int)(new_x + COLL_SENS);
+	map_neg = (int)(new_y - COLL_SENS) * data->map_width + (int)(new_x - COLL_SENS);
+	if (data->map[map_pos] == 0 && data->map[map_neg] == 0)
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
+}
 
-    if (direction == UP)
-	{
-        new_x += data->player.x_dir * SPEED;
-        new_y += data->player.y_dir * SPEED;
-    }
-    else if (direction == DOWN)
-	{
-        new_x -= data->player.x_dir * SPEED;
-        new_y -= data->player.y_dir * SPEED;
-    }
-    else if (direction == STRAFE_RIGHT)
-	{
-        new_x -= data->player.y_dir * SPEED;
-        new_y += data->player.x_dir * SPEED;
-    }
-    else if (direction == STRAFE_LEFT)
-	{
-        new_x += data->player.y_dir * SPEED;
-        new_y -= data->player.x_dir * SPEED;
-    }
-    int map_pos = (int)new_y * data->map_width + (int)new_x;
-	if (data->map[map_pos] == 0)
+int	adjust(t_data *data, float x_dir, float y_dir, int direction)
+{
+	float	new_x;
+	float	new_y;
+
+	new_x = data->player.x_pos + x_dir * SPEED;
+	new_y = data->player.y_pos + y_dir * SPEED;
+	if (!check_collision(data, new_x, new_y))
 	{
 	    data->player.x_pos = new_x;
 	    data->player.y_pos = new_y;
 	}
 	else
-		slide_on_walls(direction, data);
-    new_image(data);
-    return (EXIT_SUCCESS);
+        slide_on_walls(direction, data);
+	new_image(data);
+	return (EXIT_SUCCESS);
 }
-
-
-// static int	move(int direction, t_data *data)
-// {
-// 	if (direction == UP)
-// 	{
-// 		data->player.x_pos += data->player.x_dir * SPEED;
-// 		data->player.y_pos += data->player.y_dir * SPEED;
-// 	}
-// 	else if (direction == DOWN)
-// 	{
-// 		data->player.x_pos -= data->player.x_dir * SPEED;
-// 		data->player.y_pos -= data->player.y_dir * SPEED;
-// 	}
-// 	if (direction == STRAFE_RIGHT)
-// 	{
-// 		data->player.x_pos -= data->player.y_dir * SPEED;
-// 		data->player.y_pos += data->player.x_dir * SPEED;
-// 	}
-// 	else if (direction == STRAFE_LEFT)
-// 	{
-// 		data->player.x_pos += data->player.y_dir * SPEED;
-// 		data->player.y_pos -= data->player.x_dir * SPEED;
-// 	}
-// 	new_image(data);
-// 	return (EXIT_SUCCESS);
-// }
 
 int	event(int key, t_data *data)
 {
 	if (key == W)
-		return (move(UP, data));
+		return (adjust(data, data->player.x_dir, data->player.y_dir, UP));
 	else if (key == S)
-		return (move(DOWN, data));
+		return (adjust(data, -data->player.x_dir, -data->player.y_dir, DOWN));
 	else if (key == E)
-		return (move(STRAFE_RIGHT, data));
+		return (adjust(data, data->player.y_dir, -data->player.x_dir, STRAFE_RIGHT));
 	else if (key == Q)
-		return (move(STRAFE_LEFT, data));
+		return (adjust(data, -data->player.y_dir, data->player.x_dir, STRAFE_LEFT));
 	else if (key == A)
 		return (turn(TURN_LEFT, data));
 	else if (key == D)

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 10:10:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:13:23 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define DR 0.00872665
 # define FIELD_OF_VIEW 60
 # define MAX_DIST 1000000
+# define WALL_HEIGHT 1.2
+# define COLL_SENS 0.1
 
 //keys
 # define ESCAPE 65307
@@ -199,7 +201,7 @@ void	set_directions(t_data *data);
 //math
 void	raycast(t_data *data);
 void	get_3d_line(t_line *line1, int i, t_data *data);
-void	adjust_vars(t_data *data, float angle);
+void	adjust_vars(t_data *data, float angle, int i);
 void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle);
 void	get_line(t_line *line, t_raycast ray, t_data *data);
 void	calculate_distance(t_data *data, t_line line1, t_line line2);
