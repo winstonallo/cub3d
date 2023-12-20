@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 19:22:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 22:01:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,51 +122,61 @@ int	get_pixel(t_data *data, int x, int y)
 	int		color;
 	char	*dst;
 
-	dst = data->texture.addr + (y * data->img.l_l + x * (data->img.bpp / 8));
+	if (x < 0 || x >= data->texture.width || y < 0 || y >= data->texture.height)
+		return (0x000000);
+	dst = data->texture.addr + (y * data->texture.l_l + x * (data->texture.bpp / 8));
 	color = *(unsigned int *)dst;
 	return (color);
 }
 
-void	draw_texture(t_data *data, t_line line, int x, int y)
-{
-	int		i;
-	int		j;
-	int		color;
-	float	scale_x;
-	float	scale_y;
+void draw_texture(t_data *data, int x, int wall_height, int texture_offset_x, t_line line) {
+    int color;
+    // float scale_y = (float)data->texture.height / (float)wall_height;
 
-	i = -1;
-	scale_x = (float)line.scale / (float)line.x1;
-	scale_y = (float)line.scale / (float)line.y1;
-	while (++i < line.x1)
-	{
-		j = -1;
-		while (++j < line.y1)
-		{
-			color = get_pixel(data, x + i * scale_x, y + j * scale_y);
-			if (color != 0x000000)
-				put_pixel(data, line.x0 + i, line.y0 + j, color);
-		}
-	}
+	if (texture_offset_x)
+	{}
+    for (int y = 0; y < wall_height; y++) {
+        // Calculate where this pixel is in relation to the texture
+        float percent_of_texture = (float)y / (float)wall_height;
+        int tex_y = (int)(percent_of_texture * data->texture.height);
+        color = get_pixel(data, x % data->texture.width, tex_y % data->texture.height);
+
+        // Calculate the screen y coordinate
+        int screen_y = line.y0 + y;
+        
+        // Draw the pixel if it's within screen bounds
+        if (screen_y >= 0 && screen_y < SCREEN_HEIGHT) {
+            put_pixel(data, x, screen_y, color);
+        }
+    }
 }
+
+
 
 void	raycast(t_data *data)
 {
 	t_line	line1;
 	int		i;
-	float	angle;	
+	int		texture_offset_x;
 
 	i = -1;
-	angle = fmod(data->player.angle - DR * 60, 2 * PI);
-	while (++i < 120)
+	float increment = 120 / SCREEN_WIDTH;
+	float angle = data->player.angle + increment * (120.0 / 2);
+
+	while (++i < SCREEN_WIDTH)
 	{
 		data->min_distance = MAX_DIST;
 		draw_rays(data, angle);
 		draw_line(data, data->shortest_line, 0x00ff00, 1);
 		adjust_vars(data, angle);
 		get_3d_line(&line1, i, data);
-		draw_texture(data, line1, data->wall_color, 2);
-		angle += (float)DR;
+		// draw_line(data, line1, 0xffffff, 4);
+		// ...
+		int texture_hit_position = (int)(data->x_scale * data->min_distance);
+		texture_offset_x = (int)(texture_hit_position * data->texture.width);
+		int projected_wall_height = line1.y1 - line1.y0;
+		draw_texture(data, i, projected_wall_height, texture_offset_x, line1);
+		angle += increment;
 		angle = fmod(angle, 2 * PI);
 	}
 	draw_map(data);

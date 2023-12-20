@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 15:35:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 21:27:39 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	initialize_data(t_data *data)
 {
 	data->mlx.mlx = NULL;
 	data->mlx.win = NULL;
+	data->mlx.img = NULL;
 	data->map_width = 8;
 	data->map_height = 8;
 	data->player.angle = PI / 2;

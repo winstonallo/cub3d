@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:22 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 15:26:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 20:09:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	exit_failure(t_data *data, char *msg)
 		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
 	if (data->mlx.win)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	mlx_destroy_display(data->mlx.mlx);
+	if (data->mlx.mlx)
+		mlx_destroy_display(data->mlx.mlx);
 	freeze(data->mlx.mlx);
 	exit(EXIT_FAILURE);
 }
@@ -43,7 +44,8 @@ int	exit_success(t_data *data)
 		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
 	if (data->mlx.win)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	mlx_destroy_display(data->mlx.mlx);
+	if (data->mlx.mlx)
+		mlx_destroy_display(data->mlx.mlx);
 	freeze(data->mlx.mlx);
 	exit(EXIT_SUCCESS);
 }

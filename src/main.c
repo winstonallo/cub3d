@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 19:21:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 20:09:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ void	play_game(t_data *data)
 	mlx_hook(data->mlx.win, 17, 0, exit_success, data);
 	mlx_loop(data->mlx.mlx);
 }
+void	init_textures(t_data *data)
+{
+	data->texture.img = mlx_xpm_file_to_image(data->mlx.mlx,
+			"src/textures/brick.xpm", &data->texture.width,
+			&data->texture.height);
+	if (!data->texture.img)
+		exit_failure(data, "Error\nimage initialization failed");
+	data->texture.addr = mlx_get_data_addr(data->texture.img,
+			&data->texture.bpp, &data->texture.l_l,
+			&data->texture.endian);
+}
 
 void	start_game(t_data *data)
 {
@@ -47,19 +58,10 @@ void	start_game(t_data *data)
 			data->win_height, "cub3d");
 	if (!data->mlx.win)
 		exit_failure(data, "Error\nwindow initialization failed");
+	init_textures(data);
 	play_game(data);
 }
 
-void	init_textures(t_data *data)
-{
-	data->texture.img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"../textures/brick.xpm", &data->texture.width,
-			&data->texture.height);
-		exit_failure(data, "Error\nimage initialization failed");
-	data->texture.addr = mlx_get_data_addr(data->texture.img,
-			&data->texture.bpp, &data->texture.l_l,
-			&data->texture.endian);
-}
 
 int	main(void)
 {
