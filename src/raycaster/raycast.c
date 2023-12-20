@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 12:08:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:24:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,7 @@ void	scan(t_raycast *ray, t_data *data)
 		ray->map_pos = ray->map_y * data->map_width + ray->map_x;
 		if (ray->map_pos > 0 && ray->map_pos < data->map_size
 			&& data->map[ray->map_pos] == 1)
-		{
-			ray->map_x -= (int)ray->reach_x; 
-			ray->map_y -= (int)ray->reach_y; 
-			ray->max_depth = 8;
-		}
+			ray->max_depth = data->map_width;
 		else
 		{
 			ray->reach_x += ray->inc_x;
