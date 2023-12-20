@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 22:08:31 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 22:29:40 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,29 +117,27 @@ void	draw_rays(t_data *data, float angle)
 	return (calculate_distance(data, v_line, h_line));
 }
 
-int	get_pixel(t_data *data, int x, int y)
+int	get_pixel(t_texture *texture, int x, int y)
 {
 	int		color;
 	char	*dst;
 
-	if (x < 0 || x >= data->texture.width || y < 0 || y >= data->texture.height)
+	if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
 		return (0x000000);
-	dst = data->texture.addr + (y * data->texture.l_l + x * (data->texture.bpp / 8));
+	dst = texture->addr + (y * texture->l_l + x * (texture->bpp / 8));
 	color = *(unsigned int *)dst;
 	return (color);
 }
 
-void draw_texture(t_data *data, int x, int wall_height, int texture_offset_x, t_line line) {
+void draw_texture(t_data *data, int x, int wall_height, t_line line, t_texture *texture)
+{
     int color;
-    // float scale_y = (float)data->texture.height / (float)wall_height;
-
-	if (texture_offset_x)
 	{}
     for (int y = 0; y < wall_height; y++) {
         // Calculate where this pixel is in relation to the texture
         float percent_of_texture = (float)y / (float)wall_height;
-        int tex_y = (int)(percent_of_texture * data->texture.height);
-        color = get_pixel(data, x % data->texture.width, tex_y % data->texture.height);
+        int tex_y = (int)(percent_of_texture * texture->height);
+        color = get_pixel(texture, x % texture->width, tex_y % texture->height);
 
         // Calculate the screen y coordinate
         int screen_y = line.y0 + y;
@@ -157,7 +155,6 @@ void	raycast(t_data *data)
 {
 	t_line	line1;
 	int		i;
-	int		texture_offset_x;
 
 	i = -1;
 
@@ -169,10 +166,8 @@ void	raycast(t_data *data)
 		draw_line(data, data->shortest_line, 0x00ff00, 1);
 		adjust_vars(data, angle);
 		get_3d_line(&line1, i, data);
-		int texture_hit_position = (int)(data->x_scale * data->min_distance);
-		texture_offset_x = (int)(texture_hit_position * data->texture.width);
 		int projected_wall_height = line1.y1 - line1.y0;
-		draw_texture(data, i, projected_wall_height, texture_offset_x, line1);
+		draw_texture(data, i, projected_wall_height, line1, &data->brick);
 		angle += FIELD_OF_VIEW / SCREEN_WIDTH;
 		angle = fmod(angle, 2 * PI);
 	}

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 22:03:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 22:21:22 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,8 @@ typedef struct s_data
 	float				y_scale;
 	float				scale_factor;
 	float				fisheye;
-	struct s_texture	texture;
+	struct s_texture	brick;
+	struct s_texture	stone;
 	struct s_player		player;
 	struct s_mlx		mlx;
 	struct s_img		img;
