@@ -6,14 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 08:23:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 10:21:30 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
-
-# define SOME_LARGE_VALUE 1000000
-# define EPSILON 1e-6
 
 void init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 {
@@ -26,8 +23,8 @@ void init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 	}
 	else if (angle < PI)
 	{
-	    h_ray->reach_y = (int)player->y_pos + 1;
-	    h_ray->inc_y = 1;
+	    h_ray->reach_y = (int)player->y_pos + 1.0001;
+		h_ray->inc_y = 1;
 	}
 	else
 	{
@@ -36,7 +33,7 @@ void init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 	    h_ray->max_depth = 8;
 	}
 	h_ray->reach_x = (player->y_pos - h_ray->reach_y) * h_ray->a_tan + player->x_pos;
-	h_ray->inc_x = -h_ray->inc_y * h_ray->a_tan;
+	h_ray->inc_x = -h_ray->inc_y * (h_ray->a_tan);
 }
 
 
@@ -65,16 +62,16 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 	v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
 }
 
-static int	collision(t_data *data, float new_x, float new_y)
+static bool	collision(t_data *data, float new_x, float new_y)
 {
 	int map_pos;
 
 	map_pos = (int)(new_y) * data->map_width + (int)(new_x);
 	if (map_pos < 0 || map_pos > data->map_width * data->map_height)
-		return (EXIT_FAILURE);
+		return (true);
 	if (data->map[map_pos] != 1)
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
+		return (false);
+	return (true);
 }
 
 void	scan(t_raycast *ray, t_data *data)
@@ -85,7 +82,10 @@ void	scan(t_raycast *ray, t_data *data)
 		ray->map_y = ((int)ray->reach_y);
 		ray->map_pos = ray->map_y * data->map_width + ray->map_x;
 		if (collision(data, ray->reach_x, ray->reach_y))
+		{
+			ray->hit_status = SUCCESS;
 			break ;
+		}
 		else
 		{
 			ray->reach_x += ray->inc_x;
@@ -175,6 +175,10 @@ void	raycast(t_data *data)
 
 	i = -1;
 	float angle = data->player.angle + (-FIELD_OF_VIEW / 2);
+	if (angle < 0)
+		angle += 2 * PI;
+	else if (angle > 2 * PI)
+		angle -= 2 * PI;
 	while (++i < SCREEN_WIDTH)
 	{
 		data->min_distance = MAX_DIST;
@@ -188,7 +192,10 @@ void	raycast(t_data *data)
 		else if (data->hit == EAST)
 			draw_texture(data, i, projected_wall_height, line1, &data->stone);
 		angle += FIELD_OF_VIEW / (SCREEN_WIDTH);
-		angle = fmod(angle, 2 * PI);
+		if (angle < 0)
+			angle += 2 * PI;
+		else if (angle > 2 * PI)
+			angle -= 2 * PI;
 	}
 	draw_map(data);
 	draw_player(data);

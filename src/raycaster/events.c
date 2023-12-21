@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 15:37:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 09:27:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	turn(int direction, t_data *data)
 {
 	if (direction == TURN_RIGHT)
 	{
-		data->player.angle += 0.1;
+		data->player.angle += 5 * DR;
 		if (data->player.angle > 2 * PI)
 			data->player.angle -= 2 * PI;
 		data->player.x_dir = cos(data->player.angle) * 5;
@@ -26,7 +26,7 @@ static int	turn(int direction, t_data *data)
 	}
 	else if (direction == TURN_LEFT)
 	{
-		data->player.angle -= 0.1;
+		data->player.angle -= 5 * DR;
 		if (data->player.angle < 0)
 			data->player.angle += 2 * PI;
 		data->player.x_dir = cos(data->player.angle) * 5;

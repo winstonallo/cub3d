@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 22:53:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 09:55:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void get_line(t_line *line, t_raycast ray, t_data *data)
 {
+	if (ray.hit_status != SUCCESS)
+	{
+		line->status = NO_WALL_HIT;
+		return ;
+	}
 	line->x0 = data->player.x_pos * data->x_scale;
 	line->y0 = data->player.y_pos * data->y_scale;
 	line->x1 = ray.reach_x * data->x_scale;
@@ -68,4 +73,8 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
     	line2.scale = MAPSIZE;
     	data->shortest_line = line2;
 	}
+	printf("x0 = %f --", data->shortest_line.x0);
+	printf("y0 = %f --", data->shortest_line.y0);
+	printf("x1 = %f --", data->shortest_line.x1);
+	printf("y1 = %f\n", data->shortest_line.y1);
 }
