@@ -8,6 +8,8 @@ RAY_DIR = raycaster/
 
 MAP_DIR = map/
 
+SET_DIR = settings/
+
 LIBFT_FLAGS = -L./libft -lft
 
 FLAGS = -framework OpenGL -framework AppKit -I./minilibx-mac -L./minilibx-mac -lmlx
@@ -37,6 +39,7 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${MAP_DIR}map_valid_helper2.c \
 		${SRC_DIR}${MAP_DIR}map_valid.c \
 		${SRC_DIR}${MAP_DIR}map.c \
+		${SRC_DIR}${SET_DIR}parse_settings.c \
 
 OBJS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)/%.o, $(SRCS))
 

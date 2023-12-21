@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 17:12:20 by arthur           ###   ########.fr       */
+/*   Updated: 2023/12/21 19:14:58 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ static int	turn(int direction, t_data *data)
 {
 	if (direction == TURN_RIGHT)
 	{
-		data->player.angle += 5 * DR;
+		data->player.angle += TURN_SPEED * DR;
 		if (data->player.angle > 2 * PI)
 			data->player.angle -= 2 * PI;
-		data->player.x_dir = cos(data->player.angle) * 5;
-		data->player.y_dir = sin(data->player.angle) * 5;
+		data->player.x_dir = cos(data->player.angle) * TURN_SPEED;
+		data->player.y_dir = sin(data->player.angle) * TURN_SPEED;
 	}
 	else if (direction == TURN_LEFT)
 	{
-		data->player.angle -= 5 * DR;
+		data->player.angle -= TURN_SPEED * DR;
 		if (data->player.angle < 0)
 			data->player.angle += 2 * PI;
-		data->player.x_dir = cos(data->player.angle) * 5;
-		data->player.y_dir = sin(data->player.angle) * 5;
+		data->player.x_dir = cos(data->player.angle) * TURN_SPEED;
+		data->player.y_dir = sin(data->player.angle) * TURN_SPEED;
 	}
 	new_image(data);
 	return (EXIT_SUCCESS);
@@ -73,7 +73,6 @@ int	adjust(t_data *data, float x_dir, float y_dir)
 
 int	event(int key, t_data *data)
 {
-	printf("key: %d\n", key);
 	if (key == 13)
 		return (adjust(data, data->player.x_dir, data->player.y_dir));
 	else if (key == 1)
@@ -86,7 +85,7 @@ int	event(int key, t_data *data)
 		return (turn(TURN_LEFT, data));
 	else if (key == 2)
 		return (turn(TURN_RIGHT, data));
-	else if (key == ESCAPE)
+	else if (key == 53)
 		exit_success(data);
 	return (EXIT_SUCCESS);
 }

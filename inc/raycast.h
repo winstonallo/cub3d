@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 16:56:52 by arthur           ###   ########.fr       */
+/*   Updated: 2023/12/21 19:15:44 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@
 # define SCREEN_WIDTH 1000
 # define SCREEN_HEIGHT 1000
 # define SCREEN_HEIGHT2 500
-# define SPEED 0.02
+# define SPEED 0.03
+# define TURN_SPEED 10
 # define DR 0.00872665
 # define FIELD_OF_VIEW 1.04719755
 # define MAX_DIST 1000000
