@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 13:40:39 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:39:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	initialize_data(t_data *data)
 	data->mlx.img = NULL;
 	data->stone.img = NULL;
 	data->brick.img = NULL;
+	data->pepe.img = NULL;
 	data->stone.height = 0;
 	data->stone.width = 0;
 	data->brick.height = 0;

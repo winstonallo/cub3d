@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 13:49:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:36:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ void draw_texture(t_data *data, int x, t_line line, t_txtr *texture)
     int screen_y;
     int texture_x;
     float texture_pct;
+    float normalized_hit_pos;
 
+	normalized_hit_pos = fmod(data->hit_pos, data->map_width) / (data->map_width);
     y = -1;
     while (++y < line.wall_height)
-	{
+    {
         texture_pct = (float)y / (float)line.wall_height;
         texture_y = (int)(texture_pct * texture->height) % texture->height;
-        texture_x = (int)(data->hit_pos * (float)texture->width) % texture->width;
+        texture_x = (int)((normalized_hit_pos) * (float)texture->width);
         color = get_pixel(texture, texture_x, texture_y);
-
         screen_y = line.y0 + y;
         if (screen_y >= 0 && screen_y < SCREEN_HEIGHT)
             put_pixel(data, x, screen_y, color);
     }
 }
-
