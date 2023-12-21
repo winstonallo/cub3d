@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 10:54:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 11:27:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,8 +188,10 @@ typedef struct s_data
 	float				fisheye;
 	float				min_distance;
 	float				hit_pos;
+	float				angle;
 	int					hit;
-	int					*map;	
+	int					*map;
+	struct s_texture	pepe;
 	struct s_texture	brick;
 	struct s_texture	stone;
 	struct s_player		player;

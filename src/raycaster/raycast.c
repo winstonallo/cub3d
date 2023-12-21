@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 10:42:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 11:35:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,23 +100,23 @@ void	raycast(t_data *data)
 {
 	t_line	line;
 	int		i;
-	float	angle;
 
 	i = -1;
-	angle = normalize_angle(data->player.angle, (-FIELD_OF_VIEW / 2));
+	data->angle = normalize_angle(data->player.angle, (-FIELD_OF_VIEW / 2));
 	while (++i < SCREEN_WIDTH)
 	{
+		data->hit_pos = MAX_DIST;
 		data->min_distance = MAX_DIST;
-		draw_rays(data, angle);
+		draw_rays(data, data->angle);
 		draw_line(data, data->shortest_line, 0x00ff00, 1);
-		adjust_vars(data, angle);
+		adjust_vars(data, data->angle);
 		get_3d_line(&line, i, data);
 		line.wall_height = line.y1 - line.y0;
 		if (data->hit == NORTH)
-			draw_texture(data, i, line, &data->brick);
+			draw_texture(data, i, line, &data->pepe);
 		else if (data->hit == EAST)
 			draw_texture(data, i, line, &data->stone);
-		angle = normalize_angle(angle, FIELD_OF_VIEW / (SCREEN_WIDTH));
+		data->angle = normalize_angle(data->angle, FIELD_OF_VIEW / (SCREEN_WIDTH));
 	}
 	draw_map(data);
 	draw_player(data);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 10:41:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 11:37:40 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	{
 		data->hit = NORTH;
 		data->min_distance = min_dist1;
+		data->hit_pos = line1.y1;
 		line1.scale = MAPSIZE;
 		data->shortest_line = line1;
 	}
@@ -74,6 +75,7 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	{
 		data->hit = EAST;
 		data->min_distance = min_dist2;
+		data->hit_pos = line2.x1;
 		line2.scale = MAPSIZE;
 		data->shortest_line = line2;
 	}

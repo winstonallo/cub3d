@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 10:54:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 11:16:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ void	init_textures(t_data *data)
 	data->stone.addr = mlx_get_data_addr(data->stone.img,
 			&data->stone.bpp, &data->stone.l_l,
 			&data->stone.endian);
+	data->pepe.img = mlx_xpm_file_to_image(data->mlx.mlx,
+			"src/textures/pepe.xpm", &data->pepe.width,
+			&data->pepe.height);
+	if (!data->pepe.img)
+		exit_failure(data, "Error\nimage initialization failed");
+	data->pepe.addr = mlx_get_data_addr(data->pepe.img,
+			&data->pepe.bpp, &data->pepe.l_l,
+			&data->pepe.endian);
 }
 
 void	start_game(t_data *data)
