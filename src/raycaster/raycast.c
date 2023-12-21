@@ -6,69 +6,63 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 23:36:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 08:23:30 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
+# define SOME_LARGE_VALUE 1000000
+# define EPSILON 1e-6
+
+void init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 {
-	h_ray->angle = angle;
-	h_ray->max_depth = 0;
-	h_ray->a_tan = -1 / tan(h_ray->angle);
+    h_ray->max_depth = 0;
+	h_ray->a_tan = -1 / tan(angle);
 	if (angle > PI)
 	{
-		h_ray->reach_y = (int)player->y_pos - 0.0001;
-		h_ray->reach_x = ((player->y_pos - h_ray->reach_y) * h_ray->a_tan
-				+ player->x_pos);
-		h_ray->inc_y = -1;
-		h_ray->inc_x = -h_ray->inc_y * h_ray->a_tan;
+	    h_ray->reach_y = (int)player->y_pos - 0.0001;
+	    h_ray->inc_y = -1;
 	}
-	else if (h_ray->angle < PI)
+	else if (angle < PI)
 	{
-		h_ray->reach_y = (int)player->y_pos + 1;
-		h_ray->reach_x = (player->y_pos - h_ray->reach_y) * h_ray->a_tan
-			+ player->x_pos;
-		h_ray->inc_y = 1;
-		h_ray->inc_x = -h_ray->inc_y * h_ray->a_tan;
+	    h_ray->reach_y = (int)player->y_pos + 1;
+	    h_ray->inc_y = 1;
 	}
-	else if (!h_ray->angle || h_ray->angle == (float)PI)
+	else
 	{
-		h_ray->reach_x = player->x_pos;
-		h_ray->reach_y = player->y_pos;
-		h_ray->max_depth = 8;
+	    h_ray->reach_y = player->y_pos;
+	    h_ray->inc_y = 0;
+	    h_ray->max_depth = 8;
 	}
+	h_ray->reach_x = (player->y_pos - h_ray->reach_y) * h_ray->a_tan + player->x_pos;
+	h_ray->inc_x = -h_ray->inc_y * h_ray->a_tan;
 }
+
 
 
 void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 {
-	v_ray->angle = angle;
 	v_ray->max_depth = 0;
-	v_ray->n_tan = -tan(v_ray->angle);
-	if (v_ray->angle > P2 && v_ray->angle < P3)
+	v_ray->n_tan = -tan(angle);
+	if (angle > P2 && angle < P3)
 	{
 		v_ray->reach_x = (int)player->x_pos - 0.0001;
-		v_ray->reach_y = (player->x_pos - v_ray->reach_x)
-			* v_ray->n_tan + player->y_pos;
 		v_ray->inc_x = -1;
-		v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
 	}
-	else if (v_ray->angle < P2 || v_ray->angle > P3)
+	else if (angle < P2 || angle > P3)
 	{
 		v_ray->reach_x = (int)player->x_pos + 1;
-		v_ray->reach_y = (player->x_pos - v_ray->reach_x)
-			* v_ray->n_tan + player->y_pos;
 		v_ray->inc_x = 1;
-		v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
 	}
-	else if (!v_ray->angle || v_ray->angle == (float)PI)
+	else
 	{
-		v_ray->reach_y = player->y_pos;
+		v_ray->inc_x = 0;
 		v_ray->reach_x = player->x_pos;
 		v_ray->max_depth = 8;
 	}
+	v_ray->reach_y = (player->x_pos - v_ray->reach_x) * v_ray->n_tan + player->y_pos;
+	v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
 }
 
 static int	collision(t_data *data, float new_x, float new_y)
