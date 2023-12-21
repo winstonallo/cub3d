@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 10:45:13 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 12:19:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-int	get_pixel(t_texture *texture, int x, int y)
+int	get_pixel(t_txtr *texture, int x, int y)
 {
 	int		color;
 	char	*dst;
@@ -24,7 +24,7 @@ int	get_pixel(t_texture *texture, int x, int y)
 	return (color);
 }
 
-void	draw_texture(t_data *data, int x, t_line line, t_texture *texture)
+void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture)
 {
 	int		color;
 	int		y;

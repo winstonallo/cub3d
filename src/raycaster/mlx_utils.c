@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:22 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 22:54:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 12:36:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	new_image(t_data *data)
 	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp,
 			&data->img.l_l, &data->img.endian);
 	raycast(data);
-	draw_map(data);
+	// draw_map(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
 }
 

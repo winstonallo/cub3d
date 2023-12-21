@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 22:48:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:40:39 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,16 @@ void	initialize_data(t_data *data)
 	data->mlx.img = NULL;
 	data->stone.img = NULL;
 	data->brick.img = NULL;
+	data->stone.height = 0;
+	data->stone.width = 0;
+	data->brick.height = 0;
+	data->brick.width = 0;
 	data->view_dir = 0;
-	data->map_width = 8;
-	data->map_height = 8;
+	data->map_width = 33;
+	data->map_height = 14;
 	data->player.angle = PI / 2;
-	data->x_scale = (float)SCREEN_WIDTH / data->map_width;
-	data->y_scale = (float)SCREEN_HEIGHT / data->map_height;
+	data->x_scale = (float)SCREEN_WIDTH / 8;
+	data->y_scale = (float)SCREEN_HEIGHT / 8;
 	data->win_width = SCREEN_WIDTH;
 	data->win_height = SCREEN_HEIGHT;
 	data->line_color = 0x33ff00;
@@ -66,5 +70,7 @@ void	initialize_data(t_data *data)
 	data->player.y_dir = sin(data->player.angle) * 5;
 	data->map_size = data->map_height * data->map_width;
 	data->min_distance = 0;
-	set_data_view(data);
+	int player_pos = map_get_player_pos(data->map);
+	data->player.x_pos = player_pos % data->map_width;
+	data->player.y_pos = (float)player_pos / data->map_width;
 }
