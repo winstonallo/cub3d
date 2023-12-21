@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 22:42:09 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 10:54:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	play_game(t_data *data)
 	mlx_hook(data->mlx.win, 17, 0, exit_success, data);
 	mlx_loop(data->mlx.mlx);
 }
+
 void	init_textures(t_data *data)
 {
 	data->brick.img = mlx_xpm_file_to_image(data->mlx.mlx,
@@ -69,7 +70,6 @@ void	start_game(t_data *data)
 	init_textures(data);
 	play_game(data);
 }
-
 
 int	main(void)
 {

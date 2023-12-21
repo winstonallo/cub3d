@@ -17,6 +17,8 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${RAY_DIR}events.c \
 		${SRC_DIR}${RAY_DIR}minimap.c \
 		${SRC_DIR}${RAY_DIR}raycasting_utils.c \
+		${SRC_DIR}${RAY_DIR}math_utils.c \
+		${SRC_DIR}${RAY_DIR}texture_utils.c \
 
 OBJS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)/%.o, $(SRCS))
 

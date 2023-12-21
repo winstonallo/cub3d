@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 09:48:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 10:54:33 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ typedef struct s_line
 	float			y1;
 	float			x_step;
 	float			y_step;
-	int				status;
+	int				wall_height;
 	int				scale;
 	int				length;
 	int				neg_size;
@@ -150,7 +150,6 @@ typedef struct s_raycast
 	int					map_y;
 	int					map_pos;
 	int					max_depth;
-	int					hit_status;
 	float				reach_x;
 	float				reach_y;
 	float				angle;
@@ -188,7 +187,7 @@ typedef struct s_data
 	float				y_scale;
 	float				fisheye;
 	float				min_distance;
-	float					hit_pos;
+	float				hit_pos;
 	int					hit;
 	int					*map;	
 	struct s_texture	brick;
@@ -209,15 +208,21 @@ void	initialize_data(t_data *data);
 int		isdirection(char c);
 void	set_directions(t_data *data);
 
-//math
+//raycaster
 void	raycast(t_data *data);
 void	get_3d_line(t_line *line1, int i, t_data *data);
 void	adjust_vars(t_data *data, float angle);
 void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle);
 void	get_line(t_line *line, t_raycast ray, t_data *data);
-void	calculate_distance(t_data *data, t_line line1, t_line line2);
 void	scan(t_raycast *ray, t_data *data);
 void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle);
+void	draw_texture(t_data *data, int x, t_line line, t_texture *texture);
+bool	collision(t_data *data, float new_x, float new_y);
+
+//math_utils
+float	normalize_angle(float angle, float increment);
+void	calculate_distance(t_data *data, t_line line1, t_line line2);
+float	dist(t_line line);
 
 //drawing_utils
 void	put_pixel(t_data *data, int x, int y, int color);

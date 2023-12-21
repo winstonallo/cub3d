@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:32:42 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 22:40:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 10:45:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	draw_tile(t_data *data, int x, int y, char tile)
 
 	if (tile == 1)
 		color = 0xffffff;
-	else 
+	else
 		return ;
 	pos_y = y - 1;
 	while (++pos_y < data->y_scale)
