@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:22 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:39:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:57:25 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	exit_failure(t_data *data, char *msg)
 		mlx_destroy_image(data->mlx.mlx, data->brick.img);
 	if (data->mlx.win)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	if (data->mlx.mlx)
-		mlx_destroy_display(data->mlx.mlx);
+	// if (data->mlx.mlx)
+	// 	mlx_destroy_display(data->mlx.mlx);
 	freeze(data->map);
 	freeze(data->mlx.mlx);
 	exit(EXIT_FAILURE);
@@ -54,8 +54,8 @@ int	exit_success(t_data *data)
 		mlx_destroy_image(data->mlx.mlx, data->pepe.img);
 	if (data->mlx.win)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	if (data->mlx.mlx)
-		mlx_destroy_display(data->mlx.mlx);
+	// if (data->mlx.mlx)
+	// 	mlx_destroy_display(data->mlx.mlx);
 	freeze(data->map);
 	freeze(data->mlx.mlx);
 	exit(EXIT_SUCCESS);

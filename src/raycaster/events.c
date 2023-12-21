@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 10:48:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:12:20 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,18 @@ int	adjust(t_data *data, float x_dir, float y_dir)
 
 int	event(int key, t_data *data)
 {
-	if (key == W)
+	printf("key: %d\n", key);
+	if (key == 13)
 		return (adjust(data, data->player.x_dir, data->player.y_dir));
-	else if (key == S)
+	else if (key == 1)
 		return (adjust(data, -data->player.x_dir, -data->player.y_dir));
 	else if (key == E)
 		return (adjust(data, -data->player.y_dir, data->player.x_dir));
 	else if (key == Q)
 		return (adjust(data, data->player.y_dir, -data->player.x_dir));
-	else if (key == A)
+	else if (key == 0)
 		return (turn(TURN_LEFT, data));
-	else if (key == D)
+	else if (key == 2)
 		return (turn(TURN_RIGHT, data));
 	else if (key == ESCAPE)
 		exit_success(data);

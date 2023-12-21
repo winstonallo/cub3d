@@ -8,6 +8,12 @@ RAY_DIR = raycaster/
 
 MAP_DIR = map/
 
+LIBFT_FLAGS = -L./libft -lft
+
+FLAGS = -framework OpenGL -framework AppKit -I./minilibx-mac -L./minilibx-mac -lmlx
+
+X11_FLAGS = -L/usr/X11/lib -lXext -lX11
+
 STANDARD = /
 
 SRCS = 	${SRC_DIR}main.c \
@@ -38,7 +44,6 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -Iincludes -g
 
-LDFLAGS = -Lminilibx-linux -L ./libft -lmlx -lXext -lX11 -lm -lft
 
 RM = rm -rf
 
@@ -46,7 +51,8 @@ all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_OBJS)
 	@$(MAKE) -C ./libft --no-print-directory
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_OBJS) -o $(NAME) $(LDFLAGS)
+	@$(MAKE) -C ./minilibx-mac --no-print-directory
+	$(CC) $(CFLAGS) $(LIBFT_FLAGS) $(OBJS) $(LIBFT_OBJS) -o $(NAME) $(FLAGS) $(X11_FLAGS)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
