@@ -68,6 +68,8 @@ int	test(void *data)
 		active = 0;
 		lap = 0;
 		inc = 0;
+		if (i == 0)
+			exit(0);
 		i = 0;
 		game->button[i]->button_clicked = 0;
 		game->clicked = 0;
