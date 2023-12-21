@@ -61,6 +61,7 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)/$(RAY_DIR)
 	mkdir -p $(OBJ_DIR)/$(MAP_DIR)
+	mkdir -p $(OBJ_DIR)/$(SET_DIR)
 
 $(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@

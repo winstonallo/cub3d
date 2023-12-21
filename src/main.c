@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:41:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:59:13 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	main(void)
 
 	data.map = map("wow.cub");
 	initialize_data(&data);
-	start_game(&data);
+	settings(&data, "src/settings/presets/default.set");
+	// start_game(&data);
 	return (0);
 }
