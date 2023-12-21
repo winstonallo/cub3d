@@ -6,7 +6,7 @@
 /*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 20:46:06 by yatabay           #+#    #+#             */
-/*   Updated: 2023/12/20 23:46:16 by yatabay          ###   ########.fr       */
+/*   Updated: 2023/12/21 14:26:45 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,19 @@ typedef struct s_button
 {
 	t_img	*img;
 	int		del;
+	int		iden;
+	int		posx;
+	int		posy;
+	int		button_clicked;
 }				t_button;
 
 typedef struct s_temp
 {
 	void		*mlx;
 	void		*win;
-	t_button	*button;
-	int			buttonclicked;
+	t_button	**button;
+	int			button_index;
+	int			clicked;
 }				t_temp;
 
 t_button	*button_init(void *mlx, char *path);

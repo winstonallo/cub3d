@@ -6,7 +6,7 @@
 /*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 20:43:31 by yatabay           #+#    #+#             */
-/*   Updated: 2023/12/20 23:46:12 by yatabay          ###   ########.fr       */
+/*   Updated: 2023/12/21 13:56:08 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,26 @@ t_button	*button_init(void *mlx, char *path)
 	return (button);
 }
 
-int	click(void *temp)
+int	click(void *data)
 {
-	int	i;
-	t_temp *game;
+	t_temp	*game;
+	int		i;
 
 	i = 0;
-	game = (t_temp *)temp;
-	if (game->buttonclicked == 0)
-		return (0);
-	while (i < game->button->del - 1)
+	game = (t_temp *)data;
+	while (i < game->button[0]->del - 1)
 	{
-		mlx_clear_window(game->mlx, game->win);
-		mlx_put_image_to_window(game->mlx, game->win, game->button->img[i].img, 100 + i, 100 + i);
+		// mlx_clear_window(game->mlx, game->win);
+		// mlx_put_image_to_window(game->mlx, game->win, game->button->img[i].img, 100 + (i * 40), 100 + i);
+		// usleep(100000);
+		write(1, "test\n", 5);
 		i++;
 	}
-	while (i >= 0)
-	{
-		mlx_clear_window(game->mlx, game->win);
-		mlx_put_image_to_window(game->mlx, game->win, game->button->img[i].img, 100 + i, 100 + i);
-		i--;
-	}
-	game->buttonclicked = 0;
+	// while (i >= 0)
+	// {
+	// 	mlx_clear_window(game->mlx, game->win);
+	// 	mlx_put_image_to_window(game->mlx, game->win, game->button->img[i].img, 100 + i, 100 + i);
+	// 	i--;
+	// }
 	return (0);
 }
