@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 11:37:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:48:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,12 @@ void	get_3d_line(t_line *line, int i, t_data *data)
 
 void	adjust_vars(t_data *data, float angle)
 {
-	data->fisheye = data->player.angle - angle;
-	data->fisheye = fmod(data->fisheye + PI, 2 * PI) - PI;
-	data->min_distance *= cos(data->fisheye);
-	data->line_height = SCREEN_HEIGHT2 / (data->min_distance / 4);
-	if (data->line_height > SCREEN_HEIGHT2)
-		data->line_height = SCREEN_HEIGHT2;
-	data->line_offset = ((float)SCREEN_HEIGHT2 / 2)
+	data->fisheye = cos(angle - data->player.angle);
+	data->min_distance *= (data->fisheye);
+	data->line_height = SCREEN_HEIGHT / (data->min_distance / 4);
+	if (data->line_height > SCREEN_HEIGHT)
+		data->line_height = SCREEN_HEIGHT;
+	data->line_offset = ((float)SCREEN_HEIGHT / 2)
 		- (data->line_height * WALL_HEIGHT);
 }
 

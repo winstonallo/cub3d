@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:45:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:45:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 12:27:31 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*load_map2(int fd)
 			return (free(t_char), printf("Error\nstr_join alloc fail\n"), NULL);
 		free(t_char);
 	}
+	printf("map: %s\n", map);
 	return (map);
 }
 

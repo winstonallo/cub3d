@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:44:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 12:32:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*load_map(int fd);
 int		check_if_exists(char *map);
 int		check_if_valid(char *map);
 
+
 // Check if helper functions //
 char	**fill_params(int flag);
 int		check_if_all_textures_helper(char **params, char **err, char *map);
@@ -72,5 +73,6 @@ char	*remove_nls(char *updated);
 int		*slicer(char *map);
 int		check_map_if_valid(char *map);
 int		check_player_in_map(char *map);
+int		*map_main(char *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 11:16:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:48:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	main(void)
 {
 	t_data	data;
 
-	data.map = g_map;
+	data.map = map("wow.cub");
 	initialize_data(&data);
 	start_game(&data);
 	return (0);

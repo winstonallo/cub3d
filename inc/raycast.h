@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 11:27:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:48:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <math.h>
 # include <stdbool.h>
 # include "../libft/include/libft.h"
+# include "cub3d.h"
 
 # define GREEN		"\e[92;5;118m"
 # define RED 		"\e[91m"
@@ -160,7 +161,7 @@ typedef struct s_raycast
 	struct s_dist		dist;
 }	t_raycast;
 
-typedef struct s_texture
+typedef struct s_txtr
 {
 	void			*img;
 	char			*addr;
@@ -169,7 +170,7 @@ typedef struct s_texture
 	int				endian;
 	int				width;
 	int				height;
-}	t_texture;
+}	t_txtr;
 
 typedef struct s_data
 {
@@ -191,9 +192,9 @@ typedef struct s_data
 	float				angle;
 	int					hit;
 	int					*map;
-	struct s_texture	pepe;
-	struct s_texture	brick;
-	struct s_texture	stone;
+	struct s_txtr		pepe;
+	struct s_txtr		brick;
+	struct s_txtr		stone;
 	struct s_player		player;
 	struct s_mlx		mlx;
 	struct s_img		img;
@@ -216,9 +217,9 @@ void	get_3d_line(t_line *line1, int i, t_data *data);
 void	adjust_vars(t_data *data, float angle);
 void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle);
 void	get_line(t_line *line, t_raycast ray, t_data *data);
-void	scan(t_raycast *ray, t_data *data);
+void	scan(t_raycast *ray, t_data *data, int max);
 void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle);
-void	draw_texture(t_data *data, int x, t_line line, t_texture *texture);
+void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture);
 bool	collision(t_data *data, float new_x, float new_y);
 
 //math_utils

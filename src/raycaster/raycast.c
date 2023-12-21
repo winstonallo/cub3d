@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 11:35:13 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:48:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 	{
 		h_ray->reach_y = player->y_pos;
 		h_ray->inc_y = 0;
-		h_ray->max_depth = 8;
+		h_ray->max_depth = 33;
 	}
 	h_ray->reach_x = (player->y_pos - h_ray->reach_y)
 		* h_ray->a_tan + player->x_pos;
@@ -55,16 +55,16 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 	{
 		v_ray->inc_x = 0;
 		v_ray->reach_x = player->x_pos;
-		v_ray->max_depth = 8;
+		v_ray->max_depth = 33;
 	}
 	v_ray->reach_y = (player->x_pos - v_ray->reach_x)
 		* v_ray->n_tan + player->y_pos;
 	v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
 }
 
-void	scan(t_raycast *ray, t_data *data)
+void	scan(t_raycast *ray, t_data *data, int max)
 {
-	while (ray->max_depth < data->map_width)
+	while (ray->max_depth < max)
 	{
 		ray->map_x = ((int)ray->reach_x);
 		ray->map_y = ((int)ray->reach_y);
@@ -89,8 +89,8 @@ void	draw_rays(t_data *data, float angle)
 
 	init_vars_horizontal(&horizontal, &data->player, angle);
 	init_vars_vertical(&vertical, &data->player, angle);
-	scan(&horizontal, data);
-	scan(&vertical, data);
+	scan(&horizontal, data, data->map_width);
+	scan(&vertical, data, data->map_height);
 	get_line(&h_line, horizontal, data);
 	get_line(&v_line, vertical, data);
 	return (calculate_distance(data, v_line, h_line));
