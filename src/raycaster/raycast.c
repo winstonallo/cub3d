@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:32:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:40:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ void	raycast(t_data *data)
 			draw_texture(data, i, line, &data->pepe);
 		else if (data->hit == EAST)
 			draw_texture(data, i, line, &data->stone);
-		data->angle = normalize_angle(data->angle, FIELD_OF_VIEW / (SCREEN_WIDTH));
+		data->angle = normalize_angle(data->angle, FIELD_OF_VIEW
+				/ (SCREEN_WIDTH));
 	}
 	draw_map(data);
 	draw_player(data);

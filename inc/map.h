@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 12:32:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:40:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_map
 char	*load_map(int fd);
 int		check_if_exists(char *map);
 int		check_if_valid(char *map);
-
 
 // Check if helper functions //
 char	**fill_params(int flag);
