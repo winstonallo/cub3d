@@ -6,22 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 15:31:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:41:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/raycast.h"
-
-int	g_map[] = {
-	1, 1, 1, 1, 1, 1, 1, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 'N', 0, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 1, 1, 1, 1, 1, 1, 1
-};
 
 void	play_game(t_data *data)
 {
@@ -38,6 +27,34 @@ void	play_game(t_data *data)
 	mlx_loop(data->mlx.mlx);
 }
 
+void	init_textures(t_data *data)
+{
+	data->brick.img = mlx_xpm_file_to_image(data->mlx.mlx,
+			"src/textures/brick.xpm", &data->brick.width,
+			&data->brick.height);
+	if (!data->brick.img)
+		exit_failure(data, "Error\nimage initialization failed");
+	data->brick.addr = mlx_get_data_addr(data->brick.img,
+			&data->brick.bpp, &data->brick.l_l,
+			&data->brick.endian);
+	data->stone.img = mlx_xpm_file_to_image(data->mlx.mlx,
+			"src/textures/stone.xpm", &data->stone.width,
+			&data->stone.height);
+	if (!data->stone.img)
+		exit_failure(data, "Error\nimage initialization failed");
+	data->stone.addr = mlx_get_data_addr(data->stone.img,
+			&data->stone.bpp, &data->stone.l_l,
+			&data->stone.endian);
+	data->pepe.img = mlx_xpm_file_to_image(data->mlx.mlx,
+			"src/textures/pepe.xpm", &data->pepe.width,
+			&data->pepe.height);
+	if (!data->pepe.img)
+		exit_failure(data, "Error\nimage initialization failed");
+	data->pepe.addr = mlx_get_data_addr(data->pepe.img,
+			&data->pepe.bpp, &data->pepe.l_l,
+			&data->pepe.endian);
+}
+
 void	start_game(t_data *data)
 {
 	data->mlx.mlx = mlx_init();
@@ -47,6 +64,7 @@ void	start_game(t_data *data)
 			data->win_height, "cub3d");
 	if (!data->mlx.win)
 		exit_failure(data, "Error\nwindow initialization failed");
+	init_textures(data);
 	play_game(data);
 }
 
@@ -54,9 +72,8 @@ int	main(void)
 {
 	t_data	data;
 
-	data.map = g_map;
+	data.map = map("wow.cub");
 	initialize_data(&data);
-	set_data_view(&data);
 	start_game(&data);
 	return (0);
 }

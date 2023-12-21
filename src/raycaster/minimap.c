@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 17:21:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 12:56:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	draw_map(t_data *data)
 		{
 			if (data->map[y * data->map_width + x] == 1)
 			{
-				xx = x * 30 - 1;
-				line.y0 = y * 30 - 1;
-				line.x1 = (x + 1) * 30 - 2;
-				line.y1 = (y + 1) * 30 - 2;
+				xx = x * 10 - 1;
+				line.y0 = y * 10 - 1;
+				line.x1 = (x + 1) * 10 - 2;
+				line.y1 = (y + 1) * 10 - 2;
 				draw_map_element(line, data, xx);
 			}
 			else
@@ -57,10 +57,9 @@ void	init_line(t_line *line, t_data *data, int length)
 	line->y0 = data->player.y_pos;
 	line->x1 = (data->player.x_pos + data->player.x_dir);
 	line->y1 = (data->player.y_pos + data->player.y_dir);
-	line->thickness = 1;
 }
 
 void	draw_player(t_data *data)
 {
-	draw_circle(data, data->player.x_pos * 30, data->player.y_pos * 30, 8);
+	draw_circle(data, data->player.x_pos * 10, data->player.y_pos * 10, 2);
 }

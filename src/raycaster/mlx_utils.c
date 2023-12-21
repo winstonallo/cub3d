@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:22 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 15:26:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:39:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	new_image(t_data *data)
 	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp,
 			&data->img.l_l, &data->img.endian);
 	raycast(data);
-	draw_map(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
 }
 
@@ -30,9 +29,15 @@ void	exit_failure(t_data *data, char *msg)
 	perror(msg);
 	if (data->mlx.img)
 		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
+	if (data->stone.img)
+		mlx_destroy_image(data->mlx.mlx, data->stone.img);
+	if (data->brick.img)
+		mlx_destroy_image(data->mlx.mlx, data->brick.img);
 	if (data->mlx.win)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	mlx_destroy_display(data->mlx.mlx);
+	if (data->mlx.mlx)
+		mlx_destroy_display(data->mlx.mlx);
+	freeze(data->map);
 	freeze(data->mlx.mlx);
 	exit(EXIT_FAILURE);
 }
@@ -41,9 +46,17 @@ int	exit_success(t_data *data)
 {
 	if (data->mlx.img)
 		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
+	if (data->stone.img)
+		mlx_destroy_image(data->mlx.mlx, data->stone.img);
+	if (data->brick.img)
+		mlx_destroy_image(data->mlx.mlx, data->brick.img);
+	if (data->pepe.img)
+		mlx_destroy_image(data->mlx.mlx, data->pepe.img);
 	if (data->mlx.win)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	mlx_destroy_display(data->mlx.mlx);
+	if (data->mlx.mlx)
+		mlx_destroy_display(data->mlx.mlx);
+	freeze(data->map);
 	freeze(data->mlx.mlx);
 	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:32:42 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/19 15:33:13 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 12:55:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	put_pixel(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x >= 0 && x < data->win_width && y >= 0 && y < data->win_height)
+	if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
 	{
 		dst = data->img.addr + (y * data->img.l_l + x * (data->img.bpp / 8));
 		*(unsigned int *)dst = color;
@@ -30,18 +30,14 @@ void	draw_tile(t_data *data, int x, int y, char tile)
 	int	pos_x;
 
 	if (tile == 1)
-		color = data->wall_color;
-	else if (tile == 0)
-		color = data->floor_color;
-	else if (tile == 'P')
-		color = data->player_color;
+		color = 0xffffff;
 	else
 		return ;
 	pos_y = y - 1;
-	while (++pos_y < data->tile_height)
+	while (++pos_y < data->y_scale)
 	{
 		pos_x = x - 1;
-		while (++pos_x < data->tile_width)
+		while (++pos_x < data->x_scale)
 			put_pixel(data, pos_x, pos_y, color);
 	}
 }
@@ -80,10 +76,10 @@ void	draw_line(t_data *data, t_line line, int color, int size)
 
 	if (line.scale == MAPSIZE)
 	{
-		line.x0 = line.x0 / data->tile_width * 30;
-		line.x1 = line.x1 / data->tile_width * 30;
-		line.y0 = line.y0 / data->tile_height * 30;
-		line.y1 = line.y1 / data->tile_height * 30;
+		line.x0 = line.x0 / data->x_scale * 10;
+		line.x1 = line.x1 / data->x_scale * 10;
+		line.y0 = line.y0 / data->y_scale * 10;
+		line.y1 = line.y1 / data->y_scale * 10;
 	}
 	set_line_vars(&line, size);
 	while (++line.step <= line.max)

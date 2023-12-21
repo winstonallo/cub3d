@@ -6,6 +6,8 @@ SRC_DIR = src/
 
 RAY_DIR = raycaster/
 
+MAP_DIR = map/
+
 STANDARD = /
 
 SRCS = 	${SRC_DIR}main.c \
@@ -17,6 +19,18 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${RAY_DIR}events.c \
 		${SRC_DIR}${RAY_DIR}minimap.c \
 		${SRC_DIR}${RAY_DIR}raycasting_utils.c \
+		${SRC_DIR}${RAY_DIR}math_utils.c \
+		${SRC_DIR}${RAY_DIR}texture_utils.c \
+		${SRC_DIR}${MAP_DIR}check_if_helper.c \
+		${SRC_DIR}${MAP_DIR}general_helper.c \
+		${SRC_DIR}${MAP_DIR}general_helper2.c \
+		${SRC_DIR}${MAP_DIR}check_if.c \
+		${SRC_DIR}${MAP_DIR}map_check.c \
+		${SRC_DIR}${MAP_DIR}map_public.c \
+		${SRC_DIR}${MAP_DIR}map_valid_helper.c \
+		${SRC_DIR}${MAP_DIR}map_valid_helper2.c \
+		${SRC_DIR}${MAP_DIR}map_valid.c \
+		${SRC_DIR}${MAP_DIR}map.c \
 
 OBJS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
@@ -37,6 +51,7 @@ $(NAME): $(OBJS) $(LIBFT_OBJS)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)/$(RAY_DIR)
+	mkdir -p $(OBJ_DIR)/$(MAP_DIR)
 
 $(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@

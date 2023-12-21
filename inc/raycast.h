@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 15:02:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:48:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include <math.h>
+# include <stdbool.h>
 # include "../libft/include/libft.h"
+# include "cub3d.h"
 
 # define GREEN		"\e[92;5;118m"
 # define RED 		"\e[91m"
@@ -37,10 +39,11 @@
 # define SCREEN_HEIGHT2 500
 # define SPEED 0.02
 # define DR 0.00872665
-# define FIELD_OF_VIEW 60
+# define FIELD_OF_VIEW 1.04719755
 # define MAX_DIST 1000000
 # define WALL_HEIGHT 1.2
 # define COLL_SENS 0.1
+# define SOME_LARGE_VALUE 1000000
 
 //keys
 # define ESCAPE 65307
@@ -121,12 +124,12 @@ typedef struct s_line
 	float			y0;
 	float			x1;
 	float			y1;
-	int				scale;
-	int				thickness;
-	int				length;
-	int				neg_size;
 	float			x_step;
 	float			y_step;
+	int				wall_height;
+	int				scale;
+	int				length;
+	int				neg_size;
 	int				max;
 	int				step;
 }	t_line;
@@ -144,8 +147,6 @@ typedef struct s_player
 
 typedef struct s_raycast
 {
-	int					loop_protection;
-	int					r;
 	int					map_x;
 	int					map_y;
 	int					map_pos;
@@ -157,35 +158,43 @@ typedef struct s_raycast
 	float				inc_y;
 	float				a_tan;
 	float				n_tan;
-	float				vertical_distance;
-	float				horizontal_distance;
 	struct s_dist		dist;
 }	t_raycast;
 
+typedef struct s_txtr
+{
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				l_l;
+	int				endian;
+	int				width;
+	int				height;
+}	t_txtr;
+
 typedef struct s_data
 {
-	int					error;
 	int					view_dir;
 	int					map_width;
 	int					map_height;
 	int					map_size;
 	int					win_width;
 	int					win_height;
-	int					wall_color;
-	int					floor_color;
-	int					player_color;
 	int					line_color;
-	int					*map;
 	float				line_height;
 	float				line_offset;
 	float				target_line_height;
-	float				tile_width;
-	float				tile_height;
-	float				min_distance;
 	float				x_scale;
 	float				y_scale;
-	float				scale_factor;
 	float				fisheye;
+	float				min_distance;
+	float				hit_pos;
+	float				angle;
+	int					hit;
+	int					*map;
+	struct s_txtr		pepe;
+	struct s_txtr		brick;
+	struct s_txtr		stone;
 	struct s_player		player;
 	struct s_mlx		mlx;
 	struct s_img		img;
@@ -202,15 +211,21 @@ void	initialize_data(t_data *data);
 int		isdirection(char c);
 void	set_directions(t_data *data);
 
-//math
+//raycaster
 void	raycast(t_data *data);
 void	get_3d_line(t_line *line1, int i, t_data *data);
 void	adjust_vars(t_data *data, float angle);
 void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle);
 void	get_line(t_line *line, t_raycast ray, t_data *data);
-void	calculate_distance(t_data *data, t_line line1, t_line line2);
-void	scan(t_raycast *ray, t_data *data);
+void	scan(t_raycast *ray, t_data *data, int max);
 void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle);
+void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture);
+bool	collision(t_data *data, float new_x, float new_y);
+
+//math_utils
+float	normalize_angle(float angle, float increment);
+void	calculate_distance(t_data *data, t_line line1, t_line line2);
+float	dist(t_line line);
 
 //drawing_utils
 void	put_pixel(t_data *data, int x, int y, int color);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/20 15:37:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 10:48:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	turn(int direction, t_data *data)
 {
 	if (direction == TURN_RIGHT)
 	{
-		data->player.angle += 0.1;
+		data->player.angle += 5 * DR;
 		if (data->player.angle > 2 * PI)
 			data->player.angle -= 2 * PI;
 		data->player.x_dir = cos(data->player.angle) * 5;
@@ -26,7 +26,7 @@ static int	turn(int direction, t_data *data)
 	}
 	else if (direction == TURN_LEFT)
 	{
-		data->player.angle -= 0.1;
+		data->player.angle -= 5 * DR;
 		if (data->player.angle < 0)
 			data->player.angle += 2 * PI;
 		data->player.x_dir = cos(data->player.angle) * 5;
@@ -38,13 +38,12 @@ static int	turn(int direction, t_data *data)
 
 static int	check_collision(t_data *data, float new_x, float new_y)
 {
-	int map_pos;
-	int map_neg;
+	int	pos;
+	int	neg;
 
-
-	map_pos = (int)(new_y + COLL_SENS) * data->map_width + (int)(new_x + COLL_SENS);
-	map_neg = (int)(new_y - COLL_SENS) * data->map_width + (int)(new_x - COLL_SENS);
-	if (data->map[map_pos] != 1 && data->map[map_neg] != 1)
+	pos = (int)(new_y + COLL_SENS) * data->map_width + (int)(new_x + COLL_SENS);
+	neg = (int)(new_y - COLL_SENS) * data->map_width + (int)(new_x - COLL_SENS);
+	if (data->map[pos] != 1 && data->map[neg] != 1)
 		return (EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }
@@ -58,15 +57,15 @@ int	adjust(t_data *data, float x_dir, float y_dir)
 	new_y = data->player.y_pos + y_dir * SPEED;
 	if (!check_collision(data, new_x, new_y))
 	{
-	    data->player.x_pos = new_x;
-	    data->player.y_pos = new_y;
+		data->player.x_pos = new_x;
+		data->player.y_pos = new_y;
 	}
 	else
 	{
 		if (!check_collision(data, data->player.x_pos, new_y))
 			data->player.y_pos = new_y;
 		if (!check_collision(data, new_x, data->player.y_pos))
-			data->player.x_pos = new_x;	
+			data->player.x_pos = new_x;
 	}
 	new_image(data);
 	return (EXIT_SUCCESS);
