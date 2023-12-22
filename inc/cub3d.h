@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:47:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/22 09:03:27 by arthur           ###   ########.fr       */
+/*   Updated: 2023/12/22 14:23:05 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ typedef struct s_settings
     int		turn_speed;
 }   t_settings;
 
+typedef enum s_setting
+{
+	_SW,
+	_SH,
+	_MS,
+	FOV,
+	_SP,
+	_TS
+}	t_setting;
 typedef struct s_img
 {
 	char			*addr;

@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 19:26:01 by arthur            #+#    #+#             */
-/*   Updated: 2023/12/22 14:09:48 by arthur           ###   ########.fr       */
+/*   Updated: 2023/12/22 14:19:17 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,12 @@
 void	store_settings(char *line, t_data *data, int i)
 {
 	if (i == 1)
-		data->settings.screen_width = ft_atoi(line);
+	{
+		if (ft_atoi(line) > 0)
+			data->settings.screen_width = ft_atoi(line);
+		else
+			
+	}
 	else if (i == 2)
 		data->settings.screen_height = ft_atoi(line);
 	else if (i == 3)
@@ -27,6 +32,16 @@ void	store_settings(char *line, t_data *data, int i)
 	else if (i == 6)
         data->settings.turn_speed = ft_atoi(line);
 	
+}
+
+void	set_default_settings(t_data *data, int setting)
+{
+	data->settings.screen_width = 1000;
+	data->settings.screen_height = 1000;
+	data->settings.minimap_size = 10;
+	data->settings.field_of_view = 120;
+	data->settings.speed = 0.03;
+	data->settings.turn_speed = 12;
 }
 
 void    read_settings_file(char *file, t_data *data)
@@ -47,6 +62,7 @@ void    read_settings_file(char *file, t_data *data)
 		if (status == -1)
 		{
 			perror("Error\nsettings set to default");
+			set_default_settings(data);
 			break ;
 		}
 		store_settings(line, data, i);

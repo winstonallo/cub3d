@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:40:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:22:06 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	raycast(t_data *data)
 
 	i = -1;
 	data->angle = normalize_angle(data->player.angle, (-FIELD_OF_VIEW / 2));
-	while (++i < SCREEN_WIDTH)
+	while (++i < data->settings.screen_width)
 	{
 		data->hit_pos = MAX_DIST;
 		data->min_distance = MAX_DIST;
@@ -117,7 +117,7 @@ void	raycast(t_data *data)
 		else if (data->hit == EAST)
 			draw_texture(data, i, line, &data->stone);
 		data->angle = normalize_angle(data->angle, FIELD_OF_VIEW
-				/ (SCREEN_WIDTH));
+				/ (data->settings.screen_width - 1));
 	}
 	draw_map(data);
 	draw_player(data);
