@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 19:26:01 by arthur            #+#    #+#             */
-/*   Updated: 2023/12/21 20:03:29 by arthur           ###   ########.fr       */
+/*   Updated: 2023/12/22 14:09:48 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 
 void	store_settings(char *line, t_data *data, int i)
 {
+	if (i == 1)
+		data->settings.screen_width = ft_atoi(line);
+	else if (i == 2)
+		data->settings.screen_height = ft_atoi(line);
+	else if (i == 3)
+		data->settings.minimap_size = ft_atoi(line);
+	else if (i == 4)
+		data->settings.field_of_view = ft_atoi(line);
+	else if (i == 5)
+    	data->settings.speed = ft_atof(line);
+	else if (i == 6)
+        data->settings.turn_speed = ft_atoi(line);
 	
 }
 

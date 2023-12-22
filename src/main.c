@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 19:59:13 by arthur           ###   ########.fr       */
+/*   Updated: 2023/12/22 14:04:02 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(void)
 
 	data.map = map("wow.cub");
 	initialize_data(&data);
-	settings(&data, "src/settings/presets/default.set");
+	settings(&data, "presets/default.set");
 	// start_game(&data);
 	return (0);
 }
