@@ -8,6 +8,9 @@
         "input.h": "c",
         "map.h": "c",
         "fcntl.h": "c",
-        "array": "c"
+        "array": "c",
+        "stdlib.h": "c",
+        "string.h": "c",
+        "button.h": "c"
     }
 }
