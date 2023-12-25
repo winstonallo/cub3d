@@ -351,12 +351,12 @@
 # define DARK_PALETURQUOISE 0x00AFEEEE
 # define DARK_PALEVIOLETRED 0x00DB7093
 
-# include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "../../libft/libft.h"
+# include "../libft/include/libft.h"
+# include "../minilibx-linux/mlx.h"
 
 // typedef struct s_font
 // {

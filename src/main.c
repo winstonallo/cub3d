@@ -1,7 +1,7 @@
 #include "cub3d.h"
 #include "button/button.h"
 
-void	free_game(t_game *game)
+void	free_game(t_temp *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
@@ -28,60 +28,6 @@ int mouse_hook(int button, int x, int y, t_temp *temp)
 	return (0);
 }
 
-int	test(void *data)
-{
-	static	int	inc;
-	static	int	lap;
-	static	int	active;
-	static	int	i;
-	int			second;
-	t_temp		*game;
-
-	game = data;
-	if (game->clicked == 0)
-		return (0);
-	while (inc == 0 && i < game->button_index)
-	{
-		if (game->button[i]->button_clicked == 1)
-		{
-			active = 1;
-			break ;
-		}
-		i++;
-	}
-	if (active == 0)
-		return (0);
-	mlx_clear_window(game->mlx, game->win);
-	second = 0;
-	while (second < game->button_index)
-	{
-		if (i != second)
-			mlx_put_image_to_window(game->mlx, game->win, game->button[second]->img[0].img, game->button[second]->posx, game->button[second]->posy);
-		second++;
-	}
-	if (inc < 9)
-		mlx_put_image_to_window(game->mlx, game->win, game->button[i]->img[inc].img, game->button[i]->posx + inc, game->button[i]->posy + inc);
-	else
-		mlx_put_image_to_window(game->mlx, game->win, game->button[i]->img[8 - lap].img, game->button[i]->posx + 8 - lap, game->button[i]->posy + 8 - lap);
-	if (inc == 17)
-	{
-		active = 0;
-		lap = 0;
-		inc = 0;
-		if (i == 0)
-			exit(0);
-		i = 0;
-		game->button[i]->button_clicked = 0;
-		game->clicked = 0;
-		return (0);
-	}
-	usleep(4242);
-	if (inc > 8)
-		lap++;
-	inc++;
-	return (0);
-}
-
 int main()
 {
 
@@ -98,22 +44,24 @@ int main()
 	game->button = (t_button **)malloc(sizeof(t_button *) * 2);
 	game->button_index = 0;
 	game->clicked = 0;
-	game->button[0] = button_init(game->mlx, "src/button/");
-	game->button[1] = button_init(game->mlx, "src/button/");
+	game->button[0] = button_init(game->mlx, "src/button/button_textures/wall/wall");
+	if (!game->button[0])
+		return (free(game->button), free_game(game), -1);
+	game->button[1] = button_init(game->mlx, "src/button/button_textures/test/test");
+	if (!game->button[1])
+		return (button_delete(game->button[0], game->mlx), free(game->button), free_game(game), -1);
 	game->button_index++;
 	game->button_index++;
-	game->button[0]->iden = 0;
-	game->button[1]->iden = 1;
-	game->button[0]->posx = 100;
-	game->button[0]->posy = 100;
-	game->button[1]->posx = 200;
-	game->button[1]->posy = 200;
-	game->button[0]->button_clicked = 0;
-	game->button[1]->button_clicked = 0;
-	mlx_put_image_to_window(game->mlx, game->win, game->button[0]->img[0].img, 100, 100);
-	mlx_put_image_to_window(game->mlx, game->win, game->button[1]->img[0].img, 200, 200);
+	game->button[0]->activate = 1;
+	button_add_function(int_exit, game, 0);
+	button_add_function(say, game, 1);
+	button_change_position(game, 100, 100, 0);
+	button_change_position(game, 200, 200, 1);
 	mlx_mouse_hook(game->win, mouse_hook, game);
-	mlx_loop_hook(game->mlx, test, game);
+	mlx_loop_hook(game->mlx, button_animation, game);
 	mlx_loop(game->mlx);
-	// free_game(game);
+	button_delete(game->button[0], game->mlx);
+	button_delete(game->button[1], game->mlx);
+	free(game->button);
+	free_game(game);
 }

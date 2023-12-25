@@ -25,8 +25,6 @@
 # include <math.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10000
