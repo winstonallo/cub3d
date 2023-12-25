@@ -1,7 +1,6 @@
 #include "cub3d.h"
-#include "button/button.h"
 
-void	free_game(t_temp *game)
+void	free_game(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
@@ -9,7 +8,7 @@ void	free_game(t_temp *game)
 	free(game);
 }
 
-int mouse_hook(int button, int x, int y, t_temp *temp)
+int mouse_hook(int button, int x, int y, t_game *temp)
 {
 	(void)button;
 	int	i;
@@ -35,10 +34,10 @@ int main()
 	// int			*game;
 	// t_font_setting	fs;
 	// t_game			*game;
-	t_temp			*game;
+	t_game			*game;
 	// t_img			img;
 
-	game = (t_temp *)malloc(sizeof(t_temp));
+	game = (t_game *)malloc(sizeof(t_game));
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, 1260, 720, "Test");
 	game->button = (t_button **)malloc(sizeof(t_button *) * 2);

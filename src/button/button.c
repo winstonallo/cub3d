@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 20:43:31 by yatabay           #+#    #+#             */
-/*   Updated: 2023/12/25 20:57:22 by yannis           ###   ########.fr       */
+/*   Updated: 2023/12/26 00:06:40 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	matrix_free(char **arr)
 	free(arr);
 }
 
-t_button	*button_init(void *mlx, char *path)
+t_button	*button_init_master(void *mlx, char *path)
 {
 	t_button	*button;
 
@@ -38,7 +38,7 @@ t_button	*button_init(void *mlx, char *path)
 	return (button);
 }
 
-void	button_delete(t_button *button, void *mlx)
+void	button_delete_master(t_button *button, void *mlx)
 {
 	int	pos;
 

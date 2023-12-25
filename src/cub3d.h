@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:40:15 by yatabay           #+#    #+#             */
-/*   Updated: 2023/12/20 21:31:05 by yatabay          ###   ########.fr       */
+/*   Updated: 2023/12/26 00:13:06 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,18 +365,18 @@
 // }				t_font;
 
 
-// typedef struct s_img
-// {
-// 	void	*img;
-// 	char	*addr;
-// 	int		width;
-// 	int		height;
-// 	int		bps;
-// 	int		line_len;
-// 	int		bits_per_pixel;
-// 	int		endian;
-// 	int		color;
-// }			t_img;
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bps;
+	int		line_len;
+	int		bits_per_pixel;
+	int		endian;
+	int		color;
+}			t_img;
 
 // typedef struct s_color
 // {
@@ -416,10 +416,27 @@
 // 	int	img_y;
 // }				t_cords;
 
+typedef struct s_game t_game;
+
+typedef struct s_button
+{
+	t_img	*img;
+	int		del;
+	int		iden;
+	int		activate;
+	int		posx;
+	int		posy;
+	int		button_clicked;
+	int		(*function)(t_game *, int i);
+}				t_button;
+
 typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
+	int			button_index;
+	int			clicked;
+	t_button	**button;
 	// t_font	*font;
 	// t_cords	cords;
 }				t_game;
@@ -446,5 +463,13 @@ typedef struct s_font_setting
 
 // image edit //
 // void	image_edit(t_game *g, t_img *base, t_img to_copy, int identifier);
+
+t_button	*button_init(void *mlx, char *path);
+void		button_delete(t_button *button, void *mlx);
+int			button_add_function(int (*f)(t_game *, int i), t_game *game, int i);
+int			button_change_position(t_game *game, int posx, int posy, int iden);
+int			say(t_game *temp, int i);
+int			int_exit(t_game *game, int i);
+int			button_animation(void *data);
 
 #endif

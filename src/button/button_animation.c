@@ -6,13 +6,13 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 01:11:02 by yannis            #+#    #+#             */
-/*   Updated: 2023/12/25 20:37:28 by yannis           ###   ########.fr       */
+/*   Updated: 2023/12/26 00:11:53 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "button.h"
 
-void	display_button(t_temp *game, int i, int lap, int inc)
+void	display_button(t_game *game, int i, int lap, int inc)
 {
 	int	second;
 
@@ -34,7 +34,7 @@ void	display_button(t_temp *game, int i, int lap, int inc)
 	}
 }
 
-int	mouse_actions(int (*function)(t_temp *, int i), t_temp *game, int i)
+int	mouse_actions(int (*function)(t_game *, int i), t_game *game, int i)
 {
 	int	status;
 
@@ -42,13 +42,13 @@ int	mouse_actions(int (*function)(t_temp *, int i), t_temp *game, int i)
 	return (status);
 }
 
-int	button_animation(void *data)
+int	button_animation_master(void *data)
 {
 	static	int	inc;
 	static	int	lap;
 	static	int	active;
 	static	int	i;
-	t_temp		*game;
+	t_game		*game;
 	int			status;
 
 	game = data;

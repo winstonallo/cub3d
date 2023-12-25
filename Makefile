@@ -16,6 +16,8 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${BUTTON_DIR}button_settings.c\
 		${SRC_DIR}${BUTTON_DIR}button_animation.c\
 		${SRC_DIR}${BUTTON_DIR}button_functions.c\
+		${SRC_DIR}${BUTTON_DIR}button_public.c\
+		${SRC_DIR}${BUTTON_DIR}button_public2.c\
 		# ${SRC_DIR}${MAP_DIR}font.c\
 		# ${SRC_DIR}${MAP_DIR}font_public.c\
 		# ${SRC_DIR}${MAP_DIR}font_init.c\
