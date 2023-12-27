@@ -1,5 +1,8 @@
 #include "cub3d.h"
 
+int		gif_init(t_game *game, char *path, int posx, int posy);
+void	gif_delete(t_game *game, void *mlx);
+
 void	free_game(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
@@ -8,28 +11,58 @@ void	free_game(t_game *game)
 	free(game);
 }
 
-int mouse_hook(int button, int x, int y, t_game *temp)
+int mouse_hook(void *data)
 {
-	(void)button;
-	int	i;
+	t_game *game;
+	int gif;
+	double elapsed_time;
+	static struct timespec start_time;
+	struct timespec current_time;
 
-	i = 0;
-	while (i < temp->button_index)
+	game = (t_game *)data;
+	gif = 0;
+	mlx_clear_window(game->mlx, game->win);
+	while (gif < game->gifs)
 	{
-		if ((x >= temp->button[i]->posx && x <= temp->button[i]->posx + 40)
-			&& (y >= temp->button[i]->posy && y <= temp->button[i]->posy + 40))
-		{
-			temp->button[i]->button_clicked = 1;
-			temp->clicked = 1;
-		}
-		i++;
+		mlx_put_image_to_window(game->mlx, game->win, game->gif[gif]->img[game->gif[gif]->curr].img, game->gif[gif]->posx, game->gif[gif]->posy);
+		gif++;
 	}
+	if (start_time.tv_sec == 0 && start_time.tv_nsec == 0)
+	{
+		clock_gettime(CLOCK_REALTIME, &start_time);
+	}
+	else
+	{
+		// Ermitteln Sie die aktuelle Zeit
+		clock_gettime(CLOCK_REALTIME, &current_time);
+		// Berechnen Sie den Unterschied zwischen der aktuellen Zeit und der Startzeit
+		elapsed_time = (current_time.tv_sec - start_time.tv_sec) * 1000.0; // in ms
+		elapsed_time += (current_time.tv_nsec - start_time.tv_nsec) / 1000000.0; // convert nanoseconds to ms
+		// Wenn 37 ms vergangen sind, führen Sie die gewünschte Operation aus und aktualisieren Sie die Startzeit
+		if (elapsed_time >= 37)
+		{
+			gif = -1;
+			while (++gif < game->gifs)
+			{
+				game->gif[gif]->curr++;
+				if (game->gif[gif]->curr == game->gif[gif]->del)
+					game->gif[gif]->curr = 0;
+			}
+			// Aktualisieren Sie die Startzeit
+			clock_gettime(CLOCK_REALTIME, &start_time);
+		}
+	}
+	return (0);
+}
+
+int	test()
+{
+	write(1, "Lol\n", 4);
 	return (0);
 }
 
 int main()
 {
-
 	// t_texture	txts;
 	// int			*game;
 	// t_font_setting	fs;
@@ -38,29 +71,23 @@ int main()
 	// t_img			img;
 
 	game = (t_game *)malloc(sizeof(t_game));
+	if (!game)
+		return (perror("Error\n"), 1);
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, 1260, 720, "Test");
-	game->button = (t_button **)malloc(sizeof(t_button *) * 2);
-	game->button_index = 0;
-	game->clicked = 0;
-	game->button[0] = button_init(game->mlx, "src/button/button_textures/wall/wall");
-	if (!game->button[0])
-		return (free(game->button), free_game(game), -1);
-	game->button[1] = button_init(game->mlx, "src/button/button_textures/test/test");
-	if (!game->button[1])
-		return (button_delete(game->button[0], game->mlx), free(game->button), free_game(game), -1);
-	game->button_index++;
-	game->button_index++;
-	game->button[0]->activate = 1;
-	button_add_function(int_exit, game, 0);
-	button_add_function(say, game, 1);
-	button_change_position(game, 100, 100, 0);
-	button_change_position(game, 200, 200, 1);
-	mlx_mouse_hook(game->win, mouse_hook, game);
-	mlx_loop_hook(game->mlx, button_animation, game);
+	if (!game->mlx)
+		return (free(game), perror("Error\n"), 1);
+	game->win = mlx_new_window(game->mlx, 1500, 1000, "Test");
+	if (!game->win)
+		return (free(game->mlx), free(game), perror("Error\n"), 1);
+	game->gifs = 0;
+	if (gif_init(game, "src/mlx_gif/gifs/rick/frame", 100, 100) < 0)
+		return (free_game(game), perror("Error\n"), 1);
+	if (gif_init(game, "src/mlx_gif/gifs/bongo/frame", 700, 100) < 0)
+		return (free_game(game), perror("Error\n"), 1);
+	printf("Gifs: %i\n", game->gifs);
+	mlx_loop_hook(game->mlx, mouse_hook, game);
+	mlx_hook(game->win, 2, 1L, test, NULL);
 	mlx_loop(game->mlx);
-	button_delete(game->button[0], game->mlx);
-	button_delete(game->button[1], game->mlx);
-	free(game->button);
+	gif_delete(game, game->mlx);
 	free_game(game);
 }

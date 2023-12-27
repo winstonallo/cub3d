@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:40:15 by yatabay           #+#    #+#             */
-/*   Updated: 2023/12/26 00:13:06 by yannis           ###   ########.fr       */
+/*   Updated: 2023/12/27 01:58:22 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,7 +350,9 @@
 # define DARK_NAVYBLUE 0x00000080
 # define DARK_PALETURQUOISE 0x00AFEEEE
 # define DARK_PALEVIOLETRED 0x00DB7093
+# define _POSIX_C_SOURCE 199309L
 
+# include <time.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -416,27 +418,38 @@ typedef struct s_img
 // 	int	img_y;
 // }				t_cords;
 
-typedef struct s_game t_game;
+// typedef struct s_game t_game;
 
-typedef struct s_button
+// typedef struct s_button
+// {
+// 	t_img	*img;
+// 	int		del;
+// 	int		iden;
+// 	int		activate;
+// 	int		posx;
+// 	int		posy;
+// 	int		button_clicked;
+// 	int		(*function)(t_game *, int i);
+// }				t_button;
+
+typedef struct s_gif
 {
 	t_img	*img;
-	int		del;
-	int		iden;
-	int		activate;
 	int		posx;
 	int		posy;
-	int		button_clicked;
-	int		(*function)(t_game *, int i);
-}				t_button;
+	int		curr;
+	int		del;
+}				t_gif;
 
 typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
-	int			button_index;
-	int			clicked;
-	t_button	**button;
+	t_gif	**gif;
+	int		gifs;
+	// int			button_index;
+	// int			clicked;
+	// t_button	**button;
 	// t_font	*font;
 	// t_cords	cords;
 }				t_game;
@@ -464,12 +477,14 @@ typedef struct s_font_setting
 // image edit //
 // void	image_edit(t_game *g, t_img *base, t_img to_copy, int identifier);
 
-t_button	*button_init(void *mlx, char *path);
-void		button_delete(t_button *button, void *mlx);
-int			button_add_function(int (*f)(t_game *, int i), t_game *game, int i);
-int			button_change_position(t_game *game, int posx, int posy, int iden);
-int			say(t_game *temp, int i);
-int			int_exit(t_game *game, int i);
-int			button_animation(void *data);
+
+/*	Buttons	*/
+// t_button	*button_init(void *mlx, char *path);
+// void		button_delete(t_button *button, void *mlx);
+// int			button_add_function(int (*f)(t_game *, int i), t_game *game, int i);
+// int			button_change_position(t_game *game, int posx, int posy, int iden);
+// int			say(t_game *temp, int i);
+// int			int_exit(t_game *game, int i);
+// int			button_animation(void *data);
 
 #endif
