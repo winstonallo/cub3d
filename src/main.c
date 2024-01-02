@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:41:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/02 15:06:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	play_game(t_data *data)
 {
 	data->mlx.img = mlx_new_image(data->mlx.mlx,
 			data->win_width, data->win_height);
-	if (!data->mlx.img)
+	if (data->mlx.img == NULL)
 		exit_failure(data, "Error\nimage initialization failed");
 	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp,
 			&data->img.l_l, &data->img.endian);
@@ -32,7 +32,7 @@ void	init_textures(t_data *data)
 	data->brick.img = mlx_xpm_file_to_image(data->mlx.mlx,
 			"src/textures/brick.xpm", &data->brick.width,
 			&data->brick.height);
-	if (!data->brick.img)
+	if (data->brick.img == NULL)
 		exit_failure(data, "Error\nimage initialization failed");
 	data->brick.addr = mlx_get_data_addr(data->brick.img,
 			&data->brick.bpp, &data->brick.l_l,
@@ -40,7 +40,7 @@ void	init_textures(t_data *data)
 	data->stone.img = mlx_xpm_file_to_image(data->mlx.mlx,
 			"src/textures/stone.xpm", &data->stone.width,
 			&data->stone.height);
-	if (!data->stone.img)
+	if (data->stone.img == NULL)
 		exit_failure(data, "Error\nimage initialization failed");
 	data->stone.addr = mlx_get_data_addr(data->stone.img,
 			&data->stone.bpp, &data->stone.l_l,
@@ -48,7 +48,7 @@ void	init_textures(t_data *data)
 	data->pepe.img = mlx_xpm_file_to_image(data->mlx.mlx,
 			"src/textures/pepe.xpm", &data->pepe.width,
 			&data->pepe.height);
-	if (!data->pepe.img)
+	if (data->pepe.img == NULL)
 		exit_failure(data, "Error\nimage initialization failed");
 	data->pepe.addr = mlx_get_data_addr(data->pepe.img,
 			&data->pepe.bpp, &data->pepe.l_l,
@@ -58,11 +58,11 @@ void	init_textures(t_data *data)
 void	start_game(t_data *data)
 {
 	data->mlx.mlx = mlx_init();
-	if (!data->mlx.mlx)
+	if (data->mlx.mlx == NULL)
 		exit_failure(data, "Error\nmlx initialization failed");
 	data->mlx.win = mlx_new_window(data->mlx.mlx, data->win_width,
 			data->win_height, "cub3d");
-	if (!data->mlx.win)
+	if (data->mlx.win == NULL)
 		exit_failure(data, "Error\nwindow initialization failed");
 	init_textures(data);
 	play_game(data);
