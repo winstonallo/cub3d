@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:40:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/03 19:56:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	draw_rays(t_data *data, float angle)
 	init_vars_horizontal(&horizontal, &data->player, angle);
 	init_vars_vertical(&vertical, &data->player, angle);
 	scan(&horizontal, data, data->map_width);
-	scan(&vertical, data, data->map_height);
+	scan(&vertical, data, data->map_width);
 	get_line(&h_line, horizontal, data);
 	get_line(&v_line, vertical, data);
 	return (calculate_distance(data, v_line, h_line));
