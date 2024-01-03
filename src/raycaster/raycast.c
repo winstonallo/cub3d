@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/03 19:56:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:15:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 	}
 	else if (angle < PI)
 	{
-		h_ray->reach_y = (int)player->y_pos + 1.0001;
+		h_ray->reach_y = (int)player->y_pos + 1;
 		h_ray->inc_y = 1;
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 13:48:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:20:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define FIELD_OF_VIEW 1.04719755
 # define MAX_DIST 1000000
 # define WALL_HEIGHT 1.2
-# define COLL_SENS 0.1
+# define COLL_SENS 0.3
 # define SOME_LARGE_VALUE 1000000
 
 //keys
