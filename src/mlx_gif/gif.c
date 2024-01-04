@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 00:34:32 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/04 00:55:56 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/04 01:19:02 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,33 @@ t_gif	*gif_init_single(void *mlx, char *path, int posx, int posy)
 	return (gif);
 }
 
+int	gif_loop(t_game *game)
+{
+	static	struct	timespec	start_time;
+	struct	timespec			current_time;
+	double						elapsed_time;
+	int							gif;
 
+	gif = -1;
+	while (++gif < game->gifs)
+		mlx_put_image_to_window(game->mlx, game->win, game->gif[gif]->img[game->gif[gif]->curr].img, game->gif[gif]->posx, game->gif[gif]->posy);
+	if (start_time.tv_sec == 0 && start_time.tv_nsec == 0)
+		clock_gettime(CLOCK_REALTIME, &start_time);
+	else
+	{
+		clock_gettime(CLOCK_REALTIME, &current_time);
+		elapsed_time = (current_time.tv_sec - start_time.tv_sec) * 1000.0;
+		elapsed_time += (current_time.tv_nsec - start_time.tv_nsec) / 1000000.0;
+		if (elapsed_time >= 37)
+		{
+			gif = -1;
+			while (++gif < game->gifs)
+			{
+				game->gif[gif]->curr++;
+				if (game->gif[gif]->curr == game->gif[gif]->del)
+					game->gif[gif]->curr = 0;
+			}
+			clock_gettime(CLOCK_REALTIME, &start_time);
+		}
+	}
+}

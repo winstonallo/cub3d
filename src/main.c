@@ -1,5 +1,7 @@
 #include "cub3d.h"
 
+int	gif_loop(t_game *game);
+
 void	free_game(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
@@ -8,38 +10,13 @@ void	free_game(t_game *game)
 	free(game);
 }
 
-int mouse_hook(void *data)
+int	loop(void *data)
 {
-	t_game *game;
-	int gif;
-	double elapsed_time;
-	static struct timespec start_time;
-	struct timespec current_time;
+	t_game	*game;
 
 	game = (t_game *)data;
-	gif = -1;
 	mlx_clear_window(game->mlx, game->win);
-	while (++gif < game->gifs)
-		mlx_put_image_to_window(game->mlx, game->win, game->gif[gif]->img[game->gif[gif]->curr].img, game->gif[gif]->posx, game->gif[gif]->posy);
-	if (start_time.tv_sec == 0 && start_time.tv_nsec == 0)
-		clock_gettime(CLOCK_REALTIME, &start_time);
-	else
-	{
-		clock_gettime(CLOCK_REALTIME, &current_time);
-		elapsed_time = (current_time.tv_sec - start_time.tv_sec) * 1000.0;
-		elapsed_time += (current_time.tv_nsec - start_time.tv_nsec) / 1000000.0;
-		if (elapsed_time >= 37)
-		{
-			gif = -1;
-			while (++gif < game->gifs)
-			{
-				game->gif[gif]->curr++;
-				if (game->gif[gif]->curr == game->gif[gif]->del)
-					game->gif[gif]->curr = 0;
-			}
-			clock_gettime(CLOCK_REALTIME, &start_time);
-		}
-	}
+	gif_loop(game);
 	return (0);
 }
 
@@ -73,9 +50,9 @@ int main()
 	if (gif_init(game, "src/mlx_gif/gifs/bongo/frame", 700, 100) < 0)
 		return (free_game(game), perror("Error\n"), 1);
 	printf("Gifs: %i\n", game->gifs);
-	mlx_loop_hook(game->mlx, mouse_hook, game);
+	mlx_loop_hook(game->mlx, loop, game);
 	mlx_hook(game->win, 2, 1L, test, NULL);
-	// mlx_loop(game->mlx);
+	mlx_loop(game->mlx);
 	gif_delete(game, game->mlx);
 	free_game(game);
 }

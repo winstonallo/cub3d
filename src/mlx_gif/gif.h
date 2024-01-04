@@ -6,12 +6,14 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 00:33:55 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/04 00:57:08 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/04 01:11:30 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GIF_H
 # define GIF_H
+
+# define _POSIX_C_SOURCE 199309L
 
 # include <time.h>
 # include <fcntl.h>
