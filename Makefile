@@ -14,6 +14,7 @@ MLX = ./minilibx-linux/libmlx_Linux.a
 
 SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${GIF_DIR}gif.c\
+		${SRC_DIR}${GIF_DIR}gif_public.c\
 		${SRC_DIR}${GIF_DIR}gif_helper.c\
 		# ${SRC_DIR}${BUTTON_DIR}button.c\
 		# ${SRC_DIR}${BUTTON_DIR}button_init.c\

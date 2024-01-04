@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:40:15 by yatabay           #+#    #+#             */
-/*   Updated: 2023/12/27 01:58:22 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/04 00:58:01 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,5 +486,10 @@ typedef struct s_font_setting
 // int			say(t_game *temp, int i);
 // int			int_exit(t_game *game, int i);
 // int			button_animation(void *data);
+
+
+/*	Gif	*/
+int		gif_init(t_game *game, char *path, int posx, int posy);
+void	gif_delete(t_game *game, void *mlx);
 
 #endif

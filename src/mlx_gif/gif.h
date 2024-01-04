@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 00:33:55 by yannis            #+#    #+#             */
-/*   Updated: 2023/12/27 23:28:23 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/04 00:57:08 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ typedef struct s_game
 }				t_game;
 
 void	free_images(t_gif *gif, void *mlx, int amount);
-void	gif_delete(t_game *game, void *mlx);
-int		gif_init(t_game *game, char *path, int posx, int posy);
 int		identify_amount(char *path);
 int		alloc_imgs(t_gif *gif, char *path, void *mlx);
 

@@ -1,8 +1,5 @@
 #include "cub3d.h"
 
-int		gif_init(t_game *game, char *path, int posx, int posy);
-void	gif_delete(t_game *game, void *mlx);
-
 void	free_game(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
@@ -20,25 +17,17 @@ int mouse_hook(void *data)
 	struct timespec current_time;
 
 	game = (t_game *)data;
-	gif = 0;
+	gif = -1;
 	mlx_clear_window(game->mlx, game->win);
-	while (gif < game->gifs)
-	{
+	while (++gif < game->gifs)
 		mlx_put_image_to_window(game->mlx, game->win, game->gif[gif]->img[game->gif[gif]->curr].img, game->gif[gif]->posx, game->gif[gif]->posy);
-		gif++;
-	}
 	if (start_time.tv_sec == 0 && start_time.tv_nsec == 0)
-	{
 		clock_gettime(CLOCK_REALTIME, &start_time);
-	}
 	else
 	{
-		// Ermitteln Sie die aktuelle Zeit
 		clock_gettime(CLOCK_REALTIME, &current_time);
-		// Berechnen Sie den Unterschied zwischen der aktuellen Zeit und der Startzeit
-		elapsed_time = (current_time.tv_sec - start_time.tv_sec) * 1000.0; // in ms
-		elapsed_time += (current_time.tv_nsec - start_time.tv_nsec) / 1000000.0; // convert nanoseconds to ms
-		// Wenn 37 ms vergangen sind, führen Sie die gewünschte Operation aus und aktualisieren Sie die Startzeit
+		elapsed_time = (current_time.tv_sec - start_time.tv_sec) * 1000.0;
+		elapsed_time += (current_time.tv_nsec - start_time.tv_nsec) / 1000000.0;
 		if (elapsed_time >= 37)
 		{
 			gif = -1;
@@ -48,7 +37,6 @@ int mouse_hook(void *data)
 				if (game->gif[gif]->curr == game->gif[gif]->del)
 					game->gif[gif]->curr = 0;
 			}
-			// Aktualisieren Sie die Startzeit
 			clock_gettime(CLOCK_REALTIME, &start_time);
 		}
 	}
@@ -87,7 +75,7 @@ int main()
 	printf("Gifs: %i\n", game->gifs);
 	mlx_loop_hook(game->mlx, mouse_hook, game);
 	mlx_hook(game->win, 2, 1L, test, NULL);
-	mlx_loop(game->mlx);
+	// mlx_loop(game->mlx);
 	gif_delete(game, game->mlx);
 	free_game(game);
 }

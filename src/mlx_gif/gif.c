@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 00:34:32 by yannis            #+#    #+#             */
-/*   Updated: 2023/12/27 23:08:51 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/04 00:55:56 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,45 +58,4 @@ t_gif	*gif_init_single(void *mlx, char *path, int posx, int posy)
 	return (gif);
 }
 
-int	gif_init(t_game *game, char *path, int posx, int posy)
-{
-	t_gif	**gifs;
-	t_gif	*gif;
 
-	if (game->gifs == 0)
-	{
-		gifs = (t_gif **)malloc(sizeof(t_gif *));
-		if (!gifs)
-			return (perror("Error\n"), -1);
-	}
-	else
-	{
-		gifs = transfer_gifs(game);
-		if (!gifs)
-			return (gif_delete(game, game->mlx), perror("Error\n"), -1);
-	}
-	gif = gif_init_single(game->mlx, path, posx, posy);
-	if (!gif)
-		return (gif_delete(game, game->mlx), perror("Error\n"), -1);
-	gifs[game->gifs] = gif;
-	game->gifs++;
-	game->gif = gifs;
-	return (0);
-}
-
-void	gif_delete(t_game *game, void *mlx)
-{
-	int	inner;
-	int	pos;
-
-	inner = -1;
-	while (++inner < game->gifs)
-	{
-		pos = -1;
-		while (++pos < game->gif[inner]->del)
-			mlx_destroy_image(mlx, game->gif[inner]->img[pos].img);
-		free(game->gif[inner]->img);
-		free(game->gif[inner]);
-	}
-	free(game->gif);
-}
