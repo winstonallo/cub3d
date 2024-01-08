@@ -6,6 +6,8 @@ SRC_DIR = src/
 
 MAP_DIR = font/
 
+IMGEDIT_DIR = image_edit/
+
 GIF_DIR = mlx_gif/
 
 BUTTON_DIR = button/
@@ -16,19 +18,19 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${GIF_DIR}gif.c\
 		${SRC_DIR}${GIF_DIR}gif_public.c\
 		${SRC_DIR}${GIF_DIR}gif_helper.c\
-		# ${SRC_DIR}${BUTTON_DIR}button.c\
-		# ${SRC_DIR}${BUTTON_DIR}button_init.c\
-		# ${SRC_DIR}${BUTTON_DIR}button_settings.c\
-		# ${SRC_DIR}${BUTTON_DIR}button_animation.c\
-		# ${SRC_DIR}${BUTTON_DIR}button_functions.c\
-		# ${SRC_DIR}${BUTTON_DIR}button_public.c\
-		# ${SRC_DIR}${BUTTON_DIR}button_public2.c\
+		${SRC_DIR}${BUTTON_DIR}button.c\
+		${SRC_DIR}${BUTTON_DIR}button_init.c\
+		${SRC_DIR}${BUTTON_DIR}button_settings.c\
+		${SRC_DIR}${BUTTON_DIR}button_animation.c\
+		${SRC_DIR}${BUTTON_DIR}button_functions.c\
+		${SRC_DIR}${BUTTON_DIR}button_public.c\
+		${SRC_DIR}${BUTTON_DIR}button_public2.c\
+		${SRC_DIR}${IMGEDIT_DIR}image_edit.c\
 		# ${SRC_DIR}${MAP_DIR}font.c\
 		# ${SRC_DIR}${MAP_DIR}font_public.c\
 		# ${SRC_DIR}${MAP_DIR}font_init.c\
 		# ${SRC_DIR}${MAP_DIR}font_init_helper.c\
 		# ${SRC_DIR}${MAP_DIR}font_write.c\
-		# ${SRC_DIR}${MAP_DIR}image_edit.c\
 		# ${SRC_DIR}${MAP_DIR}check_if_helper.c \
 		# ${SRC_DIR}${MAP_DIR}check_if.c \
 		# ${SRC_DIR}${MAP_DIR}general_helper.c \

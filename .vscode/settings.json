@@ -12,6 +12,8 @@
         "stdlib.h": "c",
         "string.h": "c",
         "button.h": "c",
-        "gif.h": "c"
+        "gif.h": "c",
+        "libft.h": "c",
+        "functional": "c"
     }
 }

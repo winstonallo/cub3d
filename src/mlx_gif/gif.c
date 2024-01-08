@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 00:34:32 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/04 01:19:02 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/04 07:02:22 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_gif	*gif_init_single(void *mlx, char *path, int posx, int posy)
 	return (gif);
 }
 
-int	gif_loop(t_game *game)
+void	gif_loop(t_game *game)
 {
 	static	struct	timespec	start_time;
 	struct	timespec			current_time;

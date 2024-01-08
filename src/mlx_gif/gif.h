@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 00:33:55 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/04 01:11:30 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/04 03:03:38 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <sys/time.h>
 # include "../../libft/include/libft.h"
 # include "../../minilibx-linux/mlx.h"
 

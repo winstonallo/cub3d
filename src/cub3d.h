@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:40:15 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/04 00:58:01 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/08 02:15:48 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,13 +380,13 @@ typedef struct s_img
 	int		color;
 }			t_img;
 
-// typedef struct s_color
-// {
-// 	int	r;
-// 	int	g;
-// 	int	b;
-// 	int	a;
-// }				t_color;
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+	int	a;
+}				t_color;
 
 // typedef struct s_font_inner
 // {
@@ -410,27 +410,29 @@ typedef struct s_img
 // 	int		err_code;
 // }				t_texture;
 
-// typedef struct s_cords
-// {
-// 	int	copy_x;
-// 	int	copy_y;
-// 	int	img_x;
-// 	int	img_y;
-// }				t_cords;
+typedef struct s_cords
+{
+	int	copy_x;
+	int	copy_y;
+	int	img_x;
+	int	img_y;
+}				t_cords;
 
-// typedef struct s_game t_game;
+typedef struct s_game t_game;
 
-// typedef struct s_button
-// {
-// 	t_img	*img;
-// 	int		del;
-// 	int		iden;
-// 	int		activate;
-// 	int		posx;
-// 	int		posy;
-// 	int		button_clicked;
-// 	int		(*function)(t_game *, int i);
-// }				t_button;
+typedef struct s_button
+{
+	t_img	*img;
+	int		del;
+	int		curr;
+	int		iden;
+	int		active;
+	int		activate;
+	int		posx;
+	int		posy;
+	int		button_clicked;
+	int		(*function)(t_game *, int i);
+}				t_button;
 
 typedef struct s_gif
 {
@@ -443,24 +445,24 @@ typedef struct s_gif
 
 typedef struct s_game
 {
-	void	*mlx;
-	void	*win;
-	t_gif	**gif;
-	int		gifs;
-	// int			button_index;
-	// int			clicked;
-	// t_button	**button;
+	void		*mlx;
+	void		*win;
+	t_gif		**gif;
+	int			gifs;
+	int			button_index;
+	int			clicked;
+	t_button	**button;
 	// t_font	*font;
-	// t_cords	cords;
+	t_cords	cords;
 }				t_game;
 
-typedef struct s_font_setting
-{
-	int	x;
-	int	y;
-	int	color;
-	int	identifier;
-}				t_font_setting;
+// typedef struct s_font_setting
+// {
+// 	int	x;
+// 	int	y;
+// 	int	color;
+// 	int	identifier;
+// }				t_font_setting;
 
 // int			*map(char *map);
 // int			map_get_player_pos(int *map);
@@ -479,17 +481,22 @@ typedef struct s_font_setting
 
 
 /*	Buttons	*/
-// t_button	*button_init(void *mlx, char *path);
-// void		button_delete(t_button *button, void *mlx);
-// int			button_add_function(int (*f)(t_game *, int i), t_game *game, int i);
-// int			button_change_position(t_game *game, int posx, int posy, int iden);
-// int			say(t_game *temp, int i);
-// int			int_exit(t_game *game, int i);
-// int			button_animation(void *data);
-
+int			*button_init(t_game *game, char *path, int (*f)(t_game *, int));
+void		button_delete(t_game *game, void *mlx);
+int			button_change_function(int (*f)(t_game *, int i), t_game *game, int i);
+int			button_change_position(t_game *game, int posx, int posy, int iden);
+int			button_switch(t_game *game, int i);
+int			say(t_game *temp, int i);
+int			int_exit(t_game *game, int i);
+int			button_animation(void *data);
+int			button_loop(t_game *game);
 
 /*	Gif	*/
-int		gif_init(t_game *game, char *path, int posx, int posy);
-void	gif_delete(t_game *game, void *mlx);
+void		gif_loop(t_game *game);
+void		gif_delete(t_game *game, void *mlx);
+int			gif_init(t_game *game, char *path, int posx, int posy);
+
+/*	Image edit	*/
+void		image_edit(t_game *g, t_img *base, t_img to_copy, int identifier);
 
 #endif
