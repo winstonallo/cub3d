@@ -32,7 +32,7 @@ int	loop(void *data)
 	return (0);
 }
 
-int mouse_hook(int button, int x, int y, t_game *temp)
+int	mouse_hook(int button, int x, int y, t_game *temp)
 {
 	(void)button;
 	int	i;
@@ -40,8 +40,10 @@ int mouse_hook(int button, int x, int y, t_game *temp)
 	i = 0;
 	while (i < temp->button_index)
 	{
-		if ((x >= temp->button[i]->posx && x <= temp->button[i]->posx + 40)
-			&& (y >= temp->button[i]->posy && y <= temp->button[i]->posy + 40))
+		if ((x >= temp->button[i]->posx
+			&& x <= temp->button[i]->posx + temp->button[i]->img->width)
+			&& (y >= temp->button[i]->posy
+			&& y <= temp->button[i]->posy + temp->button[i]->img->height))
 		{
 			temp->button[i]->button_clicked = 1;
 			temp->clicked = 1;
@@ -57,7 +59,7 @@ int	test()
 	return (0);
 }
 
-int main()
+int	main()
 {
 	// t_texture	txts;
 	// int			*game;
