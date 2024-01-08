@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 23:00:30 by yannis            #+#    #+#             */
-/*   Updated: 2023/12/27 23:27:24 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/08 21:22:03 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ int	alloc_imgs(t_gif *gif, char *path, void *mlx)
 	free(temp);
 	if (!gif->img[0].img)
 		return (perror("Error\n"), -1);
+	gif->display->img = mlx_new_image(mlx,
+		gif->img[0].width, gif->img[0].height);
+	if (!gif->display->img)
+		return (mlx_destroy_image(mlx, gif->img[0].img), perror("Error\n"), -1);
 	amount = 0;
 	while (++amount < gif->del)
 	{

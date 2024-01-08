@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 15:27:06 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/08 00:07:24 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/08 22:05:58 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	image_edit(t_game *g, t_img *base, t_img to_copy, int identifier)
 						y + g->cords.img_y, to_copy.color);
 			if (identifier != 1)
 				change_pixel(base, x + g->cords.img_x,
-					y + g->cords.img_y, change_pixel(base, x, y, -1));
+					y + g->cords.img_y, change_pixel(&to_copy, x, y, -1));
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 00:33:55 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/04 03:03:38 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/08 21:25:20 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_img
 typedef struct s_gif
 {
 	t_img	*img;
+	t_img	*display;
 	int		posx;
 	int		posy;
 	int		curr;
@@ -53,6 +54,7 @@ typedef struct s_game
 	int		gifs;
 }				t_game;
 
+void	image_edit(t_game *g, t_img *base, t_img to_copy, int identifier);
 void	free_images(t_gif *gif, void *mlx, int amount);
 int		identify_amount(char *path);
 int		alloc_imgs(t_gif *gif, char *path, void *mlx);
