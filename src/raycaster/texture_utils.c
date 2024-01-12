@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:43:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/12 12:58:33 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture)
 	int		screen_y;
 	int		texture_x;
 
-	data->hit_pos = fmod(data->hit_pos, data->map_width) / (data->map_width);
+	data->hit_pos = fmod(data->hit_pos / 3.8, data->map_width) / (data->map_width);
 	y = -1;
 	while (++y < line.wall_height)
 	{
