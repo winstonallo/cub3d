@@ -6,11 +6,30 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/12 12:58:33 by arthur           ###   ########.fr       */
+/*   Updated: 2024/01/12 13:08:14 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
+
+void	draw_background(t_data *data)
+{
+	int		x;
+	int		y;
+
+	x = -1;
+	data->ceiling_color = 0xff0000;
+	data->floor_color = 0x00ff00;
+	while (++x < SCREEN_WIDTH)
+	{
+		y = -1;
+		while (++y < SCREEN_HEIGHT)
+		if (y < SCREEN_HEIGHT / 2)
+			put_pixel(data, x, y, data->ceiling_color);
+		else
+			put_pixel(data, x, y, data->floor_color);
+	}
+}
 
 int	get_pixel(t_txtr *texture, int x, int y)
 {

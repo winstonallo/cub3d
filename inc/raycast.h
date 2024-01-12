@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 19:15:44 by arthur           ###   ########.fr       */
+/*   Updated: 2024/01/12 13:04:54 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,8 @@ typedef struct s_txtr
 typedef struct s_data
 {
 	int					view_dir;
+	int					ceiling_color;
+	int					floor_color;
 	int					map_width;
 	int					map_height;
 	int					map_size;
@@ -233,6 +235,7 @@ void	put_pixel(t_data *data, int x, int y, int color);
 t_line	draw_rays_horizontal(t_data *data, float angle);
 void	draw_circle(t_data *data, int x, int y, int size);
 void	draw_line(t_data *data, t_line line, int color, int size);
+void	draw_background(t_data *data);
 
 //memory management
 void	exit_failure(t_data *data, char *msg);

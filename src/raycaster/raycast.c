@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:40:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/12 13:06:59 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	raycast(t_data *data)
 	int		i;
 
 	i = -1;
+	draw_background(data);
 	data->angle = normalize_angle(data->player.angle, (-FIELD_OF_VIEW / 2));
 	while (++i < SCREEN_WIDTH)
 	{
