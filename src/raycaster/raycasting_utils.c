@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:02:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/12 21:44:12 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	min_dist2 = dist(line2);
 	if (min_dist1 < min_dist2)
 	{
-		data->hit = NORTH;
+		if (data->player.y_pos < line1.y1)
+			data->hit = SOUTH;
+		else
+			data->hit = NORTH;
 		data->min_distance = min_dist1;
 		data->hit_pos = line1.y1;
 		line1.scale = MAPSIZE;
@@ -72,7 +75,10 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	}
 	else
 	{
-		data->hit = EAST;
+		if (data->player.x_pos < line2.x1)
+			data->hit = EAST;
+		else if (data->player.x_pos > line2.x1)
+			data->hit = WEST;
 		data->min_distance = min_dist2;
 		data->hit_pos = line2.x1;
 		line2.scale = MAPSIZE;

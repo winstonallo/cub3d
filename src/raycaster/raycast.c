@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/12 13:06:59 by arthur           ###   ########.fr       */
+/*   Updated: 2024/01/12 21:42:17 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	draw_rays(t_data *data, float angle)
 	init_vars_horizontal(&horizontal, &data->player, angle);
 	init_vars_vertical(&vertical, &data->player, angle);
 	scan(&horizontal, data, data->map_width);
-	scan(&vertical, data, data->map_height);
+	scan(&vertical, data, data->map_width);
 	get_line(&h_line, horizontal, data);
 	get_line(&v_line, vertical, data);
 	return (calculate_distance(data, v_line, h_line));
@@ -114,9 +114,13 @@ void	raycast(t_data *data)
 		get_3d_line(&line, i, data);
 		line.wall_height = line.y1 - line.y0;
 		if (data->hit == NORTH)
-			draw_texture(data, i, line, &data->pepe);
+			draw_texture(data, i, line, &data->grass);
 		else if (data->hit == EAST)
 			draw_texture(data, i, line, &data->stone);
+		else if (data->hit == SOUTH)
+			draw_texture(data, i, line, &data->metal);
+		else if (data->hit == WEST)
+			draw_texture(data, i, line, &data->wood);
 		data->angle = normalize_angle(data->angle, FIELD_OF_VIEW
 				/ (SCREEN_WIDTH));
 	}
