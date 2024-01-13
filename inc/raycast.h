@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/12 21:39:47 by arthur           ###   ########.fr       */
+/*   Updated: 2024/01/13 18:20:10 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,9 @@ typedef struct s_player
 	float			angle;
 	float			x_dir;
 	float			y_dir;
+	int				direction;
+	float			x_prev;
+	float			y_prev;
 }	t_player;
 
 typedef struct s_raycast
