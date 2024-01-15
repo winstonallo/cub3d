@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/03 20:19:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:59:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
+#include <stdio.h>
 
 bool	collision(t_data *data, float new_x, float new_y)
 {
@@ -55,6 +56,24 @@ void	adjust_vars(t_data *data, float angle)
 		- (data->line_height * WALL_HEIGHT);
 }
 
+t_dir get_hit_direction(t_player* player, int idk)
+{
+	if (!idk)
+	{
+		if (player->angle >= M_PI/4 && player->angle < 3*M_PI/4)
+    	    return NORTH;
+		else
+	        return WEST;
+	}
+	else
+	{
+    	if (player->angle >= 5*M_PI/4 && player->angle < 7*M_PI/4)
+        	return SOUTH;
+    	else
+        	return EAST;
+	}
+}
+
 void	calculate_distance(t_data *data, t_line line1, t_line line2)
 {
 	float	min_dist1;
@@ -64,7 +83,7 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	min_dist2 = dist(line2);
 	if (min_dist1 < min_dist2)
 	{
-		data->hit = NORTH;
+		data->hit = get_hit_direction(&data->player, 0);
 		data->min_distance = min_dist1;
 		data->hit_pos = line1.y1;
 		line1.scale = MAPSIZE;
@@ -72,7 +91,7 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	}
 	else
 	{
-		data->hit = EAST;
+		data->hit = get_hit_direction(&data->player, 1);
 		data->min_distance = min_dist2;
 		data->hit_pos = line2.x1;
 		line2.scale = MAPSIZE;

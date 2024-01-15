@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/03 20:15:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:59:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	raycast(t_data *data)
 	int		i;
 
 	i = -1;
+	draw_background(data);
 	data->angle = normalize_angle(data->player.angle, (-FIELD_OF_VIEW / 2));
 	while (++i < SCREEN_WIDTH)
 	{
@@ -113,9 +114,13 @@ void	raycast(t_data *data)
 		get_3d_line(&line, i, data);
 		line.wall_height = line.y1 - line.y0;
 		if (data->hit == NORTH)
-			draw_texture(data, i, line, &data->pepe);
+			draw_texture(data, i, line, &data->grass);
 		else if (data->hit == EAST)
 			draw_texture(data, i, line, &data->stone);
+		else if (data->hit == SOUTH)
+			draw_texture(data, i, line, &data->metal);
+		else if (data->hit == WEST)
+			draw_texture(data, i, line, &data->wood);
 		data->angle = normalize_angle(data->angle, FIELD_OF_VIEW
 				/ (SCREEN_WIDTH));
 	}

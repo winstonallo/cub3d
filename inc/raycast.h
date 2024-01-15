@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/03 20:20:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:00:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include <mlx.h>
+# include "../minilibx-mac/mlx.h"
 # include <math.h>
 # include <stdbool.h>
 # include "../libft/include/libft.h"
@@ -29,6 +29,41 @@
 # define CURSIVE 	"\e[33;3m"
 # define BOLD 		"\e[1m"
 
+# define HEXA_RED	0x00FF0000
+# define HEXA_GREEN	0x0000FF00
+# define HEXA_BLUE	0x000000FF
+# define HEXA_WHITE	0x00FFFFFF
+# define HEXA_BLACK	0x00000000
+# define HEXA_YELLOW 0x00FFFF00
+# define HEXA_GRAY	0x00A9A9A9
+# define HEXA_PURPLE 0x00FF00FF
+# define HEXA_CYAN	0x0000FFFF
+# define HEXA_ORANGE 0x00FFA500
+# define HEXA_PINK	0x00FFC0CB
+# define HEXA_BROWN	0x00A52A2A
+# define HEXA_GOLD	0x00FFD700
+# define HEXA_SILVER 0x00C0C0C0
+# define HEXA_BRONZE 0x00CD7F32
+# define HEXA_LIME	0x00BFFF00
+# define HEXA_OLIVE	0x00808000
+# define HEXA_NAVY	0x00008080
+# define HEXA_TEAL	0x00008080
+# define HEXA_MAROON 0x00800000
+# define HEXA_INDIGO 0x004B0082
+# define HEXA_TURQUOISE 0x0040E0D0
+# define HEXA_VIOLET 0x00EE82EE
+# define HEXA_BEIGE 0x00F5F5DC
+# define HEXA_AQUA 0x0000FFFF
+# define HEXA_CORAL 0x00FF7F50
+# define HEXA_SKY_BLUE 0x0087CEEB
+# define HEXA_MINT 0x00F5FFFA
+# define HEXA_LAVENDER 0x00E6E6FA
+# define HEXA_TAN 0x00D2B48C
+# define HEXA_SALMON 0x00FA8072
+# define HEXA_KHAKI 0x00F0E68C
+# define HEXA_CRIMSON 0x00DC143C
+# define HEXA_ORCHID 0x00DA70D6
+
 //constants
 # define PI 3.1415926535
 # define P2 1.570796327
@@ -37,7 +72,8 @@
 # define SCREEN_WIDTH 1000
 # define SCREEN_HEIGHT 1000
 # define SCREEN_HEIGHT2 500
-# define SPEED 0.02
+# define SPEED 0.03
+# define TURN_SPEED 10
 # define DR 0.00872665
 # define FIELD_OF_VIEW 1.04719755
 # define MAX_DIST 1000000
@@ -143,6 +179,9 @@ typedef struct s_player
 	float			angle;
 	float			x_dir;
 	float			y_dir;
+	int				direction;
+	float			x_prev;
+	float			y_prev;
 }	t_player;
 
 typedef struct s_raycast
@@ -175,6 +214,8 @@ typedef struct s_txtr
 typedef struct s_data
 {
 	int					view_dir;
+	int					ceiling_color;
+	int					floor_color;
 	int					map_width;
 	int					map_height;
 	int					map_size;
@@ -195,6 +236,9 @@ typedef struct s_data
 	struct s_txtr		pepe;
 	struct s_txtr		brick;
 	struct s_txtr		stone;
+	struct s_txtr		wood;
+	struct s_txtr		grass;
+	struct s_txtr		metal;
 	struct s_player		player;
 	struct s_mlx		mlx;
 	struct s_img		img;
@@ -232,6 +276,7 @@ void	put_pixel(t_data *data, int x, int y, int color);
 t_line	draw_rays_horizontal(t_data *data, float angle);
 void	draw_circle(t_data *data, int x, int y, int size);
 void	draw_line(t_data *data, t_line line, int color, int size);
+void	draw_background(t_data *data);
 
 //memory management
 void	exit_failure(t_data *data, char *msg);

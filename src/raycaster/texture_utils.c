@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   texture_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:43:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/12 21:34:26 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
+
+void	draw_background(t_data *data)
+{
+	int		x;
+	int		y;
+
+	x = -1;
+	data->ceiling_color = HEXA_AQUA;
+	data->floor_color = HEXA_BEIGE;
+	while (++x < SCREEN_WIDTH)
+	{
+		y = -1;
+		while (++y < SCREEN_HEIGHT)
+		if (y < SCREEN_HEIGHT / 2)
+			put_pixel(data, x, y, data->ceiling_color);
+		else
+			put_pixel(data, x, y, data->floor_color);
+	}
+}
 
 int	get_pixel(t_txtr *texture, int x, int y)
 {
@@ -32,7 +51,7 @@ void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture)
 	int		screen_y;
 	int		texture_x;
 
-	data->hit_pos = fmod(data->hit_pos, data->map_width) / (data->map_width);
+	data->hit_pos = fmod(data->hit_pos / 3.8, data->map_width) / (data->map_width);
 	y = -1;
 	while (++y < line.wall_height)
 	{

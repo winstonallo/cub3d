@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/02 15:06:47 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:00:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,30 @@ void	init_textures(t_data *data)
 	data->pepe.addr = mlx_get_data_addr(data->pepe.img,
 			&data->pepe.bpp, &data->pepe.l_l,
 			&data->pepe.endian);
+	data->wood.img = mlx_xpm_file_to_image(data->mlx.mlx,
+			"src/textures/wood.xpm", &data->wood.width,
+			&data->wood.height);
+	if (!data->wood.img)
+		exit_failure(data, "Error\nimage initialization failed");
+	data->wood.addr = mlx_get_data_addr(data->wood.img,
+			&data->wood.bpp, &data->wood.l_l,
+			&data->wood.endian);
+	data->grass.img = mlx_xpm_file_to_image(data->mlx.mlx,
+			"src/textures/grass.xpm", &data->grass.width,
+			&data->grass.height);
+	if (!data->grass.img)
+		exit_failure(data, "Error\nimage initialization failed");
+	data->grass.addr = mlx_get_data_addr(data->grass.img,
+			&data->grass.bpp, &data->grass.l_l,
+			&data->grass.endian);
+	data->metal.img = mlx_xpm_file_to_image(data->mlx.mlx,
+			"src/textures/metal.xpm", &data->metal.width,
+			&data->metal.height);
+	if (!data->metal.img)
+		exit_failure(data, "Error\nimage initialization failed");
+	data->metal.addr = mlx_get_data_addr(data->metal.img,
+			&data->metal.bpp, &data->metal.l_l,
+			&data->metal.endian);
 }
 
 void	start_game(t_data *data)
