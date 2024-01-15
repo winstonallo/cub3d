@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/15 15:00:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:41:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,56 +27,33 @@ void	play_game(t_data *data)
 	mlx_loop(data->mlx.mlx);
 }
 
+void	get_texture_data(t_txtr *texture, t_data *data, char *texture_path)
+{
+	texture->img = mlx_xpm_file_to_image(data->mlx.mlx, texture_path,
+			&texture->width, &texture->height);
+	if (texture->img == NULL)
+		exit_failure(data, "Error\nimage initialization failed");
+	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp,
+			&texture->l_l, &texture->endian);
+}
+
 void	init_textures(t_data *data)
 {
-	data->brick.img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"src/textures/brick.xpm", &data->brick.width,
-			&data->brick.height);
-	if (data->brick.img == NULL)
-		exit_failure(data, "Error\nimage initialization failed");
-	data->brick.addr = mlx_get_data_addr(data->brick.img,
-			&data->brick.bpp, &data->brick.l_l,
-			&data->brick.endian);
-	data->stone.img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"src/textures/stone.xpm", &data->stone.width,
-			&data->stone.height);
-	if (data->stone.img == NULL)
-		exit_failure(data, "Error\nimage initialization failed");
-	data->stone.addr = mlx_get_data_addr(data->stone.img,
-			&data->stone.bpp, &data->stone.l_l,
-			&data->stone.endian);
-	data->pepe.img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"src/textures/pepe.xpm", &data->pepe.width,
-			&data->pepe.height);
-	if (data->pepe.img == NULL)
-		exit_failure(data, "Error\nimage initialization failed");
-	data->pepe.addr = mlx_get_data_addr(data->pepe.img,
-			&data->pepe.bpp, &data->pepe.l_l,
-			&data->pepe.endian);
-	data->wood.img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"src/textures/wood.xpm", &data->wood.width,
-			&data->wood.height);
-	if (!data->wood.img)
-		exit_failure(data, "Error\nimage initialization failed");
-	data->wood.addr = mlx_get_data_addr(data->wood.img,
-			&data->wood.bpp, &data->wood.l_l,
-			&data->wood.endian);
-	data->grass.img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"src/textures/grass.xpm", &data->grass.width,
-			&data->grass.height);
-	if (!data->grass.img)
-		exit_failure(data, "Error\nimage initialization failed");
-	data->grass.addr = mlx_get_data_addr(data->grass.img,
-			&data->grass.bpp, &data->grass.l_l,
-			&data->grass.endian);
-	data->metal.img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"src/textures/metal.xpm", &data->metal.width,
-			&data->metal.height);
-	if (!data->metal.img)
-		exit_failure(data, "Error\nimage initialization failed");
-	data->metal.addr = mlx_get_data_addr(data->metal.img,
-			&data->metal.bpp, &data->metal.l_l,
-			&data->metal.endian);
+	get_texture_data(&data->brick, data, "src/textures/brick.xpm");
+	get_texture_data(&data->stone, data, "src/textures/stone.xpm");
+	get_texture_data(&data->pepe, data, "src/textures/pepe.xpm");
+	get_texture_data(&data->wood, data, "src/textures/wood.xpm");
+	get_texture_data(&data->grass, data, "src/textures/grass.xpm");
+	get_texture_data(&data->metal, data, "src/textures/metal.xpm");
+	get_texture_data(&data->walltest, data, "src/textures/walltest.xpm");
+	get_texture_data(&data->wall1, data, "src/textures/Wall1.xpm");
+	get_texture_data(&data->wall2, data, "src/textures/Wall2.xpm");
+	get_texture_data(&data->wall3, data, "src/textures/Wall3.xpm");
+	get_texture_data(&data->wall4, data, "src/textures/Wall4.xpm");
+	get_texture_data(&data->wall5, data, "src/textures/Wall5.xpm");
+	get_texture_data(&data->wall6, data, "src/textures/Wall6.xpm");
+	get_texture_data(&data->wall7, data, "src/textures/Wall7.xpm");
+	get_texture_data(&data->wall8, data, "src/textures/Wall8.xpm");
 }
 
 void	start_game(t_data *data)

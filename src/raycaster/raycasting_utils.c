@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/15 14:59:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:27:37 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ void	get_line(t_line *line, t_raycast ray, t_data *data)
 	line->y0 = data->player.y_pos * data->y_scale;
 	line->x1 = ray.reach_x * data->x_scale;
 	line->y1 = ray.reach_y * data->y_scale;
+	line->direction = ray.direction;
+	if (ray.direction == VERTICAL)
+	{
+		line->y_inc = ray.inc_y;
+		line->x_inc = 0;
+	}
+	else
+	{
+		line->x_inc = ray.inc_x;
+		line->y_inc = 0;
+	}
 	line->scale = SCREEN;
 }
 
@@ -56,21 +67,21 @@ void	adjust_vars(t_data *data, float angle)
 		- (data->line_height * WALL_HEIGHT);
 }
 
-t_dir get_hit_direction(t_player* player, int idk)
+void get_hit_direction(t_line line, t_data* data)
 {
-	if (!idk)
+	if (line.direction == VERTICAL)
 	{
-		if (player->angle >= M_PI/4 && player->angle < 3*M_PI/4)
-    	    return NORTH;
+		if (line.x_inc > 0)
+			data->hit = EAST;
 		else
-	        return WEST;
+			data->hit = WEST;
 	}
-	else
+	else if (line.direction == HORIZONTAL)
 	{
-    	if (player->angle >= 5*M_PI/4 && player->angle < 7*M_PI/4)
-        	return SOUTH;
-    	else
-        	return EAST;
+		if (line.y_inc > 0)
+			data->hit = SOUTH;
+		else
+			data->hit = NORTH;
 	}
 }
 
@@ -83,7 +94,6 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	min_dist2 = dist(line2);
 	if (min_dist1 < min_dist2)
 	{
-		data->hit = get_hit_direction(&data->player, 0);
 		data->min_distance = min_dist1;
 		data->hit_pos = line1.y1;
 		line1.scale = MAPSIZE;
@@ -91,10 +101,10 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	}
 	else
 	{
-		data->hit = get_hit_direction(&data->player, 1);
 		data->min_distance = min_dist2;
 		data->hit_pos = line2.x1;
 		line2.scale = MAPSIZE;
 		data->shortest_line = line2;
 	}
+	return (get_hit_direction(data->shortest_line, data));
 }

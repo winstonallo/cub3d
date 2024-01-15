@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/15 14:59:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:42:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 {
 	h_ray->max_depth = 0;
 	h_ray->a_tan = -1 / tan(angle);
+	h_ray->direction = HORIZONTAL;
 	if (angle > PI)
 	{
 		h_ray->reach_y = (int)player->y_pos - 0.0001;
@@ -41,6 +42,7 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 {
 	v_ray->max_depth = 0;
 	v_ray->n_tan = -tan(angle);
+	v_ray->direction = VERTICAL;
 	if (angle > P2 && angle < P3)
 	{
 		v_ray->reach_x = (int)player->x_pos - 0.0001;
@@ -62,6 +64,19 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 	v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
 }
 
+void	print_direction(t_data *data){
+	if (data->hit == NORTH)
+		printf("NORTH\n");
+	else if (data->hit == EAST)
+		printf("EAST\n");
+	else if (data->hit == SOUTH)
+		printf("SOUTH\n");
+	else if (data->hit == WEST)
+		printf("WEST\n");
+	else
+		printf("ERROR\n");
+}
+
 void	scan(t_raycast *ray, t_data *data, int max)
 {
 	while (ray->max_depth < max)
@@ -69,8 +84,9 @@ void	scan(t_raycast *ray, t_data *data, int max)
 		ray->map_x = ((int)ray->reach_x);
 		ray->map_y = ((int)ray->reach_y);
 		ray->map_pos = ray->map_y * data->map_width + ray->map_x;
-		if (collision(data, ray->reach_x, ray->reach_y))
-			break ;
+		if (collision(data, ray->reach_x, ray->reach_y)){
+			return ;
+		}
 		else
 		{
 			ray->reach_x += ray->inc_x;
@@ -109,18 +125,19 @@ void	raycast(t_data *data)
 		data->hit_pos = MAX_DIST;
 		data->min_distance = MAX_DIST;
 		draw_rays(data, data->angle);
+		print_direction(data);
 		draw_line(data, data->shortest_line, 0x00ff00, 1);
 		adjust_vars(data, data->angle);
 		get_3d_line(&line, i, data);
 		line.wall_height = line.y1 - line.y0;
 		if (data->hit == NORTH)
-			draw_texture(data, i, line, &data->grass);
+			draw_texture(data, i, line, &data->wall1);
 		else if (data->hit == EAST)
-			draw_texture(data, i, line, &data->stone);
+			draw_texture(data, i, line, &data->wall2);
 		else if (data->hit == SOUTH)
-			draw_texture(data, i, line, &data->metal);
+			draw_texture(data, i, line, &data->wall3);
 		else if (data->hit == WEST)
-			draw_texture(data, i, line, &data->wood);
+			draw_texture(data, i, line, &data->wall4);
 		data->angle = normalize_angle(data->angle, FIELD_OF_VIEW
 				/ (SCREEN_WIDTH));
 	}

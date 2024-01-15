@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/15 15:00:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:41:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,9 @@ typedef struct s_line
 	float			y1;
 	float			x_step;
 	float			y_step;
+	int				direction;
+	int				x_inc;
+	int				y_inc;	
 	int				wall_height;
 	int				scale;
 	int				length;
@@ -190,6 +193,7 @@ typedef struct s_raycast
 	int					map_y;
 	int					map_pos;
 	int					max_depth;
+	int					direction;
 	float				reach_x;
 	float				reach_y;
 	float				angle;
@@ -234,11 +238,20 @@ typedef struct s_data
 	int					hit;
 	int					*map;
 	struct s_txtr		pepe;
+	struct s_txtr		walltest;
 	struct s_txtr		brick;
 	struct s_txtr		stone;
 	struct s_txtr		wood;
 	struct s_txtr		grass;
 	struct s_txtr		metal;
+	struct s_txtr		wall1;
+	struct s_txtr		wall2;
+	struct s_txtr		wall3;
+	struct s_txtr		wall4;
+	struct s_txtr		wall5;
+	struct s_txtr		wall6;
+	struct s_txtr		wall7;
+	struct s_txtr		wall8;
 	struct s_player		player;
 	struct s_mlx		mlx;
 	struct s_img		img;
