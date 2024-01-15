@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/15 17:19:39 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:49:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	draw_background(t_data *data)
 	int		y;
 
 	x = -1;
-	data->ceiling_color = HEXA_AQUA;
-	data->floor_color = HEXA_BEIGE;
+	data->ceiling_color = HEXA_MIDNIGHT_BLUE;
+	data->floor_color = HEXA_BLACK;
 	while (++x < SCREEN_WIDTH)
 	{
 		y = -1;

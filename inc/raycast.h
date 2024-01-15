@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/15 21:41:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:49:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@
 # define HEXA_KHAKI 0x00F0E68C
 # define HEXA_CRIMSON 0x00DC143C
 # define HEXA_ORCHID 0x00DA70D6
+# define HEXA_SPACE_BLUE 0x002147
+# define HEXA_MIDNIGHT_BLUE 0x191970
+# define HEXA_BORDEAUX 0x800020
 
 //constants
 # define PI 3.1415926535

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/15 21:42:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:50:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	raycast(t_data *data)
 		data->min_distance = MAX_DIST;
 		draw_rays(data, data->angle);
 		print_direction(data);
-		draw_line(data, data->shortest_line, 0x00ff00, 1);
+		draw_line(data, data->shortest_line, HEXA_RED, 1);
 		adjust_vars(data, data->angle);
 		get_3d_line(&line, i, data);
 		line.wall_height = line.y1 - line.y0;
