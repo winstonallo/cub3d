@@ -6,13 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/15 15:05:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:46:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 static int	turn(int direction, t_data *data)
 {

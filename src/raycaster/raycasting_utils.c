@@ -6,24 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/15 21:27:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:52:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 #include <stdio.h>
-
-bool	collision(t_data *data, float new_x, float new_y)
-{
-	int	map_pos;
-
-	map_pos = (int)new_y * data->map_width + (int)new_x;
-	if (map_pos < 0 || map_pos > data->map_width * data->map_height)
-		return (true);
-	if (data->map[map_pos] != 1)
-		return (false);
-	return (true);
-}
 
 void	get_line(t_line *line, t_raycast ray, t_data *data)
 {
@@ -67,22 +55,12 @@ void	adjust_vars(t_data *data, float angle)
 		- (data->line_height * WALL_HEIGHT);
 }
 
-void get_hit_direction(t_line line, t_data* data)
+void	get_hit_direction(t_line line, t_data *data)
 {
 	if (line.direction == VERTICAL)
-	{
-		if (line.x_inc > 0)
-			data->hit = EAST;
-		else
-			data->hit = WEST;
-	}
-	else if (line.direction == HORIZONTAL)
-	{
-		if (line.y_inc > 0)
-			data->hit = SOUTH;
-		else
-			data->hit = NORTH;
-	}
+		data->hit = SOUTH;
+	else
+		data->hit = EAST;
 }
 
 void	calculate_distance(t_data *data, t_line line1, t_line line2)
@@ -106,5 +84,5 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 		line2.scale = MAPSIZE;
 		data->shortest_line = line2;
 	}
-	return (get_hit_direction(data->shortest_line, data));
+	get_hit_direction(data->shortest_line, data);
 }

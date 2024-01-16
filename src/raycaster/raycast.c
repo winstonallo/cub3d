@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/15 21:50:14 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:44:30 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,6 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 	v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
 }
 
-void	print_direction(t_data *data){
-	if (data->hit == NORTH)
-		printf("NORTH\n");
-	else if (data->hit == EAST)
-		printf("EAST\n");
-	else if (data->hit == SOUTH)
-		printf("SOUTH\n");
-	else if (data->hit == WEST)
-		printf("WEST\n");
-	else
-		printf("ERROR\n");
-}
-
 void	scan(t_raycast *ray, t_data *data, int max)
 {
 	while (ray->max_depth < max)
@@ -84,9 +71,8 @@ void	scan(t_raycast *ray, t_data *data, int max)
 		ray->map_x = ((int)ray->reach_x);
 		ray->map_y = ((int)ray->reach_y);
 		ray->map_pos = ray->map_y * data->map_width + ray->map_x;
-		if (collision(data, ray->reach_x, ray->reach_y)){
+		if (collision(data, ray->reach_x, ray->reach_y))
 			return ;
-		}
 		else
 		{
 			ray->reach_x += ray->inc_x;
@@ -109,37 +95,31 @@ void	draw_rays(t_data *data, float angle)
 	scan(&vertical, data, data->map_width);
 	get_line(&h_line, horizontal, data);
 	get_line(&v_line, vertical, data);
-	return (calculate_distance(data, v_line, h_line));
+	calculate_distance(data, v_line, h_line);
+	draw_line(data, data->shortest_line, HEXA_RED, 1);
 }
 
 void	raycast(t_data *data)
 {
-	t_line	line;
-	int		i;
+	int			x;
+	t_line		line;
+	t_txtr		texture;
 
-	i = -1;
+	x = -1;
 	draw_background(data);
-	data->angle = normalize_angle(data->player.angle, (-FIELD_OF_VIEW / 2));
-	while (++i < SCREEN_WIDTH)
+	data->angle = data->player.angle;
+	normalize_angle(&data->angle, (-FIELD_OF_VIEW / 2));
+	while (++x < SCREEN_WIDTH)
 	{
 		data->hit_pos = MAX_DIST;
 		data->min_distance = MAX_DIST;
 		draw_rays(data, data->angle);
-		print_direction(data);
-		draw_line(data, data->shortest_line, HEXA_RED, 1);
 		adjust_vars(data, data->angle);
-		get_3d_line(&line, i, data);
+		get_3d_line(&line, x, data);
 		line.wall_height = line.y1 - line.y0;
-		if (data->hit == NORTH)
-			draw_texture(data, i, line, &data->wall1);
-		else if (data->hit == EAST)
-			draw_texture(data, i, line, &data->wall2);
-		else if (data->hit == SOUTH)
-			draw_texture(data, i, line, &data->wall3);
-		else if (data->hit == WEST)
-			draw_texture(data, i, line, &data->wall4);
-		data->angle = normalize_angle(data->angle, FIELD_OF_VIEW
-				/ (SCREEN_WIDTH));
+		set_texture(data, &texture);
+		draw_texture(data, x, line, &texture);
+		normalize_angle(&data->angle, FIELD_OF_VIEW / (SCREEN_WIDTH));
 	}
 	draw_map(data);
 	draw_player(data);

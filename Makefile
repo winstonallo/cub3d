@@ -12,7 +12,6 @@ STANDARD = /
 
 SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${RAY_DIR}raycast.c \
-		${SRC_DIR}${RAY_DIR}init_game.c \
 		${SRC_DIR}${RAY_DIR}drawing_utils.c \
 		${SRC_DIR}${RAY_DIR}initialize.c \
 		${SRC_DIR}${RAY_DIR}mlx_utils.c \
@@ -20,6 +19,7 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${RAY_DIR}minimap.c \
 		${SRC_DIR}${RAY_DIR}raycasting_utils.c \
 		${SRC_DIR}${RAY_DIR}math_utils.c \
+		${SRC_DIR}${RAY_DIR}exit.c \
 		${SRC_DIR}${RAY_DIR}texture_utils.c \
 		${SRC_DIR}${MAP_DIR}check_if_helper.c \
 		${SRC_DIR}${MAP_DIR}general_helper.c \
