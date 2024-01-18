@@ -78,6 +78,12 @@ $(NAME): $(OBJS) $(LIBFT_OBJS)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)$(STANDARD)$(GIF_DIR)
+	mkdir -p $(OBJ_DIR)$(STANDARD)$(BUTTON_DIR)
+	mkdir -p $(OBJ_DIR)$(STANDARD)$(IMGEDIT_DIR)
+	mkdir -p $(OBJ_DIR)$(STANDARD)$(RAY_DIR)
+	mkdir -p $(OBJ_DIR)$(STANDARD)$(MAP_DIR)
+	mkdir -p $(OBJ_DIR)$(STANDARD)$(FONT_DIR)
 
 $(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@

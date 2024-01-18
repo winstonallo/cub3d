@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 03:33:55 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/18 15:45:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,10 @@ void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture)
 	y = -1;
 	while (++y < line.wall_height)
 	{
+		if (texture->height == 0)
+			return ;
 		texture_y = (int)((float)y / (float)line.wall_height * texture->height)
-			% texture->height; // Segfault
+			% texture->height;
 		texture_x = (int)((data->hit_pos) * (float)texture->width);
 		color = get_pixel(texture, texture_x, texture_y);
 		screen_y = line.y0 + y;

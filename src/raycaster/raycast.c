@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 03:32:54 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/18 15:45:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void	raycast(t_data *data)
 		line.wall_height = line.y1 - line.y0;
 		set_texture(data, &texture);
 		draw_texture(data, x, line, &texture);
-		write(1, "Here\n", 5);
 		normalize_angle(&data->angle, FIELD_OF_VIEW / (SCREEN_WIDTH));
 	}
 	draw_map(data);
