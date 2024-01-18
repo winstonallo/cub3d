@@ -6,23 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:02:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:52:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
-
-bool	collision(t_data *data, float new_x, float new_y)
-{
-	int	map_pos;
-
-	map_pos = (int)new_y * data->map_width + (int)new_x;
-	if (map_pos < 0 || map_pos > data->map_width * data->map_height)
-		return (true);
-	if (data->map[map_pos] != 1)
-		return (false);
-	return (true);
-}
+#include <stdio.h>
 
 void	get_line(t_line *line, t_raycast ray, t_data *data)
 {
@@ -30,6 +19,17 @@ void	get_line(t_line *line, t_raycast ray, t_data *data)
 	line->y0 = data->player.y_pos * data->y_scale;
 	line->x1 = ray.reach_x * data->x_scale;
 	line->y1 = ray.reach_y * data->y_scale;
+	line->direction = ray.direction;
+	if (ray.direction == VERTICAL)
+	{
+		line->y_inc = ray.inc_y;
+		line->x_inc = 0;
+	}
+	else
+	{
+		line->x_inc = ray.inc_x;
+		line->y_inc = 0;
+	}
 	line->scale = SCREEN;
 }
 
@@ -55,6 +55,14 @@ void	adjust_vars(t_data *data, float angle)
 		- (data->line_height * WALL_HEIGHT);
 }
 
+void	get_hit_direction(t_line line, t_data *data)
+{
+	if (line.direction == VERTICAL)
+		data->hit = SOUTH;
+	else
+		data->hit = EAST;
+}
+
 void	calculate_distance(t_data *data, t_line line1, t_line line2)
 {
 	float	min_dist1;
@@ -64,7 +72,6 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	min_dist2 = dist(line2);
 	if (min_dist1 < min_dist2)
 	{
-		data->hit = NORTH;
 		data->min_distance = min_dist1;
 		data->hit_pos = line1.y1;
 		line1.scale = MAPSIZE;
@@ -72,10 +79,10 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	}
 	else
 	{
-		data->hit = EAST;
 		data->min_distance = min_dist2;
 		data->hit_pos = line2.x1;
 		line2.scale = MAPSIZE;
 		data->shortest_line = line2;
 	}
+	get_hit_direction(data->shortest_line, data);
 }

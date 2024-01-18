@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:43:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:58:39 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,7 @@ char	*map_valid(char *loaded)
 int	*map_main(char *map)
 {
 	int	*sliced_map;
-	int	error_code;
 
-	error_code = 0;
 	if (check_if_exists(map) < 0)
 		return (NULL);
 	if (check_if_valid(map) < 0)

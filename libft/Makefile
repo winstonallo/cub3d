@@ -20,8 +20,6 @@ NAME = libft.a
 
 .PHONY: all clean fclean re
 
-.SILENT:
-
 all: $(OBJ_DIR) $(NAME)
 
 clean:

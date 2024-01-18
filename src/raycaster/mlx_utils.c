@@ -6,57 +6,36 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:22 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:39:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:26:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-void	new_image(t_data *data)
+static void	play_game(t_data *data)
 {
-	if (data->mlx.img)
-		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
 	data->mlx.img = mlx_new_image(data->mlx.mlx,
 			data->win_width, data->win_height);
+	if (data->mlx.img == NULL)
+		exit_failure(data, "Error\nimage initialization failed");
 	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp,
 			&data->img.l_l, &data->img.endian);
 	raycast(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
+	mlx_hook(data->mlx.win, 2, 1L, event, data);
+	mlx_hook(data->mlx.win, 17, 0, exit_success, data);
+	mlx_loop(data->mlx.mlx);
 }
 
-void	exit_failure(t_data *data, char *msg)
+void	start_game(t_data *data)
 {
-	perror(msg);
-	if (data->mlx.img)
-		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
-	if (data->stone.img)
-		mlx_destroy_image(data->mlx.mlx, data->stone.img);
-	if (data->brick.img)
-		mlx_destroy_image(data->mlx.mlx, data->brick.img);
-	if (data->mlx.win)
-		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	if (data->mlx.mlx)
-		mlx_destroy_display(data->mlx.mlx);
-	freeze(data->map);
-	freeze(data->mlx.mlx);
-	exit(EXIT_FAILURE);
-}
-
-int	exit_success(t_data *data)
-{
-	if (data->mlx.img)
-		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
-	if (data->stone.img)
-		mlx_destroy_image(data->mlx.mlx, data->stone.img);
-	if (data->brick.img)
-		mlx_destroy_image(data->mlx.mlx, data->brick.img);
-	if (data->pepe.img)
-		mlx_destroy_image(data->mlx.mlx, data->pepe.img);
-	if (data->mlx.win)
-		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	if (data->mlx.mlx)
-		mlx_destroy_display(data->mlx.mlx);
-	freeze(data->map);
-	freeze(data->mlx.mlx);
-	exit(EXIT_SUCCESS);
+	data->mlx.mlx = mlx_init();
+	if (data->mlx.mlx == NULL)
+		exit_failure(data, "Error\nmlx initialization failed");
+	data->mlx.win = mlx_new_window(data->mlx.mlx, data->win_width,
+			data->win_height, "cub3d");
+	if (data->mlx.win == NULL)
+		exit_failure(data, "Error\nwindow initialization failed");
+	initialize_textures(data);
+	play_game(data);
 }

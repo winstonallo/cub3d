@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:40:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:44:30 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 {
 	h_ray->max_depth = 0;
 	h_ray->a_tan = -1 / tan(angle);
+	h_ray->direction = HORIZONTAL;
 	if (angle > PI)
 	{
 		h_ray->reach_y = (int)player->y_pos - 0.0001;
@@ -23,7 +24,7 @@ void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 	}
 	else if (angle < PI)
 	{
-		h_ray->reach_y = (int)player->y_pos + 1.0001;
+		h_ray->reach_y = (int)player->y_pos + 1;
 		h_ray->inc_y = 1;
 	}
 	else
@@ -41,6 +42,7 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 {
 	v_ray->max_depth = 0;
 	v_ray->n_tan = -tan(angle);
+	v_ray->direction = VERTICAL;
 	if (angle > P2 && angle < P3)
 	{
 		v_ray->reach_x = (int)player->x_pos - 0.0001;
@@ -70,7 +72,7 @@ void	scan(t_raycast *ray, t_data *data, int max)
 		ray->map_y = ((int)ray->reach_y);
 		ray->map_pos = ray->map_y * data->map_width + ray->map_x;
 		if (collision(data, ray->reach_x, ray->reach_y))
-			break ;
+			return ;
 		else
 		{
 			ray->reach_x += ray->inc_x;
@@ -90,34 +92,34 @@ void	draw_rays(t_data *data, float angle)
 	init_vars_horizontal(&horizontal, &data->player, angle);
 	init_vars_vertical(&vertical, &data->player, angle);
 	scan(&horizontal, data, data->map_width);
-	scan(&vertical, data, data->map_height);
+	scan(&vertical, data, data->map_width);
 	get_line(&h_line, horizontal, data);
 	get_line(&v_line, vertical, data);
-	return (calculate_distance(data, v_line, h_line));
+	calculate_distance(data, v_line, h_line);
+	draw_line(data, data->shortest_line, HEXA_RED, 1);
 }
 
 void	raycast(t_data *data)
 {
-	t_line	line;
-	int		i;
+	int			x;
+	t_line		line;
+	t_txtr		texture;
 
-	i = -1;
-	data->angle = normalize_angle(data->player.angle, (-FIELD_OF_VIEW / 2));
-	while (++i < SCREEN_WIDTH)
+	x = -1;
+	draw_background(data);
+	data->angle = data->player.angle;
+	normalize_angle(&data->angle, (-FIELD_OF_VIEW / 2));
+	while (++x < SCREEN_WIDTH)
 	{
 		data->hit_pos = MAX_DIST;
 		data->min_distance = MAX_DIST;
 		draw_rays(data, data->angle);
-		draw_line(data, data->shortest_line, 0x00ff00, 1);
 		adjust_vars(data, data->angle);
-		get_3d_line(&line, i, data);
+		get_3d_line(&line, x, data);
 		line.wall_height = line.y1 - line.y0;
-		if (data->hit == NORTH)
-			draw_texture(data, i, line, &data->pepe);
-		else if (data->hit == EAST)
-			draw_texture(data, i, line, &data->stone);
-		data->angle = normalize_angle(data->angle, FIELD_OF_VIEW
-				/ (SCREEN_WIDTH));
+		set_texture(data, &texture);
+		draw_texture(data, x, line, &texture);
+		normalize_angle(&data->angle, FIELD_OF_VIEW / (SCREEN_WIDTH));
 	}
 	draw_map(data);
 	draw_player(data);

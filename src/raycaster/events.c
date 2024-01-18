@@ -6,31 +6,29 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 10:48:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:46:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 static int	turn(int direction, t_data *data)
 {
 	if (direction == TURN_RIGHT)
 	{
-		data->player.angle += 5 * DR;
+		data->player.angle += TURN_SPEED * DR;
 		if (data->player.angle > 2 * PI)
 			data->player.angle -= 2 * PI;
-		data->player.x_dir = cos(data->player.angle) * 5;
-		data->player.y_dir = sin(data->player.angle) * 5;
+		data->player.x_dir = cos(data->player.angle) * TURN_SPEED;
+		data->player.y_dir = sin(data->player.angle) * TURN_SPEED;
 	}
 	else if (direction == TURN_LEFT)
 	{
-		data->player.angle -= 5 * DR;
+		data->player.angle -= TURN_SPEED * DR;
 		if (data->player.angle < 0)
 			data->player.angle += 2 * PI;
-		data->player.x_dir = cos(data->player.angle) * 5;
-		data->player.y_dir = sin(data->player.angle) * 5;
+		data->player.x_dir = cos(data->player.angle) * TURN_SPEED;
+		data->player.y_dir = sin(data->player.angle) * TURN_SPEED;
 	}
 	new_image(data);
 	return (EXIT_SUCCESS);
@@ -48,6 +46,18 @@ static int	check_collision(t_data *data, float new_x, float new_y)
 	return (EXIT_FAILURE);
 }
 
+static void	update_player_direction(t_player *player)
+{
+	if (player->x_pos > player->x_prev)
+		player->direction = EAST;
+	else if (player->x_pos < player->x_prev)
+		player->direction = WEST;
+	else if (player->y_pos > player->y_prev)
+		player->direction = SOUTH;
+	else if (player->y_pos < player->y_prev)
+		player->direction = NORTH;
+}
+
 int	adjust(t_data *data, float x_dir, float y_dir)
 {
 	float	new_x;
@@ -55,6 +65,8 @@ int	adjust(t_data *data, float x_dir, float y_dir)
 
 	new_x = data->player.x_pos + x_dir * SPEED;
 	new_y = data->player.y_pos + y_dir * SPEED;
+	data->player.x_prev = data->player.x_pos;
+	data->player.y_prev = data->player.y_pos;
 	if (!check_collision(data, new_x, new_y))
 	{
 		data->player.x_pos = new_x;
@@ -67,6 +79,7 @@ int	adjust(t_data *data, float x_dir, float y_dir)
 		if (!check_collision(data, new_x, data->player.y_pos))
 			data->player.x_pos = new_x;
 	}
+	update_player_direction(&data->player);
 	new_image(data);
 	return (EXIT_SUCCESS);
 }
