@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 16:00:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:05:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle);
 void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture);
 bool	collision(t_data *data, float new_x, float new_y);
 void	set_texture(t_data *data, t_txtr *texture);
+void	set_shortest_line_vars(t_data *data, float min, t_line line, float hit);
 
 //math_utils
 void	normalize_angle(float *angle, float increment);
