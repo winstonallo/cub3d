@@ -6,11 +6,11 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 17:34:56 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/18 01:46:02 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/18 02:09:52 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/button.h"
+#include "../../inc/button.h"
 
 /*	This function adds a function (action) to a button in case of beeing clicked
 	1 Parameter: function. Default type of a function should be int.

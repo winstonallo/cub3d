@@ -1,4 +1,15 @@
-<<<<<<< HEAD
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/18 02:11:33 by yannis            #+#    #+#             */
+/*   Updated: 2024/01/18 02:11:34 by yannis           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	free_game(t_game *game)
@@ -27,37 +38,16 @@ void	pre_render(t_game *game)
 	// fs = font_settings(700, 300, BLUE, 2);
 	// font_write("Cool shit", game, fs);
 }
-=======
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/16 12:19:47 by abied-ch         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../inc/raycast.h"
->>>>>>> 27408219654e99af46da574da2fa7074fbfb7d4e
 
 int	loop(void *data)
 {
 	t_game	*game;
 
-<<<<<<< HEAD
 	game = (t_game *)data;
 	mlx_clear_window(game->mlx, game->win);
 	gif_loop(game);
 	pre_render(game);
 	button_loop(game);
-=======
-	data.map = map("wow.cub");
-	initialize_data(&data);
-	start_game(&data);
->>>>>>> 27408219654e99af46da574da2fa7074fbfb7d4e
 	return (0);
 }
 
