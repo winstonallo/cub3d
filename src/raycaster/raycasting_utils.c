@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 16:07:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:49:32 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,14 @@ void	get_hit_direction(t_line line, t_data *data)
 		data->hit = EAST;
 }
 
+void	set_shortest_line(t_data *data, t_line line, float min_dist)
+{
+	data->min_distance = min_dist;
+	data->shortest_line = line;
+	data->shortest_line.scale = MAPSIZE;
+	data->hit_pos = line.y1;
+}
+
 void	calculate_distance(t_data *data, t_line line1, t_line line2)
 {
 	float	min_dist1;
@@ -71,18 +79,8 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 	min_dist1 = dist(line1);
 	min_dist2 = dist(line2);
 	if (min_dist1 < min_dist2)
-	{
-		data->min_distance = min_dist1;
-		data->hit_pos = line1.y1;
-		line1.scale = MAPSIZE;
-		data->shortest_line = line1;
-	}
+		set_shortest_line(data, line1, min_dist1);
 	else
-	{
-		data->min_distance = min_dist2;
-		data->hit_pos = line2.x1;
-		line2.scale = MAPSIZE;
-		data->shortest_line = line2;
-	}
+		set_shortest_line(data, line2, min_dist2);
 	get_hit_direction(data->shortest_line, data);
 }
