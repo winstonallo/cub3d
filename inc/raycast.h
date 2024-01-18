@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/16 16:37:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:00:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define WALL_HEIGHT 1.2
 # define COLL_SENS 0.3
 # define SOME_LARGE_VALUE 1000000
+# define HIT_POS_OFFSET 3.79
 
 //keys
 # define ESCAPE 65307

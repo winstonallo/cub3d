@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/16 12:43:20 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:01:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	get_pixel(t_txtr *texture, int x, int y)
 
 void	set_hit_position(t_data *data)
 {
-	data->hit_pos = fmod(data->hit_pos / 3.79, data->map_width);
+	data->hit_pos = fmod(data->hit_pos / HIT_POS_OFFSET, data->map_width);
 	data->hit_pos /= data->map_width;
 }
 
@@ -75,6 +75,8 @@ void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture)
 	y = -1;
 	while (++y < line.wall_height)
 	{
+		if (texture->height == 0)
+			break ;
 		texture_y = (int)((float)y / (float)line.wall_height * texture->height)
 			% texture->height;
 		texture_x = (int)((data->hit_pos) * (float)texture->width);
