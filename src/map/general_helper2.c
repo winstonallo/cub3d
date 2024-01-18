@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:44:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:32:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*load_map(int fd)
 	while (1)
 	{
 		single = 0;
-		(void)read(fd, &single, 1);
+		read(fd, &single, 1);
 		if (single < 32 && single != '\n')
 			break ;
 		t_char = malloc(2);
