@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:50:31 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 17:04:57 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:17:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	set_shortest_line_vars(t_data *data, float min, t_line line, float hit)
 	data->min_distance = min;
 	data->hit_pos = hit;
 	line.scale = MAPSIZE;
+	data->hit = line.hit;
 	data->shortest_line = line;
 }
 
@@ -27,6 +28,7 @@ void	get_line(t_line *line, t_raycast ray, t_data *data)
 	line->x1 = ray.reach_x * data->x_scale;
 	line->y1 = ray.reach_y * data->y_scale;
 	line->direction = ray.direction;
+	line->hit = ray.hit;
 	if (ray.direction == VERTICAL)
 	{
 		line->y_inc = ray.inc_y;

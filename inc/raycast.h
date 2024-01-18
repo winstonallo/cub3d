@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 17:05:10 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:17:31 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct s_line
 	int				neg_size;
 	int				max;
 	int				step;
+	int				hit;
 }	t_line;
 
 typedef struct s_player
@@ -153,6 +154,7 @@ typedef struct s_raycast
 	int					map_pos;
 	int					max_depth;
 	int					direction;
+	int					hit;
 	float				reach_x;
 	float				reach_y;
 	float				angle;

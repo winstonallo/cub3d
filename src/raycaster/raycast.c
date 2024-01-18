@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 16:59:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:16:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,23 @@ void	scan(t_raycast *ray, t_data *data, int max)
 		ray->map_y = ((int)ray->reach_y);
 		ray->map_pos = ray->map_y * data->map_width + ray->map_x;
 		if (collision(data, ray->reach_x, ray->reach_y))
+		{
+			if (ray->direction == HORIZONTAL)
+			{
+				if (ray->inc_y == 1)
+					ray->hit = NORTH;
+				else
+					ray->hit = SOUTH;
+			}
+			else
+			{
+				if (ray->inc_x == 1)
+					ray->hit = WEST;
+				else
+					ray->hit = EAST;
+			}
 			return ;
+		}
 		else
 		{
 			ray->reach_x += ray->inc_x;
