@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_helper2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:44:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 03:26:23 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static	char	*convert_rgb_to_hex(char *before)
 			value[(i[1] * 2) + 3] = (i[0] % 16) + 87;
 	}
 	value[8] = 0;
-	return (matrix_free(rgb), value);
+	return (m_matrix_free(rgb), value);
 }
 
 int	get_texture_helper(t_texture *texture, char *loaded, char **params)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:37:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:39:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 03:26:46 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ int	check_if_rgb_correct(char *str)
 		correct++;
 	if (b >= 0 && b < 256)
 		correct++;
-	matrix_free(rgb);
+	m_matrix_free(rgb);
 	return (correct);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:39:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:40:22 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 03:26:01 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,11 @@ int	check_if_valid(char *map)
 	if (!tags)
 		return (-1);
 	if (check_if_all_textures_valid(open_map, tags, error_params) < 0)
-		return (matrix_free(error_params), matrix_free(tags), -1);
+		return (m_matrix_free(error_params), m_matrix_free(tags), -1);
 	if (check_if_all_colors_valid(open_map, tags, error_params) < 0)
-		return (matrix_free(error_params), matrix_free(tags), -1);
-	matrix_free(error_params);
-	matrix_free(tags);
+		return (m_matrix_free(error_params), m_matrix_free(tags), -1);
+	m_matrix_free(error_params);
+	m_matrix_free(tags);
 	free(open_map);
 	close(fd);
 	return (0);

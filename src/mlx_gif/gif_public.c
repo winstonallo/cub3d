@@ -6,16 +6,16 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 00:53:43 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/18 01:54:56 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/18 02:53:11 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../../inc/raycast.h"
 
-t_gif	**transfer_gifs(t_game *game);
+t_gif	**transfer_gifs(t_data *game);
 t_gif	*gif_init_single(void *mlx, char *path, int posx, int posy);
 
-void	gif_delete(t_game *game, void *mlx)
+void	gif_delete(t_data *game, void *mlx)
 {
 	int	inner;
 	int	pos;
@@ -34,7 +34,7 @@ void	gif_delete(t_game *game, void *mlx)
 	free(game->gif);
 }
 
-int	gif_init(t_game *game, char *path, int posx, int posy)
+int	gif_init(t_data *game, char *path, int posx, int posy)
 {
 	t_gif	**gifs;
 	t_gif	*gif;
@@ -49,11 +49,11 @@ int	gif_init(t_game *game, char *path, int posx, int posy)
 	{
 		gifs = transfer_gifs(game);
 		if (!gifs)
-			return (gif_delete(game, game->mlx), perror("Error\n"), -1);
+			return (gif_delete(game, game->mlx.mlx), perror("Error\n"), -1);
 	}
-	gif = gif_init_single(game->mlx, path, posx, posy);
+	gif = gif_init_single(game->mlx.mlx, path, posx, posy);
 	if (!gif)
-		return (gif_delete(game, game->mlx), perror("Error\n"), -1);
+		return (gif_delete(game, game->mlx.mlx), perror("Error\n"), -1);
 	gifs[game->gifs] = gif;
 	game->gifs++;
 	game->gif = gifs;

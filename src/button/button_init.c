@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:05:14 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/18 01:47:04 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/18 02:24:04 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static	int	load_images(void *mlx, char **fname, t_button *button)
 	char	*filename;
 	int		image;
 
-	button->img = (t_img *)malloc(sizeof(t_img) * button->del);
+	button->img = (t_txtr *)malloc(sizeof(t_txtr) * button->del);
 	if (!button->img)
 		return (perror("Error\n"), -1);
 	image = -1;

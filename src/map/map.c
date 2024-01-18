@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:43:31 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 03:26:33 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*load_map(int fd);
 void	*get_texture_helper(t_texture *texture, char *loaded, char **params);
-void	matrix_free(char **error_names);
+void	m_matrix_free(char **error_names);
 int		*map_main(char *map);
 int		get_rgb_helper(t_texture *texture, char *loaded, char **params);
 int		map_get_player(int *map);
@@ -53,11 +53,11 @@ t_texture	map_get_textures(char *map)
 	if (!params)
 		return (printf("Error\nAlloc failed in get_texture_helper"), texture);
 	if (get_texture_helper(&texture, loaded, params) < 0)
-		return (free(loaded), matrix_free(params), texture);
+		return (free(loaded), m_matrix_free(params), texture);
 	if (get_rgb_helper(&texture, loaded, params) < 0)
-		return (free(loaded), matrix_free(params), texture);
+		return (free(loaded), m_matrix_free(params), texture);
 	free(loaded);
-	matrix_free(params);
+	m_matrix_free(params);
 	texture.err_code = 0;
 	return (texture);
 }

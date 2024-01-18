@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 20:43:31 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/18 01:47:18 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/18 02:43:22 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	b_matrix_free(char **arr)
 		free(arr[pos++]);
 	free(arr);
 }
-int	button_loop_check(t_game *game, t_button_loop *loop)
+int	button_loop_check(t_data *game, t_button_loop *loop)
 {
 	if (game->clicked == 0)
 		return (0);
@@ -40,7 +40,7 @@ int	button_loop_check(t_game *game, t_button_loop *loop)
 	return (1);
 }
 
-int	button_loop_elapsed_time(t_game *game, t_button_loop *loop)
+int	button_loop_elapsed_time(t_data *game, t_button_loop *loop)
 {
 	if (loop->inc > 8)
 		loop->lap++;
@@ -65,7 +65,7 @@ int	button_loop_elapsed_time(t_game *game, t_button_loop *loop)
 	return (loop->status);
 }
 
-int	button_loop(t_game *game)
+int	button_loop(t_data *game)
 {
 	static	t_button_loop	loop;
 
@@ -86,7 +86,7 @@ int	button_loop(t_game *game)
 	return (loop.status);
 }
 
-t_button	**transfer_buttons(t_game *game)
+t_button	**transfer_buttons(t_data *game)
 {
 	t_button	**buttons;
 	int			i;
@@ -101,7 +101,7 @@ t_button	**transfer_buttons(t_game *game)
 	return (buttons);
 }
 
-t_button	*button_init_single(void *mlx, char *path, int (*f)(t_game *, int))
+t_button	*button_init_single(void *mlx, char *path, int (*f)(t_data *, int))
 {
 	t_button	*button;
 
@@ -109,7 +109,7 @@ t_button	*button_init_single(void *mlx, char *path, int (*f)(t_game *, int))
 	if (!button)
 		return (perror("Error\n"), NULL);
 	button->activate = 0;
-	button->img = (t_img *)malloc(sizeof(t_img) * 9);
+	button->img = (t_txtr *)malloc(sizeof(t_txtr) * 9);
 	if (!button->img)
 		return (free(button), perror("Error\n"), NULL);
 	if (load_button(button, mlx, path) < 0)
@@ -121,7 +121,7 @@ t_button	*button_init_single(void *mlx, char *path, int (*f)(t_game *, int))
 	return (button);
 }
 
-void	button_delete_master(t_game *game, void *mlx)
+void	button_delete_master(t_data *game, void *mlx)
 {
 	int	inner;
 	int	pos;
@@ -138,7 +138,7 @@ void	button_delete_master(t_game *game, void *mlx)
 	free(game->button);
 }
 
-int	button_init_master(t_game *game, char *path, int (*f)(t_game *, int))
+int	button_init_master(t_data *game, char *path, int (*f)(t_data *, int))
 {
 	t_button	**buttons;
 	t_button	*button;
@@ -154,11 +154,12 @@ int	button_init_master(t_game *game, char *path, int (*f)(t_game *, int))
 	{
 		buttons = transfer_buttons(game);
 		if (!buttons)
-			return (button_delete_master(game, game->mlx), perror("Error\n"), -1);
+			return (button_delete_master(game, game->mlx.mlx),
+				perror("Error\n"), -1);
 	}
-	button = button_init_single(game->mlx, path, f);
+	button = button_init_single(game->mlx.mlx, path, f);
 	if (!button)
-		return (button_delete_master(game, game->mlx), perror("Error\n"), -1);
+		return (button_delete_master(game, game->mlx.mlx), perror("Error\n"), -1);
 	buttons[button_pos] = button;
 	button_pos++;
 	game->button_index = button_pos;

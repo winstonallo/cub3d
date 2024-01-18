@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:32:56 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/18 01:48:46 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/18 03:23:04 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,36 +41,36 @@ static	int	space(int identifier)
 	return (spacing);
 }
 
-static	int	font_to_img(t_font_setting fo, t_game *ga, int integer, t_img *base)
+static	int	font_to_img(t_font_setting fo, t_data *ga, int integ, t_txtr *base)
 {
 	if (fo.identifier == 4)
 	{
-		ga->font->xl_font.letter[integer].color = fo.color;
-		image_edit(ga, base, ga->font->xl_font.letter[integer], 1);
-		return (ga->font->xl_font.letter[integer].width);
+		ga->font->xl_font.letter[integ].color = fo.color;
+		image_edit(ga, base, ga->font->xl_font.letter[integ], 1);
+		return (ga->font->xl_font.letter[integ].width);
 	}
 	else if (fo.identifier == 3)
 	{
-		ga->font->big_font.letter[integer].color = fo.color;
-		image_edit(ga, base, ga->font->big_font.letter[integer], 1);
-		return (ga->font->big_font.letter[integer].width);
+		ga->font->big_font.letter[integ].color = fo.color;
+		image_edit(ga, base, ga->font->big_font.letter[integ], 1);
+		return (ga->font->big_font.letter[integ].width);
 	}
 	else if (fo.identifier == 2)
 	{
-		ga->font->medium_font.letter[integer].color = fo.color;
-		image_edit(ga, base, ga->font->medium_font.letter[integer], 1);
-		return (ga->font->medium_font.letter[integer].width);
+		ga->font->medium_font.letter[integ].color = fo.color;
+		image_edit(ga, base, ga->font->medium_font.letter[integ], 1);
+		return (ga->font->medium_font.letter[integ].width);
 	}
 	else if (fo.identifier == 1)
 	{
-		ga->font->small_font.letter[integer].color = fo.color;
-		image_edit(ga, base, ga->font->small_font.letter[integer], 1);
-		return (ga->font->small_font.letter[integer].width);
+		ga->font->small_font.letter[integ].color = fo.color;
+		image_edit(ga, base, ga->font->small_font.letter[integ], 1);
+		return (ga->font->small_font.letter[integ].width);
 	}
 	return (0);
 }
 
-void	font_write_to_image(t_game *ga, t_img *ba, char *to, t_font_setting fo)
+void	font_write_to_image(t_data *ga, t_txtr *ba, char *to, t_font_setting fo)
 {
 	int	integer;
 	int	spacing;
@@ -94,7 +94,7 @@ void	font_write_to_image(t_game *ga, t_img *ba, char *to, t_font_setting fo)
 	}
 }
 
-void	font_write_to_display(t_game *ga, char *to, t_font_setting fo)
+void	font_write_to_display(t_data *ga, char *to, t_font_setting fo)
 {
 	int	character;
 	int spacing;
@@ -111,25 +111,25 @@ void	font_write_to_display(t_game *ga, char *to, t_font_setting fo)
 			character = to[pos] - 97;
 			if (fo.identifier == 4)
 			{
-				mlx_put_image_to_window(ga->mlx, ga->win,
+				mlx_put_image_to_window(ga->mlx.mlx, ga->mlx.win,
 					ga->font->xl_font.letter[character].img, fo.x + spacing, fo.y);
 				spacing += ga->font->xl_font.letter[character].width;
 			}
 			else if (fo.identifier == 3)
 			{
-				mlx_put_image_to_window(ga->mlx, ga->win,
+				mlx_put_image_to_window(ga->mlx.mlx, ga->mlx.win,
 					ga->font->big_font.letter[character].img, fo.x + spacing, fo.y);
 				spacing += ga->font->big_font.letter[character].width;
 			}
 			else if (fo.identifier == 2)
 			{
-				mlx_put_image_to_window(ga->mlx, ga->win,
+				mlx_put_image_to_window(ga->mlx.mlx, ga->mlx.win,
 					ga->font->medium_font.letter[character].img, fo.x + spacing, fo.y);
 				spacing += ga->font->medium_font.letter[character].width;
 			}
 			else if (fo.identifier == 1)
 			{
-				mlx_put_image_to_window(ga->mlx, ga->win,
+				mlx_put_image_to_window(ga->mlx.mlx, ga->mlx.win,
 					ga->font->small_font.letter[character].img, fo.x + spacing, fo.y);
 				spacing += ga->font->small_font.letter[character].width;
 			}

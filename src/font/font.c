@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:11:49 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/18 01:48:58 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/18 02:49:30 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_font	*font_init_master(void *mlx)
 	return (font);
 }
 
-int	font_write_to_im_master(char *w, t_game *g, t_img *copy, t_font_setting s)
+int	font_write_to_im_master(char *w, t_data *g, t_txtr *copy, t_font_setting s)
 {
 	char	*to_write;
 
@@ -110,7 +110,7 @@ int	font_write_to_im_master(char *w, t_game *g, t_img *copy, t_font_setting s)
 	return (0);
 }
 
-int	font_write_master(char *w, t_game *g, t_font_setting s)
+int	font_write_master(char *w, t_data *g, t_font_setting s)
 {
 	char	*to_write;
 

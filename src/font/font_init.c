@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:12:56 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/18 01:48:18 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/18 02:24:31 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static	int	open_small_images(void *mlx, t_font *font, char **names)
 	int		i;
 
 	i = -1;
-	font->small_font.letter = (t_img *)malloc(sizeof(t_img) * 26);
+	font->small_font.letter = (t_txtr *)malloc(sizeof(t_txtr) * 26);
 	if (!font->small_font.letter)
 		return (printf("Error\nAlloc failed in o_x_l_img\n"), -1);
 	while (++i < 26)
@@ -47,7 +47,7 @@ static	int	open_medium_images(void *mlx, t_font *font, char **names)
 	int		i;
 
 	i = -1;
-	font->medium_font.letter = (t_img *)malloc(sizeof(t_img) * 26);
+	font->medium_font.letter = (t_txtr *)malloc(sizeof(t_txtr) * 26);
 	if (!font->medium_font.letter)
 		return (printf("Error\nAlloc failed in o_x_l_img\n"), -1);
 	while (++i < 26)
@@ -75,7 +75,7 @@ static	int	open_big_images(void *mlx, t_font *font, char **names)
 	int		i;
 
 	i = -1;
-	font->big_font.letter = (t_img *)malloc(sizeof(t_img) * 26);
+	font->big_font.letter = (t_txtr *)malloc(sizeof(t_txtr) * 26);
 	if (!font->big_font.letter)
 		return (printf("Error\nAlloc failed in o_x_l_img\n"), -1);
 	while (++i < 26)
@@ -103,7 +103,7 @@ static	int	open_xl_images(void *mlx, t_font *font, char **names)
 	int		i;
 
 	i = -1;
-	font->xl_font.letter = (t_img *)malloc(sizeof(t_img) * 26);
+	font->xl_font.letter = (t_txtr *)malloc(sizeof(t_txtr) * 26);
 	if (!font->xl_font.letter)
 		return (printf("Error\nAlloc failed in o_x_l_img\n"), -1);
 	while (++i < 26)

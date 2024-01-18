@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:40:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 03:25:19 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		check_if_all_textures_helper(char **params, char **err, char *map);
 int		check_for(t_check *check, char *map, char **tags, int pos);
 
 // General helper functions //
-void	matrix_free(char **error_names);
+void	m_matrix_free(char **error_names);
 char	*load_map(int fd);
 char	*str_join_block(char *str, char *str_temp);
 char	*copy(char *to_copy, int size);

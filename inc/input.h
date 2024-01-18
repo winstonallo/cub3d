@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:39:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:45:10 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 03:17:18 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INPUT_H
 # define INPUT_H
 
-# include "../libft/include/libft.h"
+# include "libft.h"
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>

@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 00:34:32 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/18 01:55:00 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/18 02:53:48 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	matrix_free(char **arr)
 	free(arr);
 }
 
-t_gif	**transfer_gifs(t_game *game)
+t_gif	**transfer_gifs(t_data *game)
 {
 	t_gif	**gifs;
 	int		i;
@@ -48,10 +48,10 @@ t_gif	*gif_init_single(void *mlx, char *path, int posx, int posy)
 	gif->del = identify_amount(path);
 	if (gif->del < 0)
 		return (free(gif), NULL);
-	gif->display = (t_img *)malloc(sizeof(t_img));
+	gif->display = (t_txtr *)malloc(sizeof(t_txtr));
 	if (!gif->display)
 		return (free(gif), NULL);
-	gif->img = (t_img *)malloc(sizeof(t_img) * gif->del);
+	gif->img = (t_txtr *)malloc(sizeof(t_txtr) * gif->del);
 	if (!gif->img)
 		return (free(gif), NULL);
 	if (alloc_imgs(gif, path, mlx) < 0)
@@ -61,7 +61,7 @@ t_gif	*gif_init_single(void *mlx, char *path, int posx, int posy)
 	return (gif);
 }
 
-void	gif_loop(t_game *game)
+void	gif_loop(t_data *game)
 {
 	static	struct	timespec	start_time;
 	struct	timespec			current_time;
@@ -70,7 +70,7 @@ void	gif_loop(t_game *game)
 
 	gif = -1;
 	while (++gif < game->gifs)
-		mlx_put_image_to_window(game->mlx, game->win, game->gif[gif]->display->img, game->gif[gif]->posx, game->gif[gif]->posy);
+		mlx_put_image_to_window(game->mlx.mlx, game->mlx.win, game->gif[gif]->display->img, game->gif[gif]->posx, game->gif[gif]->posy);
 	if (start_time.tv_sec == 0 && start_time.tv_nsec == 0)
 		clock_gettime(CLOCK_REALTIME, &start_time);
 	else
