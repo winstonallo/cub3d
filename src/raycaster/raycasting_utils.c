@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 17:57:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:59:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,4 @@ void	calculate_distance(t_data *data, t_line line1, t_line line2)
 		set_shortest_line_vars(data, min_dist2, line2, line2.x1);
 		data->hit = (data->shortest_line.y1 - data->shortest_line.y0) >= 0 ? EAST : WEST;
 	}
-	// get_hit_direction(data->shortest_line, data);
 }
