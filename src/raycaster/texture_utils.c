@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 18:36:57 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 19:03:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	draw_background(t_data *data)
 
 void	set_texture(t_data *data, t_txtr *texture)
 {
+	if (data->door == true)
+		*texture = data->pepe;
 	if (data->hit == NORTH)
 		*texture = data->wall1;
 	else if (data->hit == EAST)

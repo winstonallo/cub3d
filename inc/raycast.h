@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 17:17:31 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 19:02:49 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,9 @@ typedef struct s_data
 	int					win_width;
 	int					win_height;
 	int					line_color;
+	int					hit;
+	int					*map;
+	bool				door;
 	float				line_height;
 	float				line_offset;
 	float				target_line_height;
@@ -196,8 +199,6 @@ typedef struct s_data
 	float				min_distance;
 	float				hit_pos;
 	float				angle;
-	int					hit;
-	int					*map;
 	struct s_txtr		pepe;
 	struct s_txtr		walltest;
 	struct s_txtr		brick;
