@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 13:48:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:17:31 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,9 @@
 # include <mlx.h>
 # include <math.h>
 # include <stdbool.h>
+# include "ansi_hex_codes.h"
 # include "../libft/include/libft.h"
 # include "cub3d.h"
-
-# define GREEN		"\e[92;5;118m"
-# define RED 		"\e[91m"
-# define YELLOW 	"\e[93;5;226m"
-# define GRAY		"\e[33;2;37m"
-# define RESET 		"\e[0m"
-# define CURSIVE 	"\e[33;3m"
-# define BOLD 		"\e[1m"
 
 //constants
 # define PI 3.1415926535
@@ -37,13 +30,15 @@
 # define SCREEN_WIDTH 1000
 # define SCREEN_HEIGHT 1000
 # define SCREEN_HEIGHT2 500
-# define SPEED 0.02
+# define SPEED 0.03
+# define TURN_SPEED 10
 # define DR 0.00872665
 # define FIELD_OF_VIEW 1.04719755
 # define MAX_DIST 1000000
 # define WALL_HEIGHT 1.2
-# define COLL_SENS 0.1
+# define COLL_SENS 0.3
 # define SOME_LARGE_VALUE 1000000
+# define HIT_POS_OFFSET 3.79
 
 //keys
 # define ESCAPE 65307
@@ -126,12 +121,16 @@ typedef struct s_line
 	float			y1;
 	float			x_step;
 	float			y_step;
+	int				direction;
+	int				x_inc;
+	int				y_inc;	
 	int				wall_height;
 	int				scale;
 	int				length;
 	int				neg_size;
 	int				max;
 	int				step;
+	int				hit;
 }	t_line;
 
 typedef struct s_player
@@ -143,6 +142,9 @@ typedef struct s_player
 	float			angle;
 	float			x_dir;
 	float			y_dir;
+	int				direction;
+	float			x_prev;
+	float			y_prev;
 }	t_player;
 
 typedef struct s_raycast
@@ -151,6 +153,8 @@ typedef struct s_raycast
 	int					map_y;
 	int					map_pos;
 	int					max_depth;
+	int					direction;
+	int					hit;
 	float				reach_x;
 	float				reach_y;
 	float				angle;
@@ -175,6 +179,8 @@ typedef struct s_txtr
 typedef struct s_data
 {
 	int					view_dir;
+	int					ceiling_color;
+	int					floor_color;
 	int					map_width;
 	int					map_height;
 	int					map_size;
@@ -193,8 +199,20 @@ typedef struct s_data
 	int					hit;
 	int					*map;
 	struct s_txtr		pepe;
+	struct s_txtr		walltest;
 	struct s_txtr		brick;
 	struct s_txtr		stone;
+	struct s_txtr		wood;
+	struct s_txtr		grass;
+	struct s_txtr		metal;
+	struct s_txtr		wall1;
+	struct s_txtr		wall2;
+	struct s_txtr		wall3;
+	struct s_txtr		wall4;
+	struct s_txtr		wall5;
+	struct s_txtr		wall6;
+	struct s_txtr		wall7;
+	struct s_txtr		wall8;
 	struct s_player		player;
 	struct s_mlx		mlx;
 	struct s_img		img;
@@ -221,9 +239,11 @@ void	scan(t_raycast *ray, t_data *data, int max);
 void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle);
 void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture);
 bool	collision(t_data *data, float new_x, float new_y);
+void	set_texture(t_data *data, t_txtr *texture);
+void	set_shortest_line_vars(t_data *data, float min, t_line line, float hit);
 
 //math_utils
-float	normalize_angle(float angle, float increment);
+void	normalize_angle(float *angle, float increment);
 void	calculate_distance(t_data *data, t_line line1, t_line line2);
 float	dist(t_line line);
 
@@ -232,8 +252,11 @@ void	put_pixel(t_data *data, int x, int y, int color);
 t_line	draw_rays_horizontal(t_data *data, float angle);
 void	draw_circle(t_data *data, int x, int y, int size);
 void	draw_line(t_data *data, t_line line, int color, int size);
+void	draw_background(t_data *data);
 
-//memory management
+//memory management/mlx
+void	start_game(t_data *data);
+void	initialize_textures(t_data *data);
 void	exit_failure(t_data *data, char *msg);
 int		exit_success(t_data *data);
 void	new_image(t_data *data);

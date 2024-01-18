@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:43:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:50:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ int	check_map_if_valid(char *m)
 	{
 		if (m[i] == 'X')
 		{
-			if ((m[i - 1] != 'X' && m[i - 1] != '1' && m[i - 1] != 'N'
+			if ((m[i - 1] != 'X' && m[i - 1] != '1' && m[i - 1] != 'N' && m[i - 1] != '2'
 					&& m[i - 1] != 'S' && m[i - 1] != 'W' && m[i - 1] != 'E')
-				|| (m[i + 1] != 'X' && m[i + 1] != '1' && m[i + 1] != 'N'
+				|| (m[i + 1] != 'X' && m[i + 1] != '1' && m[i + 1] != 'N' && m[i + 1] != '2'
 					&& m[i + 1] != 'S' && m[i + 1] != 'W' && m[i + 1] != 'E')
-				|| (m[i - mpl(m)] != 'X' && m[i - mpl(m)] != '1'
+				|| (m[i - mpl(m)] != 'X' && m[i - mpl(m)] != '1' && m[i - mpl(m)] != '2'
 					&& m[i - mpl(m)] != 'N' && m[i - mpl(m)] != 'S'
 					&& m[i - mpl(m)] != 'W' && m[i - mpl(m)] != 'E')
-				|| (m[i + mpl(m)] != 'X' && m[i + mpl(m)] != '1'
+				|| (m[i + mpl(m)] != 'X' && m[i + mpl(m)] != '1' && m[i + mpl(m)] != '2'
 					&& m[i + mpl(m)] != 'N' && m[i + mpl(m)] != 'S'
 					&& m[i + mpl(m)] != 'W' && m[i + mpl(m)] != 'E'))
 				leaks++;
@@ -74,10 +74,10 @@ int	check_player_in_map(char *map)
 		if (map[pos] == 'N' || map[pos] == 'S'
 			|| map[pos] == 'E' || map[pos] == 'W')
 		{
-			if ((map[pos - mpl(map)] != '1' && map[pos - mpl(map)] != 'X')
-				|| (map[pos + mpl(map)] != '1' && map[pos + mpl(map)] != 'X')
-				|| (map[pos + 1] != '1' && map[pos + 1] != 'X')
-				|| (map[pos - 1] != '1' && map[pos - 1] != 'X'))
+			if ((map[pos - mpl(map)] != '1' && map[pos - mpl(map)] != '2' && map[pos - mpl(map)] != 'X')
+				|| (map[pos + mpl(map)] != '1' && map[pos + mpl(map)] != '2' && map[pos + mpl(map)] != 'X')
+				|| (map[pos + 1] != '1' && map[pos + 1] != '2' && map[pos + 1] != 'X')
+				|| (map[pos - 1] != '1' && map[pos - 1] != '2' && map[pos - 1] != 'X'))
 				return (printf("Error\nPlayer out of map\n"), -1);
 		}
 		pos++;
@@ -102,9 +102,7 @@ char	*map_valid(char *loaded)
 int	*map_main(char *map)
 {
 	int	*sliced_map;
-	int	error_code;
 
-	error_code = 0;
 	if (check_if_exists(map) < 0)
 		return (NULL);
 	if (check_if_valid(map) < 0)

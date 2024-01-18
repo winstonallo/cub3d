@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:44:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:50:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	*check_for_invalid_textures(char *origin)
 	{
 		if (!(temp[pos] == '1' || temp[pos] == '0' || temp[pos] == 'N'
 				|| temp[pos] == 'W' || temp[pos] == 'S' || temp[pos] == 'E'
-				|| temp[pos] == '\n' || temp[pos] == ' ' || temp[pos] == 0))
+				|| temp[pos] == '\n' || temp[pos] == ' ' || temp[pos] == 0 || temp[pos] == '2'))
 			valid--;
 		pos++;
 	}

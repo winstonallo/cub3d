@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:43:02 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:43:21 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:51:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int	*slicer(char *map)
 			arr[pos++] = 1;
 		if (map[i] == 'X')
 			arr[pos++] = 0;
+		if (map[i] == '2')
+			arr[pos++] = 2;
 		if (map[i] == 'N' || map[i] == 'S' || map[i] == 'W' || map[i] == 'E')
 			arr[pos++] = 2 + map[i];
 	}

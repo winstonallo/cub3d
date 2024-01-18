@@ -6,11 +6,44 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:43:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:36:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
+
+void	draw_background(t_data *data)
+{
+	int		x;
+	int		y;
+
+	x = -1;
+	data->ceiling_color = HEXA_MIDNIGHT_BLUE;
+	data->floor_color = HEXA_BLACK;
+	while (++x < SCREEN_WIDTH)
+	{
+		y = -1;
+		while (++y < SCREEN_HEIGHT)
+		{
+			if (y < SCREEN_HEIGHT / 2)
+				put_pixel(data, x, y, data->ceiling_color);
+			else
+				put_pixel(data, x, y, data->floor_color);
+		}
+	}
+}
+
+void	set_texture(t_data *data, t_txtr *texture)
+{
+	if (data->hit == NORTH)
+		*texture = data->wall1;
+	else if (data->hit == EAST)
+		*texture = data->wall2;
+	else if (data->hit == SOUTH)
+		*texture = data->wall3;
+	else if (data->hit == WEST)
+		*texture = data->wall5;
+}
 
 int	get_pixel(t_txtr *texture, int x, int y)
 {
@@ -24,6 +57,12 @@ int	get_pixel(t_txtr *texture, int x, int y)
 	return (color);
 }
 
+void	set_hit_position(t_data *data)
+{
+	data->hit_pos = fmod(data->hit_pos / HIT_POS_OFFSET, data->map_width);
+	data->hit_pos /= data->map_width;
+}
+
 void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture)
 {
 	int		color;
@@ -32,10 +71,12 @@ void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture)
 	int		screen_y;
 	int		texture_x;
 
-	data->hit_pos = fmod(data->hit_pos, data->map_width) / (data->map_width);
+	set_hit_position(data);
 	y = -1;
 	while (++y < line.wall_height)
 	{
+		if (texture->height == 0)
+			break ;
 		texture_y = (int)((float)y / (float)line.wall_height * texture->height)
 			% texture->height;
 		texture_x = (int)((data->hit_pos) * (float)texture->width);
