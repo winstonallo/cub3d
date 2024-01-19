@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:37:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:39:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:40:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**fill_params(int flag)
 
 	array = (char **)malloc(sizeof(char *) * 7);
 	if (!array)
-		return (printf("Fill param allocation failed\n"), NULL);
+		return (perror("Error\n[fill_params] allocation failed\n"), NULL);
 	if (flag == 0)
 	{
 		array[0] = ft_strdup("NO");

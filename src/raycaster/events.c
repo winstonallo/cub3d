@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/16 12:46:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/19 22:02:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,20 @@ static int	turn(int direction, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int	check_collision(t_data *data, float new_x, float new_y)
+static bool	check_collision(t_data *data, float new_x, float new_y)
 {
-	int	pos;
-	int	neg;
+    int	tl;
+	int	tr;
+	int	bl;
+	int br;
 
-	pos = (int)(new_y + COLL_SENS) * data->map_width + (int)(new_x + COLL_SENS);
-	neg = (int)(new_y - COLL_SENS) * data->map_width + (int)(new_x - COLL_SENS);
-	if (data->map[pos] != 1 && data->map[neg] != 1)
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
+    tl = (int)(new_y - COLL_SENS) * data->map_width + (int)(new_x - COLL_SENS);
+    tr = (int)(new_y - COLL_SENS) * data->map_width + (int)(new_x + COLL_SENS);
+    bl = (int)(new_y + COLL_SENS) * data->map_width + (int)(new_x - COLL_SENS);
+    br = (int)(new_y + COLL_SENS) * data->map_width + (int)(new_x + COLL_SENS);
+    if (data->map[tl] != 1 && data->map[tr] != 1 && data->map[bl] != 1 && data->map[br] != 1)
+        return false;
+    return true;
 }
 
 static void	update_player_direction(t_player *player)
