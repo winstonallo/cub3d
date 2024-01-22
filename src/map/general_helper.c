@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   general_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 16:58:12 by arthur           ###   ########.fr       */
+/*   Updated: 2024/01/20 21:22:12 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
 
-void	matrix_free(char **error_names)
+void	m_matrix_free(char **error_names)
 {
 	int	i;
 
@@ -25,17 +25,13 @@ void	matrix_free(char **error_names)
 char	*str_join_block(char *str, char *str_temp)
 {
 	char	*temp;
-	char	*map;
 
 	temp = ft_strjoin(str, str_temp);
+	free(str_temp);
 	free(str);
 	if (!temp)
-		return (printf("Allocation temp failed"), NULL);
-	map = ft_strjoin(temp, "");
-	free(temp);
-	if (!map)
-		return (printf("Allocation map failed"), NULL);
-	return (map);
+		return (perror("Error\nAllocation temp failed"), NULL);
+	return (temp);
 }
 
 int	validate_file(char *str, int valid, char **error, int pos)
@@ -44,7 +40,7 @@ int	validate_file(char *str, int valid, char **error, int pos)
 
 	fd = open(str, O_RDONLY);
 	if (fd < 0 && valid == 4)
-		printf("Error\n");
+		perror("Error\n");
 	if (fd < 0)
 		return (printf("%s texture path invalid\n", error[pos]), valid - 1);
 	close(fd);

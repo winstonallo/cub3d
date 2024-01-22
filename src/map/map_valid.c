@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 18:50:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:18:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
 
-static char	*replace(char *loaded)
+static	char	*replace_hex(char *loaded)
 {
 	char	*replace;
 	int		pos;
@@ -20,7 +20,7 @@ static char	*replace(char *loaded)
 	pos = 0;
 	replace = (char *)malloc(ft_strlen(loaded) + 1);
 	if (!replace)
-		return (printf("Error\nAlloc failed in replace"), NULL);
+		return (perror("Error\nAlloc failed in replace"), NULL);
 	while (loaded[pos])
 	{
 		if (loaded[pos] == '0')
@@ -45,22 +45,26 @@ int	check_map_if_valid(char *m)
 	while (m[++i])
 	{
 		if (m[i] == 'X')
-		{
-			if ((m[i - 1] != 'X' && m[i - 1] != '1' && m[i - 1] != 'N' && m[i - 1] != '2'
-					&& m[i - 1] != 'S' && m[i - 1] != 'W' && m[i - 1] != 'E')
-				|| (m[i + 1] != 'X' && m[i + 1] != '1' && m[i + 1] != 'N' && m[i + 1] != '2'
-					&& m[i + 1] != 'S' && m[i + 1] != 'W' && m[i + 1] != 'E')
-				|| (m[i - mpl(m)] != 'X' && m[i - mpl(m)] != '1' && m[i - mpl(m)] != '2'
+			if ((m[i - 1] != 'X' && m[i - 1] != '1' && m[i - 1] != 'N'
+					&& m[i - 1] != 'S' && m[i - 1] != 'W' && m[i - 1] != 'E'
+					&& m[i - 1] != 'U' && m[i - 1] != 'L' && m[i - 1] != 'R')
+				|| (m[i + 1] != 'X' && m[i + 1] != '1' && m[i + 1] != 'N'
+					&& m[i + 1] != 'S' && m[i + 1] != 'W' && m[i + 1] != 'E'
+					&& m[i - 1] != 'U' && m[i - 1] != 'L' && m[i - 1] != 'R')
+				|| (m[i - mpl(m)] != 'X' && m[i - mpl(m)] != '1'
 					&& m[i - mpl(m)] != 'N' && m[i - mpl(m)] != 'S'
-					&& m[i - mpl(m)] != 'W' && m[i - mpl(m)] != 'E')
-				|| (m[i + mpl(m)] != 'X' && m[i + mpl(m)] != '1' && m[i + mpl(m)] != '2'
+					&& m[i - mpl(m)] != 'W' && m[i - mpl(m)] != 'E'
+					&& m[i - mpl(m)] != 'U' && m[i - mpl(m)] != 'L'
+					&& m[i - mpl(m)] != 'R')
+				|| (m[i + mpl(m)] != 'X' && m[i + mpl(m)] != '1'
 					&& m[i + mpl(m)] != 'N' && m[i + mpl(m)] != 'S'
-					&& m[i + mpl(m)] != 'W' && m[i + mpl(m)] != 'E'))
+					&& m[i + mpl(m)] != 'W' && m[i + mpl(m)] != 'E'
+					&& m[i + mpl(m)] != 'U' && m[i + mpl(m)] != 'L'
+					&& m[i + mpl(m)] != 'R'))
 				leaks++;
-		}
 	}
 	if (leaks > 0)
-		return (printf("Error\n%i leaks found\n", leaks), -1);
+		return (printf("Error\n%i leaks found\n", leaks), perror(""), -1);
 	return (0);
 }
 
@@ -74,11 +78,17 @@ int	check_player_in_map(char *map)
 		if (map[pos] == 'N' || map[pos] == 'S'
 			|| map[pos] == 'E' || map[pos] == 'W')
 		{
-			if ((map[pos - mpl(map)] != '1' && map[pos - mpl(map)] != '2' && map[pos - mpl(map)] != 'X')
-				|| (map[pos + mpl(map)] != '1' && map[pos + mpl(map)] != '2' && map[pos + mpl(map)] != 'X')
-				|| (map[pos + 1] != '1' && map[pos + 1] != '2' && map[pos + 1] != 'X')
-				|| (map[pos - 1] != '1' && map[pos - 1] != '2' && map[pos - 1] != 'X'))
-				return (printf("Error\nPlayer out of map\n"), -1);
+			if ((map[pos - mpl(map)] != '1' && map[pos - mpl(map)] != 'X'
+					&& map[pos - mpl(map)] != 'U' && map[pos - mpl(map)] != 'L'
+					&& map[pos - mpl(map)] != 'R')
+				|| (map[pos + mpl(map)] != '1' && map[pos + mpl(map)] != 'X'
+					&& map[pos + mpl(map)] != 'U' && map[pos + mpl(map)] != 'L'
+					&& map[pos + mpl(map)] != 'R')
+				|| (map[pos + 1] != '1' && map[pos + 1] != 'X' && map[pos + 1] != 'U'
+					 && map[pos + 1] != 'L' && map[pos + 1] != 'R')
+				|| (map[pos - 1] != '1' && map[pos - 1] != 'X' && map[pos - 1] != 'U'
+					 && map[pos - 1] != 'L' && map[pos - 1] != 'R'))
+				return (perror("Error\nPlayer out of map"), -1);
 		}
 		pos++;
 	}
@@ -89,7 +99,7 @@ char	*map_valid(char *loaded)
 {
 	char	*changed;
 
-	changed = replace(loaded);
+	changed = replace_hex(loaded);
 	free(loaded);
 	if (!changed)
 		return (NULL);

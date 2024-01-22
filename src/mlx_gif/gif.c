@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gif.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 00:34:32 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/18 02:53:48 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/22 17:37:07 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ t_gif	*gif_init_single(void *mlx, char *path, int posx, int posy)
 	gif->del = identify_amount(path);
 	if (gif->del < 0)
 		return (free(gif), NULL);
-	gif->display = (t_txtr *)malloc(sizeof(t_txtr));
-	if (!gif->display)
-		return (free(gif), NULL);
 	gif->img = (t_txtr *)malloc(sizeof(t_txtr) * gif->del);
 	if (!gif->img)
 		return (free(gif), NULL);
@@ -70,7 +67,7 @@ void	gif_loop(t_data *game)
 
 	gif = -1;
 	while (++gif < game->gifs)
-		mlx_put_image_to_window(game->mlx.mlx, game->mlx.win, game->gif[gif]->display->img, game->gif[gif]->posx, game->gif[gif]->posy);
+		mlx_put_image_to_window(game->mlx.mlx, game->mlx.win, game->gif[gif]->display.img, game->gif[gif]->posx, game->gif[gif]->posy);
 	if (start_time.tv_sec == 0 && start_time.tv_nsec == 0)
 		clock_gettime(CLOCK_REALTIME, &start_time);
 	else
@@ -81,14 +78,25 @@ void	gif_loop(t_data *game)
 		if (elapsed_time >= 34)
 		{
 			gif = -1;
-			while (++gif < game->gifs)
+			while (++gif < game->gifs && game->gif[gif]->active == 0)
 			{
-				image_edit(game, game->gif[gif]->display, game->gif[gif]->img[game->gif[gif]->curr], 0);
+				game->gif[gif]->display = game->gif[gif]->img[game->gif[gif]->curr];
 				game->gif[gif]->curr++;
 				if (game->gif[gif]->curr == game->gif[gif]->del)
+				{
 					game->gif[gif]->curr = 0;
+					game->elev.current++;
+					if (game->elev.current == game->elev.stage)
+					{
+						game->elev.current = 0;
+						game->elev.active = 0;
+						game->gif[gif]->active = 0;
+					}
+				}
 			}
 			clock_gettime(CLOCK_REALTIME, &start_time);
+			raycast(game);
+			mlx_put_image_to_window(game->mlx.mlx, game->mlx.win, game->mlx.img, 0, 0);
 		}
 	}
 }

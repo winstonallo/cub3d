@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 14:40:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:01:58 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,10 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <stdio.h>
-
-typedef struct s_texture
-{
-	char	*color_fds[2];
-	int		texture_fds[4];
-	int		err_code;
-}				t_texture;
-
-typedef struct s_check
-{
-	char	*str;
-	int		change;
-	int		fd;
-}				t_check;
-
-typedef struct s_map
-{
-	int	stepper;
-	int	fill;
-	int	pos2;
-	int	pos;
-	int	nl;
-}				t_map;
+# include "cub3d.h"
+# include "raycast_structs.h"
 
 // Check if functions //
 char	*load_map(int fd);
@@ -53,7 +33,7 @@ int		check_if_all_textures_helper(char **params, char **err, char *map);
 int		check_for(t_check *check, char *map, char **tags, int pos);
 
 // General helper functions //
-void	matrix_free(char **error_names);
+void	m_matrix_free(char **error_names);
 char	*load_map(int fd);
 char	*str_join_block(char *str, char *str_temp);
 char	*copy(char *to_copy, int size);

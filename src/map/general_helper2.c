@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   general_helper2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/16 16:32:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:50:03 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// #include "../../inc/cub3d.h"
 #include "../../inc/map.h"
 
 char	*load_map(int fd)
@@ -20,23 +21,23 @@ char	*load_map(int fd)
 
 	map = (char *)malloc(sizeof(char) * 1);
 	if (!map)
-		return (printf("Allocation in load_map failed\n"), NULL);
+		return (perror("Allocation in load_map failed"), NULL);
 	map[0] = 0;
 	while (1)
 	{
 		single = 0;
-		read(fd, &single, 1);
+		if (read(fd, &single, 1) == -1)
+			return (free(map), perror("Error\nRead failed"), NULL);
 		if (single < 32 && single != '\n')
 			break ;
 		t_char = malloc(2);
 		if (!t_char)
-			return (printf("Error\nAllocation t_char failed\n"), NULL);
+			return (free(map), perror("Error\nAllocation t_char failed"), NULL);
 		t_char[0] = single;
 		t_char[1] = 0;
 		map = str_join_block(map, t_char);
 		if (!map)
-			return (free(t_char), printf("Error\nstr_join alloc fail\n"), NULL);
-		free(t_char);
+			return (perror("Error\nAllocation str_join fail"), NULL);
 	}
 	return (map);
 }
@@ -48,7 +49,7 @@ char	*copy(char *to_copy, int size)
 
 	new = (char *)malloc(size + 1);
 	if (!new)
-		return (printf("Error\nAlloc failed in copy\n"), NULL);
+		return (perror("Error\nAlloc failed in copy"), NULL);
 	pos = 0;
 	while (pos < size)
 	{
@@ -67,10 +68,10 @@ static	char	*convert_rgb_to_hex(char *before)
 
 	rgb = ft_split(before, ',');
 	if (!rgb)
-		return (printf("Error\nAlloc failed in convert_rgb_to_hex\n"), NULL);
+		return (perror("Error\nAlloc failed in convert_rgb_to_hex"), NULL);
 	value = (char *)malloc(9);
 	if (!value)
-		return (printf("Error\nAlloc failed in convert_rgb_to_hex\n"), NULL);
+		return (perror("Error\nAlloc failed in convert_rgb_to_hex"), NULL);
 	i[1] = -1;
 	while (rgb[++i[1]])
 	{
@@ -85,7 +86,7 @@ static	char	*convert_rgb_to_hex(char *before)
 			value[(i[1] * 2) + 3] = (i[0] % 16) + 87;
 	}
 	value[8] = 0;
-	return (matrix_free(rgb), value);
+	return (m_matrix_free(rgb), value);
 }
 
 int	get_texture_helper(t_texture *texture, char *loaded, char **params)
@@ -106,31 +107,41 @@ int	get_texture_helper(t_texture *texture, char *loaded, char **params)
 		temp[walker] = 0;
 		texture->texture_fds[i] = open(temp, O_RDONLY);
 		free(temp);
+		if (texture->texture_fds[i] < 0)
+		{
+			while (--i >= 0)
+				close(texture->texture_fds[i]);
+			return (perror("Error\nCant open texture in get_texture_helper"), -1);
+		}
 	}
 	return (0);
 }
 
 int	get_rgb_helper(t_texture *texture, char *str, char **params)
 {
-	char	*temp;
-	int		i[2];
+	char	*t;
+	int		i[3];
 
 	i[0] = -1;
 	while (++i[0] < 2)
 	{
 		i[1] = 0;
-		temp = ft_strdup(ft_strnstr(str, params[i[0] + 4], ft_strlen(str)) + 2);
-		if (!temp)
-			return (printf("Error\nAlloc failed for validating texture\n"), -1);
-		while (temp[i[1]] && temp[i[1]] != ' ' && temp[i[1]] != '\n')
+		t = ft_strdup(ft_strnstr(str, params[i[0] + 4], ft_strlen(str)) + 2);
+		if (!t)
+			return (perror("Error\nAlloc failed for validating texture"), -1);
+		while (t[i[1]] && t[i[1]] != ' ' && t[i[1]] != '\n')
 			i[1]++;
-		temp[i[1]] = 0;
-		texture->color_fds[i[0]] = convert_rgb_to_hex(temp);
+		t[i[1]] = 0;
+		i[2] = -1;
+			while (t[++i[2]])
+				if (t[i[2]] != ',' || (!(t[i[2]] >= '0' && t[i[2]] <= '9')))
+					return (perror("Error\nRgb format invalid:"), free(t), -1);
+		texture->color_fds[i[0]] = convert_rgb_to_hex(t);
 		if (!texture->color_fds[i[0]])
-			return (free(temp), -1);
+			return (free(t), -1);
 		texture->color_fds[i[0]][0] = '0';
 		texture->color_fds[i[0]][1] = 'x';
-		free(temp);
+		free(t);
 	}
 	return (0);
 }

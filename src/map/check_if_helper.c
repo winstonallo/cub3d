@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:37:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/19 12:40:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/20 20:06:33 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,24 @@
 char	**fill_params(int flag)
 {
 	char	**array;
+	char	*arr;
 
-	array = (char **)malloc(sizeof(char *) * 7);
-	if (!array)
-		return (perror("Error\n[fill_params] allocation failed\n"), NULL);
 	if (flag == 0)
 	{
-		array[0] = ft_strdup("NO");
-		array[1] = ft_strdup("SO");
-		array[2] = ft_strdup("WE");
-		array[3] = ft_strdup("EA");
-		array[4] = ft_strdup("F");
-		array[5] = ft_strdup("C");
+		arr = ft_strdup("NO,SO,WE,EA,F,C");
+		if (!arr)
+			return (perror("Error\nAlloc failed in fill_params"), NULL);
 	}
 	else
 	{
-		array[0] = ft_strdup("North");
-		array[1] = ft_strdup("South");
-		array[2] = ft_strdup("West");
-		array[3] = ft_strdup("East");
-		array[4] = ft_strdup("Floor");
-		array[5] = ft_strdup("Ceiling");
+		arr = ft_strdup("North,South,West,East,Floor,Ceiling");
+		if (!arr)
+			return (perror("Error\nAlloc failed in fill_params"), NULL);
 	}
-	array[6] = 0;
+	array = ft_split(arr, ',');
+	free(arr);
+	if (!array)
+		return (perror("Error\nAlloc failed in fill_params_split"), NULL);
 	return (array);
 }
 
@@ -74,7 +69,7 @@ int	check_for(t_check *check, char *map, char **tags, int pos)
 	check->str = ft_strdup(
 			ft_strnstr(map, tags[pos], ft_strlen(map)) + 3 - balancer);
 	if (!check->str)
-		return (printf("Error\nAlloc failed for validating texture\n"), -1);
+		return (perror("Error\nAlloc failed for validating texture"), -1);
 	check->fd = 0;
 	while (check->str[check->fd] && check->str[check->fd] != ' '
 		&& check->str[check->fd] != '\n')
@@ -94,9 +89,13 @@ int	check_if_rgb_correct(char *str)
 	int		g;
 	int		b;
 
+	g = -1;
+	while (str[++g])
+		if (str[g] != ',' && (!(str[g] >= '0' && str[g] <= '9')))
+			return (-1);
 	rgb = ft_split(str, ',');
 	if (!rgb)
-		return (-1);
+		return (perror("Error\nAllocation failed in check_if_rgb_correct"), -1);
 	correct = 0;
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
@@ -107,6 +106,6 @@ int	check_if_rgb_correct(char *str)
 		correct++;
 	if (b >= 0 && b < 256)
 		correct++;
-	matrix_free(rgb);
+	m_matrix_free(rgb);
 	return (correct);
 }

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:29:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:30:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:39:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,9 @@ float	dist(t_line line)
 bool	is_not_wall(int a, int b, int c, int d)
 {
 	return (a != 1 && b != 1 && c != 1 && d != 1);
+}
+
+bool	is_inside_circle(int x, int y, int size)
+{
+	return (pow(x, 2) + pow(y, 2) <= pow(size, 2));
 }

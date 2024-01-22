@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   button_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:42:17 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/18 03:20:43 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/22 17:42:26 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	int_exit_master(t_data *temp, int i)
 	button_delete_master(temp, temp->mlx.mlx);
 	font_delete(temp);
 	gif_delete(temp, temp->mlx.mlx);
-	free_game(temp);
+	//free_game(temp);
 	exit(0);
 	return (0);
 }

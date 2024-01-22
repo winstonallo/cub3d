@@ -6,7 +6,7 @@
 /*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 00:53:43 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/18 02:53:11 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/22 01:40:45 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ void	gif_delete(t_data *game, void *mlx)
 		pos = -1;
 		while (++pos < game->gif[inner]->del)
 			mlx_destroy_image(mlx, game->gif[inner]->img[pos].img);
-		mlx_destroy_image(mlx, game->gif[inner]->display->img);
 		free(game->gif[inner]->img);
-		free(game->gif[inner]->display);
 		free(game->gif[inner]);
 	}
 	free(game->gif);
@@ -49,11 +47,12 @@ int	gif_init(t_data *game, char *path, int posx, int posy)
 	{
 		gifs = transfer_gifs(game);
 		if (!gifs)
-			return (gif_delete(game, game->mlx.mlx), perror("Error\n"), -1);
+			return (gif_delete(game, game->mlx.mlx), perror("Error\nAllocation failed in gif_init"), -1);
 	}
 	gif = gif_init_single(game->mlx.mlx, path, posx, posy);
 	if (!gif)
-		return (gif_delete(game, game->mlx.mlx), perror("Error\n"), -1);
+		return (perror("Error\n"), -1);
+	gif->active = 0;
 	gifs[game->gifs] = gif;
 	game->gifs++;
 	game->gif = gifs;

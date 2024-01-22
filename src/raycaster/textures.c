@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:29:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:18:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	set_texture(t_data *data, t_txtr *texture)
 	if (data->door == true)
 		*texture = data->textures.wall8;
 	if (data->hit == NORTH)
-		*texture = data->textures.wall1;
+		*texture = data->textures.wall4;
 	else if (data->hit == EAST)
 		*texture = data->textures.wall2;
 	else if (data->hit == SOUTH)

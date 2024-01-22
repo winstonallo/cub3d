@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_helper2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:43:02 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 18:51:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 00:24:11 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*remove_nls_subpart(char *updated, int nls)
 
 	sub = (char *)malloc(ft_strlen(updated) + 1);
 	if (!sub)
-		return (printf("Error\nAlloc failed in remove_nls_subpart"), NULL);
+		return (free(updated), perror("Error\nAlloc failed in remove_nls_subpart"), NULL);
 	pos = 0;
 	nl = 0;
 	while (updated[pos])
@@ -59,6 +59,8 @@ char	*remove_nls(char *updated)
 		runner++;
 	}
 	new = remove_nls_subpart(updated, nl);
+	if (!new)
+		return (perror("Error\nAlloc failed in remove_nls"), NULL);
 	return (new);
 }
 
@@ -72,7 +74,7 @@ int	*slicer(char *map)
 	pos = 0;
 	arr = (int *)malloc(sizeof(int) * ft_strlen(map));
 	if (!arr)
-		return (printf("Error\nAlloc failed int slicer\n"), NULL);
+		return (perror("Error\nAlloc failed int slicer"), NULL);
 	while (map[++i])
 	{
 		if (map[i] == ' ')
@@ -81,10 +83,10 @@ int	*slicer(char *map)
 			arr[pos++] = 1;
 		if (map[i] == 'X')
 			arr[pos++] = 0;
-		if (map[i] == '2')
-			arr[pos++] = 2;
 		if (map[i] == 'N' || map[i] == 'S' || map[i] == 'W' || map[i] == 'E')
 			arr[pos++] = 2 + map[i];
+		if (map[i] == 'L' || map[i] == 'R' || map[i] == 'U' || map[i] == 'G')
+			arr[pos++] = 97 + map[i];
 	}
 	arr[pos] = -2;
 	return (arr);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:59:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:48:37 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,8 @@ static bool	check_collision(t_data *data, float new_x, float new_y)
 	return (true);
 }
 
-static void	update_player_direction(t_player *player)
+static void	slide_on_walls(t_data *data, float new_x, float new_y)
 {
-	if (player->x_pos > player->x_prev)
-		player->direction = EAST;
-	else if (player->x_pos < player->x_prev)
-		player->direction = WEST;
-	else if (player->y_pos > player->y_prev)
-		player->direction = SOUTH;
-	else if (player->y_pos < player->y_prev)
-		player->direction = NORTH;
-}
-
-int	adjust(t_data *data, float x_dir, float y_dir)
-{
-	float	new_x;
-	float	new_y;
-
-	new_x = data->player.x_pos + x_dir * SPEED;
-	new_y = data->player.y_pos + y_dir * SPEED;
-	data->player.x_prev = data->player.x_pos;
-	data->player.y_prev = data->player.y_pos;
 	if (!check_collision(data, new_x, new_y))
 	{
 		data->player.x_pos = new_x;
@@ -83,7 +64,18 @@ int	adjust(t_data *data, float x_dir, float y_dir)
 		if (!check_collision(data, new_x, data->player.y_pos))
 			data->player.x_pos = new_x;
 	}
-	update_player_direction(&data->player);
+}
+
+static int	adjust(t_data *data, float x_dir, float y_dir)
+{
+	float	new_x;
+	float	new_y;
+
+	new_x = data->player.x_pos + x_dir * SPEED;
+	new_y = data->player.y_pos + y_dir * SPEED;
+	data->player.x_prev = data->player.x_pos;
+	data->player.y_prev = data->player.y_pos;
+	slide_on_walls(data, new_x, new_y);
 	new_image(data);
 	return (EXIT_SUCCESS);
 }
