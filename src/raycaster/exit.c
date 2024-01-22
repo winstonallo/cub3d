@@ -6,12 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 12:18:58 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:28:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:59:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
-
 
 void	destroy_textures(t_data *data)
 {

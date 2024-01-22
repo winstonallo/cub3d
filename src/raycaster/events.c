@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:08:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:59:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ static int	turn(int direction, t_data *data)
 
 static bool	check_collision(t_data *data, float new_x, float new_y)
 {
-    int	tl;
+	int	tl;
 	int	tr;
 	int	bl;
-	int br;
+	int	br;
 
-    tl = (int)(new_y - COLL_SENS) * data->map_width + (int)(new_x - COLL_SENS);
-    tr = (int)(new_y - COLL_SENS) * data->map_width + (int)(new_x + COLL_SENS);
-    bl = (int)(new_y + COLL_SENS) * data->map_width + (int)(new_x - COLL_SENS);
-    br = (int)(new_y + COLL_SENS) * data->map_width + (int)(new_x + COLL_SENS);
-    if (is_not_wall(data->map[tl], data->map[tr], data->map[bl], data->map[br]))
-        return false;
-    return true;
+	tl = (int)(new_y - COLL_SENS) *data->map_width + (int)(new_x - COLL_SENS);
+	tr = (int)(new_y - COLL_SENS) *data->map_width + (int)(new_x + COLL_SENS);
+	bl = (int)(new_y + COLL_SENS) *data->map_width + (int)(new_x - COLL_SENS);
+	br = (int)(new_y + COLL_SENS) *data->map_width + (int)(new_x + COLL_SENS);
+	if (is_not_wall(data->map[tl], data->map[tr], data->map[bl], data->map[br]))
+		return (false);
+	return (true);
 }
 
 static void	update_player_direction(t_player *player)
