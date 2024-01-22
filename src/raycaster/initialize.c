@@ -6,25 +6,23 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 17:05:39 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:18:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-void	get_texture_data(t_txtr *texture, t_data *data, char *texture_path)
+void	get_texture_data(t_txtr *t, t_data *data, char *path)
 {
-	texture->img = mlx_xpm_file_to_image(data->mlx.mlx, texture_path,
-			&texture->width, &texture->height);
-	if (texture->img == NULL)
+	t->img = mlx_xpm_file_to_image(data->mlx.mlx, path, &t->width, &t->height);
+	if (t->img == NULL)
 		exit_failure(data, "Error\nimage initialization failed");
-	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp,
-			&texture->l_l, &texture->endian);
+	t->addr = mlx_get_data_addr(t->img, &t->bpp,&t->l_l, &t->endian);
 }
 
-void	initialize_textures(t_data *data)
+void	textures_init(t_data *data)
 {
-	get_texture_data(&data->textures.wall1, data, "src/textures/Wall1.xpm");
+	get_texture_data(&data->textures.wall1, data, "src/textures/pepe.xpm");
 	get_texture_data(&data->textures.wall2, data, "src/textures/Wall2.xpm");
 	get_texture_data(&data->textures.wall3, data, "src/textures/Wall3.xpm");
 	get_texture_data(&data->textures.wall4, data, "src/textures/Wall4.xpm");
@@ -37,14 +35,13 @@ void	initialize_textures(t_data *data)
 void	set_player_spawn(t_data *data, char pos)
 {
 	if (pos == 'N')
-		data->view_dir = PI / 2;
+		data->player.angle = PI / 2;
 	else if (pos == 'E')
-		data->view_dir = 0;
+		data->player.angle = 0;
 	else if (pos == 'S')
-		data->view_dir = 3 * PI / 2;
+		data->player.angle = 3 * PI / 2;
 	else if (pos == 'W')
-		data->view_dir = PI;
-	data->player.angle = data->view_dir;
+		data->player.angle = PI;
 	data->player.x_dir = cos(data->player.angle) * 5;
 	data->player.y_dir = sin(data->player.angle) * 5;
 }
@@ -64,9 +61,8 @@ static void	mlx_pointers_init(t_data *data)
 	data->textures.wall8.img = NULL;
 }
 
-void	initialize_data(t_data *data)
+void	data_init(t_data *data)
 {
-
 	data->map_width = 33;
 	data->map_height = 14;
 	data->door = false;

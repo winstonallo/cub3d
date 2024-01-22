@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:23:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 16:56:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:09:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ typedef struct s_data
 	int						hit;
 	int						*map;
 	bool					door;
-	float					view_dir;
 	float					line_height;
 	float					line_offset;
 	float					target_line_height;

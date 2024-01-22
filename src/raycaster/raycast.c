@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 16:56:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:14:23 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
+static void	horizontal_vars_init(t_raycast *h_ray, t_player *player, float angle)
 {
 	h_ray->max_depth = 0;
 	h_ray->a_tan = -1 / tan(angle);
@@ -37,7 +37,7 @@ void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 	h_ray->inc_x = -h_ray->inc_y * (h_ray->a_tan);
 }
 
-void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
+static void	vertical_vars_init(t_raycast *v_ray, t_player *player, float angle)
 {
 	v_ray->max_depth = 0;
 	v_ray->n_tan = -tan(angle);
@@ -62,7 +62,7 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 	v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
 }
 
-void	scan(t_raycast *ray, t_data *data, int max)
+static void	scan(t_raycast *ray, t_data *data, int max)
 {
 	while (ray->max_depth < max)
 	{
@@ -80,15 +80,15 @@ void	scan(t_raycast *ray, t_data *data, int max)
 	}
 }
 
-void	draw_rays(t_data *data, float angle)
+static void	throw_rays(t_data *data, float angle)
 {
 	t_line		v_line;
 	t_line		h_line;
 	t_raycast	vertical;
 	t_raycast	horizontal;
 
-	init_vars_horizontal(&horizontal, &data->player, angle);
-	init_vars_vertical(&vertical, &data->player, angle);
+	horizontal_vars_init(&horizontal, &data->player, angle);
+	vertical_vars_init(&vertical, &data->player, angle);
 	scan(&horizontal, data, data->map_width);
 	scan(&vertical, data, data->map_width);
 	get_line(&h_line, horizontal, data);
@@ -111,7 +111,7 @@ void	raycast(t_data *data)
 	{
 		data->hit_pos = MAX_DIST;
 		data->min_distance = MAX_DIST;
-		draw_rays(data, data->angle);
+		throw_rays(data, data->angle);
 		adjust_vars(data, data->angle);
 		get_3d_line(&line, x, data);
 		line.wall_height = line.y1 - line.y0;

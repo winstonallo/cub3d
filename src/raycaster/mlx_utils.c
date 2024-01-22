@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:22 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 17:06:26 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:12:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	play_game(t_data *data)
 		exit_failure(data, "Error\nimage initialization failed");
 	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp,
 			&data->img.l_l, &data->img.endian);
-	initialize_textures(data);
+	textures_init(data);
 	raycast(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
 	mlx_hook(data->mlx.win, 2, 1L, event, data);

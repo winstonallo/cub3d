@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 16:45:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:14:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	set_data_view(t_data *data);
 //map
 void	draw_map(t_data *data);
 void	draw_player(t_data *data);
-void	initialize_data(t_data *data);
+void	data_init(t_data *data);
 int		isdirection(char c);
 void	set_directions(t_data *data);
 bool	is_not_wall(int a, int b, int c, int d);
@@ -39,10 +39,7 @@ bool	is_not_wall(int a, int b, int c, int d);
 void	raycast(t_data *data);
 void	get_3d_line(t_line *line1, int i, t_data *data);
 void	adjust_vars(t_data *data, float angle);
-void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle);
 void	get_line(t_line *line, t_raycast ray, t_data *data);
-void	scan(t_raycast *ray, t_data *data, int max);
-void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle);
 void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture);
 bool	collision(t_data *data, float new_x, float new_y);
 void	set_texture(t_data *data, t_txtr *texture);
@@ -67,7 +64,7 @@ void	draw_background(t_data *data);
 
 //memory management/mlx
 void	start_game(t_data *data);
-void	initialize_textures(t_data *data);
+void	textures_init(t_data *data);
 void	exit_failure(t_data *data, char *msg);
 int		exit_success(t_data *data);
 void	new_image(t_data *data);
@@ -80,6 +77,6 @@ int		print_test_raycasting(t_data *data, int loopbreak, int direction,
 
 //game
 int		event(int key, t_data *data);
-void	init_line(t_line *line, t_data *data, int length);
+void	line_init(t_line *line, t_data *data, int length);
 
 #endif
