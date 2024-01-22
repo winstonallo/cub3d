@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:17:51 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:40:00 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	init_vars_horizontal(t_raycast *h_ray, t_player *player, float angle)
 {
 	h_ray->max_depth = 0;
 	h_ray->a_tan = -1 / tan(angle);
-	h_ray->direction = HORIZONTAL;
 	if (angle > PI)
 	{
 		h_ray->reach_y = (int)player->y_pos - 0.0001;
@@ -42,7 +41,6 @@ void	init_vars_vertical(t_raycast *v_ray, t_player *player, float angle)
 {
 	v_ray->max_depth = 0;
 	v_ray->n_tan = -tan(angle);
-	v_ray->direction = VERTICAL;
 	if (angle > P2 && angle < P3)
 	{
 		v_ray->reach_x = (int)player->x_pos - 0.0001;
@@ -119,7 +117,7 @@ void	raycast(t_data *data)
 		line.wall_height = line.y1 - line.y0;
 		set_texture(data, &texture);
 		draw_texture(data, x, line, &texture);
-		normalize_angle(&data->angle, FOV_INCREMENT / (SCREEN_WIDTH));
+		normalize_angle(&data->angle, FOV_INCREMENT / SCREEN_WIDTH);
 	}
 	draw_map(data);
 	draw_player(data);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:29:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:11:41 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:30:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ bool	collision(t_data *data, float new_x, float new_y)
 	map_pos = (int)new_y * data->map_width + (int)new_x;
 	if (map_pos < 0 || map_pos > data->map_width * data->map_height)
 		return (true);
-	if (data->map[map_pos] != 1)
-		return (false);
 	if (data->map[map_pos] == 2)
 		data->door = true;
+	if (data->map[map_pos] != 1)
+		return (false);
 	return (true);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture_utils.c                                    :+:      :+:    :+:   */
+/*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 19:03:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:29:37 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ void	draw_background(t_data *data)
 void	set_texture(t_data *data, t_txtr *texture)
 {
 	if (data->door == true)
-		*texture = data->pepe;
+		*texture = data->textures.wall8;
 	if (data->hit == NORTH)
-		*texture = data->wall1;
+		*texture = data->textures.wall1;
 	else if (data->hit == EAST)
-		*texture = data->wall2;
+		*texture = data->textures.wall2;
 	else if (data->hit == SOUTH)
-		*texture = data->wall3;
+		*texture = data->textures.wall3;
 	else if (data->hit == WEST)
-		*texture = data->wall5;
+		*texture = data->textures.wall5;
 }
 
 int	get_pixel(t_txtr *texture, int x, int y)
