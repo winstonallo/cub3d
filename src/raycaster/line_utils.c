@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:50:31 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 17:17:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:16:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	set_shortest_line_vars(t_data *data, float min, t_line line, float hit)
 
 void	get_line(t_line *line, t_raycast ray, t_data *data)
 {
-	line->x0 = data->player.x_pos * data->x_scale;
-	line->y0 = data->player.y_pos * data->y_scale;
-	line->x1 = ray.reach_x * data->x_scale;
-	line->y1 = ray.reach_y * data->y_scale;
+	line->x0 = data->player.x_pos * SCALE;
+	line->y0 = data->player.y_pos * SCALE;
+	line->x1 = ray.reach_x * SCALE;
+	line->y1 = ray.reach_y * SCALE;
 	line->direction = ray.direction;
 	line->hit = ray.hit;
 	if (ray.direction == VERTICAL)

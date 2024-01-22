@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/16 12:18:09 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:16:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,10 @@ void	initialize_data(t_data *data)
 {
 	data->mlx.mlx = NULL;
 	data->mlx.win = NULL;
-	data->mlx.img = NULL;
-	data->stone.img = NULL;
-	data->brick.img = NULL;
-	data->pepe.img = NULL;
 	data->view_dir = 0;
 	data->map_width = 33;
 	data->map_height = 14;
 	data->player.angle = PI / 2;
-	data->x_scale = (float)SCREEN_WIDTH / 8;
-	data->y_scale = (float)SCREEN_HEIGHT / 8;
 	data->win_width = SCREEN_WIDTH;
 	data->win_height = SCREEN_HEIGHT;
 	data->line_color = 0x33ff00;

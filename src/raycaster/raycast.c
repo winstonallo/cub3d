@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 18:59:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:17:51 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	raycast(t_data *data)
 	x = -1;
 	draw_background(data);
 	data->angle = data->player.angle;
-	normalize_angle(&data->angle, (-FIELD_OF_VIEW / 2));
+	normalize_angle(&data->angle, (-FOV_INCREMENT / 2));
 	while (++x < SCREEN_WIDTH)
 	{
 		data->hit_pos = MAX_DIST;
@@ -119,7 +119,7 @@ void	raycast(t_data *data)
 		line.wall_height = line.y1 - line.y0;
 		set_texture(data, &texture);
 		draw_texture(data, x, line, &texture);
-		normalize_angle(&data->angle, FIELD_OF_VIEW / (SCREEN_WIDTH));
+		normalize_angle(&data->angle, FOV_INCREMENT / (SCREEN_WIDTH));
 	}
 	draw_map(data);
 	draw_player(data);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:32:42 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/21 12:55:46 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:16:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,17 @@ void	put_pixel(t_data *data, int x, int y, int color)
 
 void	draw_tile(t_data *data, int x, int y, char tile)
 {
-	int	color;
 	int	pos_y;
 	int	pos_x;
 
-	if (tile == 1)
-		color = 0xffffff;
-	else
+	if (tile != 1)
 		return ;
 	pos_y = y - 1;
 	while (++pos_y < data->y_scale)
 	{
 		pos_x = x - 1;
-		while (++pos_x < data->x_scale)
-			put_pixel(data, pos_x, pos_y, color);
+		while (++pos_x < SCALE)
+			put_pixel(data, pos_x, pos_y, HEXA_WHITE);
 	}
 }
 
@@ -76,10 +73,10 @@ void	draw_line(t_data *data, t_line line, int color, int size)
 
 	if (line.scale == MAPSIZE)
 	{
-		line.x0 = line.x0 / data->x_scale * 10;
-		line.x1 = line.x1 / data->x_scale * 10;
-		line.y0 = line.y0 / data->y_scale * 10;
-		line.y1 = line.y1 / data->y_scale * 10;
+		line.x0 = line.x0 / SCALE * 10;
+		line.x1 = line.x1 / SCALE * 10;
+		line.y0 = line.y0 / SCALE * 10;
+		line.y1 = line.y1 / SCALE * 10;
 	}
 	set_line_vars(&line, size);
 	while (++line.step <= line.max)

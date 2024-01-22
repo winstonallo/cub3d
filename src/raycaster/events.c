@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/19 22:02:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:08:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	check_collision(t_data *data, float new_x, float new_y)
     tr = (int)(new_y - COLL_SENS) * data->map_width + (int)(new_x + COLL_SENS);
     bl = (int)(new_y + COLL_SENS) * data->map_width + (int)(new_x - COLL_SENS);
     br = (int)(new_y + COLL_SENS) * data->map_width + (int)(new_x + COLL_SENS);
-    if (data->map[tl] != 1 && data->map[tr] != 1 && data->map[bl] != 1 && data->map[br] != 1)
+    if (is_not_wall(data->map[tl], data->map[tr], data->map[bl], data->map[br]))
         return false;
     return true;
 }

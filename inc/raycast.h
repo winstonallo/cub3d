@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 19:02:49 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:17:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@
 # define SPEED 0.03
 # define TURN_SPEED 10
 # define DR 0.00872665
-# define FIELD_OF_VIEW 1.04719755
 # define MAX_DIST 1000000
 # define WALL_HEIGHT 1.2
 # define COLL_SENS 0.3
 # define SOME_LARGE_VALUE 1000000
 # define HIT_POS_OFFSET 3.79
+# define SCALE 125.0
+# define FOV_INCREMENT 1.04719755
+# define FOV 120
 
 //keys
 # define ESCAPE 65307
@@ -229,6 +231,7 @@ void	draw_player(t_data *data);
 void	initialize_data(t_data *data);
 int		isdirection(char c);
 void	set_directions(t_data *data);
+bool	is_not_wall(int a, int b, int c, int d);
 
 //raycaster
 void	raycast(t_data *data);
