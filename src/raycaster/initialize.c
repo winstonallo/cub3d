@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:46:57 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:05:39 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,6 @@ void	initialize_textures(t_data *data)
 	get_texture_data(&data->textures.wall8, data, "src/textures/Wall8.xpm");
 }
 
-void	new_image(t_data *data)
-{
-	if (data->mlx.img)
-		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
-	data->mlx.img = mlx_new_image(data->mlx.mlx,
-			data->win_width, data->win_height);
-	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp,
-			&data->img.l_l, &data->img.endian);
-	raycast(data);
-	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
-}
-
 void	set_player_spawn(t_data *data, char pos)
 {
 	if (pos == 'N')
@@ -61,15 +49,29 @@ void	set_player_spawn(t_data *data, char pos)
 	data->player.y_dir = sin(data->player.angle) * 5;
 }
 
-void	initialize_data(t_data *data)
+static void	mlx_pointers_init(t_data *data)
 {
 	data->mlx.mlx = NULL;
 	data->mlx.win = NULL;
+	data->mlx.img = NULL;
+	data->textures.wall1.img = NULL;
+	data->textures.wall2.img = NULL;
+	data->textures.wall3.img = NULL;
+	data->textures.wall4.img = NULL;
+	data->textures.wall5.img = NULL;
+	data->textures.wall6.img = NULL;
+	data->textures.wall7.img = NULL;
+	data->textures.wall8.img = NULL;
+}
+
+void	initialize_data(t_data *data)
+{
+
 	data->map_width = 33;
 	data->map_height = 14;
+	data->door = false;
+	mlx_pointers_init(data);
 	set_player_spawn(data, data->map[map_get_player_pos(data->map)] - 2);
-	data->win_width = SCREEN_WIDTH;
-	data->win_height = SCREEN_HEIGHT;
 	data->line_color = 0x33ff00;
 	data->map_size = data->map_height * data->map_width;
 	data->min_distance = 0;

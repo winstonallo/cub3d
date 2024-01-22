@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:23:23 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:45:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	set_shortest_line_vars(t_data *data, float min, t_line line, float hit);
 void	normalize_angle(float *angle, float increment);
 void	calculate_distance(t_data *data, t_line line1, t_line line2);
 float	dist(t_line line);
+bool	is_inside_circle(int x, int y, int size);
+void	set_line_vars(t_line *line, int size);
+void	scale_line_to_minimap(t_line *line);
+
+
 
 //drawing_utils
 void	put_pixel(t_data *data, int x, int y, int color);

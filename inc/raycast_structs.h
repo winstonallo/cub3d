@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:23:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:36:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:56:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct s_raycast
 	int					map_y;
 	int					map_pos;
 	int					max_depth;
-	int					direction;
 	int					hit;
 	float				reach_x;
 	float				reach_y;
@@ -118,8 +117,6 @@ typedef struct s_data
 	int						map_width;
 	int						map_height;
 	int						map_size;
-	int						win_width;
-	int						win_height;
 	int						line_color;
 	int						hit;
 	int						*map;

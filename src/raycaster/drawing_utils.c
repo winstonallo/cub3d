@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:32:42 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:16:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:44:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
+#include <stdbool.h>
 
 void	put_pixel(t_data *data, int x, int y, int color)
 {
@@ -25,17 +26,19 @@ void	put_pixel(t_data *data, int x, int y, int color)
 
 void	draw_tile(t_data *data, int x, int y, char tile)
 {
-	int	pos_y;
-	int	pos_x;
+	int	x_inc;
 
 	if (tile != 1)
 		return ;
-	pos_y = y - 1;
-	while (++pos_y < data->y_scale)
+	while (y < data->y_scale)
 	{
-		pos_x = x - 1;
-		while (++pos_x < SCALE)
-			put_pixel(data, pos_x, pos_y, HEXA_WHITE);
+		x_inc = x;
+		while (x_inc < SCALE)
+		{
+			put_pixel(data, x_inc, y, HEXA_WHITE);
+			x_inc++;
+		}
+		y++;
 	}
 }
 
@@ -44,51 +47,43 @@ void	draw_circle(t_data *data, int x, int y, int size)
 	int	pos_y;
 	int	pos_x;
 
-	pos_y = y - size - 1;
-	while (++pos_y <= y + size)
+	pos_y = y - size;
+	while (pos_y <= y + size)
 	{
-		pos_x = x - size - 1;
-		while (++pos_x <= x + size)
-			if ((pos_x - x) * (pos_x - x) + (pos_y - y)
-				* (pos_y - y) <= size * size)
-				put_pixel(data, pos_x, pos_y, 0xffffff);
+		pos_x = x - size;
+		while (pos_x <= x + size)
+		{
+			if (is_inside_circle(pos_x - x, pos_y - y, size))
+				put_pixel(data, pos_x, pos_y, HEXA_WHITE);
+			pos_x++;
+		}
+		pos_y++;
 	}
-}
-
-void	set_line_vars(t_line *line, int size)
-{
-	line->step = -1;
-	line->neg_size = -(size / 2) - 1;
-	line->x_step = line->x1 - line->x0;
-	line->y_step = line->y1 - line->y0;
-	line->max = fmax(fabs(line->x_step), fabs(line->y_step));
-	line->x_step /= line->max;
-	line->y_step /= line->max;
 }
 
 void	draw_line(t_data *data, t_line line, int color, int size)
 {
-	int		dx;
-	int		dy;
+	int		width;
+	int		length;
 
 	if (line.scale == MAPSIZE)
-	{
-		line.x0 = line.x0 / SCALE * 10;
-		line.x1 = line.x1 / SCALE * 10;
-		line.y0 = line.y0 / SCALE * 10;
-		line.y1 = line.y1 / SCALE * 10;
-	}
+		scale_line_to_minimap(&line);
 	set_line_vars(&line, size);
-	while (++line.step <= line.max)
+	while (line.step <= line.max)
 	{
-		dx = line.neg_size;
-		while (++dx < size)
+		width = line.neg_size;
+		while (width < size)
 		{
-			dy = line.neg_size;
-			while (++dy < size)
-				put_pixel(data, line.x0 + dx, line.y0 + dy, color);
+			length = line.neg_size;
+			while (++length < size)
+			{
+				put_pixel(data, line.x0 + width, line.y0 + length, color);
+				length++;
+			}
+			width++;
 		}
 		line.x0 += line.x_step;
 		line.y0 += line.y_step;
+		line.step++;
 	}
 }
