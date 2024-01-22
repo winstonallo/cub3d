@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:39:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:45:10 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:17:58 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include "raycast_structs.h"
 
 // Util functions
 int		replace_value(char *fname, char *map, char *identifier, char *content);

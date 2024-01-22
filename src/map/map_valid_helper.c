@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:44:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/21 22:16:20 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
+
+int	mpl(char *map);
 
 int	new_lines(char *map)
 {
@@ -52,44 +54,170 @@ static	int	line_len(char *map)
 	return (len);
 }
 
-static	void	replace_char(t_map *struct_map, char *map, char *str, char cha)
+// static	void	replace_char(t_map *struct_map, char *map, char *str, char cha)
+// {
+// 	while (map[struct_map->pos] && map[struct_map->pos] != '\n')
+// 	{
+// 		struct_map->stepper++;
+// 		if (map[struct_map->pos] == ' ')
+// 			str[struct_map->pos2] = cha;
+// 		else
+// 			str[struct_map->pos2] = map[struct_map->pos];
+// 		struct_map->pos++;
+// 		struct_map->pos2++;
+// 	}
+// }
+
+static	int	before(char *map, int height)
 {
-	while (map[struct_map->pos] && map[struct_map->pos] != '\n')
+	int	breaker;
+	int	inner;
+	int	i;
+
+	i = -1;
+	breaker = 0;
+	while (++i < height && breaker == 0)
 	{
-		struct_map->stepper++;
-		if (map[struct_map->pos] == ' ')
-			str[struct_map->pos2] = cha;
-		else
-			str[struct_map->pos2] = map[struct_map->pos];
-		struct_map->pos++;
-		struct_map->pos2++;
+		inner = -1;
+		while (map[++inner + i] && breaker == 0)
+		{
+			while (map[inner + i] == 32)
+				inner++;
+			if (map[inner + i] != 10)
+				breaker = 1;
+			else
+				break ;
+		}
 	}
+	return (i);
+}
+
+static	int	after(char *map, int line)
+{
+	int	pos;
+
+	pos = 0;
+	while (map[pos] && map[pos] == 10)
+		pos++;
+	pos--;
+	while (map[pos])
+	{
+		if (map[pos] == 10)
+		{
+			pos++;
+			while (map[pos] == 32)
+				pos++;
+			if (map[pos] == 10)
+				break;
+			line++;
+		}
+		else
+			pos++;
+	}
+	if (map[pos - 2] == '1' && map[pos - 1] == 10 && map[pos] == 0)
+		line--;
+	return (line);
+}
+
+// static	int	before_and_after(char *map, int height)
+// {
+// 	int	l;
+// 	int	line;
+// 	int	pos;
+
+// 	l = before(map, height);
+// 	line = 0;
+// 	while (map[line] && line < l)
+// 		line++;
+// 	pos = line;
+// 	while (map[++pos] && (line >= l && line < after(map, l)))
+// 	{
+// 		if (map[pos] == 10)
+// 		{
+// 			if (map[pos + 1] == 0 && line + 1 < after(map, l))
+// 			{
+// 				pos++;
+// 				break;
+// 			}
+// 			line++;
+// 		}
+// 	}
+// 	if (map[pos - 1] == 10)
+// 		pos--;
+// 	return (pos - height + 1);
+// }
+
+static	int	longest_line(char *map, int height)
+{
+	int	line;
+	int	pos;
+	int	ll;
+
+	pos = before(map, height) - 1;
+	ll = 0;
+	while (map[pos])
+	{
+		line = mpl(&map[pos]);
+		pos += line;
+		if (line > ll)
+			ll = line;
+		if (map[pos] == '\n')
+			pos++;
+	}
+	return (ll + 1);
+}
+
+static	char	*true_size(char *map, int height)
+{
+	char	*str;
+	int		ll;
+	int		pos;
+	int		pos2;
+
+	ll = longest_line(map, height);
+	pos = before(map, height) - 1;
+	str = (char *)malloc(((after(map, pos) - pos) * ll));
+	if (!str)
+		return (free(map), perror("Error\nAlloc failed in true_size"), NULL);
+	pos2 = 0;
+	pos = pos2;
+	return (str);
 }
 
 static	char	*fixed_box(char *map, int height, int len)
 {
-	t_map	struct_map;
 	char	*str;
+	int		box_size;
+	int		index;
+	int		pos;
+	int		ll;
+	int		line;
 
-	str = (char *)malloc(((height + 2) * len) + height + 1);
+	(void)len;
+	str = true_size(map, height);
 	if (!str)
-		return (printf("Error\nAlloc failed in fixed_box\n"), NULL);
-	struct_map.pos2 = 0;
-	struct_map.pos = 0;
-	struct_map.nl = 0;
-	while (map[struct_map.pos] && struct_map.nl < height + 2)
+		return (NULL);
+	pos = before(map, height) - 1;
+	ll = longest_line(map, height);
+	box_size = ((after(map, pos) - pos) * ll) + 1;
+	index = 0;
+	while (map[pos] && index < box_size - 1)
 	{
-		struct_map.stepper = -1;
-		struct_map.fill = 0;
-		replace_char(&struct_map, map, str, ' ');
-		while (++struct_map.fill < ((struct_map.stepper - len) * -1))
-			str[struct_map.pos2++] = ' ';
-		if (map[struct_map.pos] == '\n' && struct_map.nl < height)
-			str[struct_map.pos2++] = '\n';
-		struct_map.pos++;
-		struct_map.nl++;
+		line = 0;
+		while (map[pos] && map[pos] != 10 && index < box_size - 1)
+		{
+			str[index++] = map[pos++];
+			line++;
+		}
+		while (line < ll - 1 && index < box_size - 1)
+		{
+			str[index++] = ' ';
+			line++;
+		}
+		if (map[pos])
+			str[index++] = map[pos++];
 	}
-	str[struct_map.pos2] = 0;
+	str[index] = 0;
 	return (str);
 }
 
@@ -109,6 +237,5 @@ char	*fixed(char *origin)
 		return (free(new), NULL);
 	if (check_player_in_map(new) < 0)
 		return (free(new), NULL);
-	new = remove_nls(new);
 	return (new);
 }

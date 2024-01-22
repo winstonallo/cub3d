@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:21:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 15:22:45 by abied-ch         ###   ########.fr       */
+/*   Created: 2024/01/22 17:19:30 by yatabay           #+#    #+#             */
+/*   Updated: 2024/01/22 18:11:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define DR 0.00872665
 # define MAX_DIST 1000000
 # define WALL_HEIGHT 1.2
-# define COLL_SENS 0.3
+# define COLL_SENS 0.15
 # define SOME_LARGE_VALUE 1000000
 # define HIT_POS_OFFSET 3.79
 # define SCALE 125.0

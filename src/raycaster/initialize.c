@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 17:18:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:15:00 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	textures_init(t_data *data)
 
 void	set_player_spawn(t_data *data, char pos)
 {
-	if (pos == 'N')
+	if (pos == 'S')
 		data->player.angle = PI / 2;
 	else if (pos == 'E')
 		data->player.angle = 0;
-	else if (pos == 'S')
+	else if (pos == 'N')
 		data->player.angle = 3 * PI / 2;
 	else if (pos == 'W')
 		data->player.angle = PI;
@@ -61,16 +61,33 @@ static void	mlx_pointers_init(t_data *data)
 	data->textures.wall8.img = NULL;
 }
 
-void	data_init(t_data *data)
+void	data_init(t_data *data, int argc)
 {
-	data->map_width = 33;
-	data->map_height = 14;
-	data->door = false;
+	data->mlx.mlx = NULL;
+	data->mlx.win = NULL;
 	mlx_pointers_init(data);
 	set_player_spawn(data, data->map[map_get_player_pos(data->map)] - 2);
+	data->view_dir = 0;
+	data->map_width = 33;   //change this
+	data->map_height = 14;  //change this
+	data->map_width_old = 33;  //change this
+	data->map_height_old = 16; //change this
+	data->x_scale = (float)SCREEN_WIDTH / 8;
+	data->y_scale = (float)SCREEN_HEIGHT / 8;
+	data->win_width = SCREEN_WIDTH;
+	data->win_height = SCREEN_HEIGHT;
 	data->line_color = 0x33ff00;
 	data->map_size = data->map_height * data->map_width;
 	data->min_distance = 0;
 	data->player.x_pos = map_get_player_pos(data->map) % data->map_width;
 	data->player.y_pos = (float)map_get_player_pos(data->map) / data->map_width;
+	if (argc != 3)
+		return ;
+	data->player.x_oldpos = map_get_player_pos(data->maps[1]) % data->map_width;
+	data->player.y_oldpos = (float)map_get_player_pos(data->maps[1]) / data->map_width;
+	data->elev.floor = 0;
+	data->floors = 2;
+	data->elev.stage = 3;
+	data->elev.current = 0;
+	data->elev.active = 0;
 }

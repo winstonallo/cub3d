@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_public.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:13 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/12/17 12:44:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:23:20 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	map_get_player(int *map)
 	i = 0;
 	while (map[i] != -2)
 	{
-		if (map[i] > 2)
+		if (map[i] < 100 && map[i] > 60)
 			break ;
 		i++;
 	}

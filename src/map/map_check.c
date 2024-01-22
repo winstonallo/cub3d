@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 18:50:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:19:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static	char	*remove_textures_and_rgb(char *map)
 	}
 	new = (char *)malloc((ft_strlen(map) - (i + 1)) + 2);
 	if (!new)
-		return (printf("Error\nAllocation failed in rem_txt_rgb"), NULL);
+		return (perror("Error\nAllocation failed in rem_txt_rgb"), NULL);
 	j = 0;
 	while (map[i])
 		new[j++] = map[i++];
@@ -47,21 +47,22 @@ static char	*check_for_invalid_textures(char *origin)
 
 	temp = ft_strdup(origin);
 	if (!temp)
-		return (printf("Error\nAlloc failed in c_f_i_t\n"), free(origin), NULL);
+		return (free(origin), perror("Error\nAlloc failed in c_f_i_t"), NULL);
 	pos = 0;
 	valid = 0;
 	while (temp[pos])
 	{
 		if (!(temp[pos] == '1' || temp[pos] == '0' || temp[pos] == 'N'
 				|| temp[pos] == 'W' || temp[pos] == 'S' || temp[pos] == 'E'
-				|| temp[pos] == '\n' || temp[pos] == ' ' || temp[pos] == 0 || temp[pos] == '2'))
+				|| temp[pos] == 'U' || temp[pos] == 'R' || temp[pos] == 'L'
+				|| temp[pos] == '\n' || temp[pos] == ' ' || temp[pos] == 0))
 			valid--;
 		pos++;
 	}
 	free(origin);
 	if (valid < 0)
 	{
-		printf("Error\nMap invalid. Invalid character found\n");
+		perror("Error\nMap invalid. Invalid character found");
 		free(temp);
 		temp = NULL;
 	}
@@ -83,9 +84,9 @@ static	int	check_for_multiple_player(char *origin)
 		pos++;
 	}
 	if (player_count == 0)
-		return (printf("Error\nNo player found\n"), -1);
+		return (perror("Error\nNo player found"), -1);
 	else if (player_count > 1)
-		return (printf("Error\nToo many players on map\n"), -1);
+		return (perror("Error\nToo many players on map"), -1);
 	return (1 - player_count);
 }
 
@@ -100,7 +101,7 @@ static char	*check_map(char *map)
 	if (!modified)
 		return (NULL);
 	if (check_for_multiple_player(modified) < 0)
-		return (NULL);
+		return (free(modified), NULL);
 	return (modified);
 }
 
@@ -114,18 +115,18 @@ int	*slice_map(char *map)
 	fd = open(map, O_RDONLY);
 	loaded_map = load_map(fd);
 	if (!loaded_map)
-		return (printf("Error\nCan't load map in slice_map"), close(fd), NULL);
+		return (close(fd), perror("Error\nCan't load map in slice_map"), close(fd), NULL);
 	updated = check_map(loaded_map);
-	if (!updated)
-		return (NULL);
 	free(loaded_map);
+	if (!updated)
+		return (close(fd), NULL);
 	updated = map_valid(updated);
 	if (!updated)
-		return (NULL);
+		return (close(fd), NULL);
 	slice = slicer(updated);
 	free(updated);
 	if (!slice)
-		return (NULL);
+		return (close(fd), NULL);
 	close(fd);
 	return (slice);
 }
