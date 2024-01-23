@@ -42,6 +42,7 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${FONT_DIR}font_init_helper.c\
 		${SRC_DIR}${FONT_DIR}font_write.c\
 		${SRC_DIR}${RAY_DIR}raycast.c \
+		${SRC_DIR}${RAY_DIR}scaling.c \
 		${SRC_DIR}${RAY_DIR}drawing_utils.c \
 		${SRC_DIR}${RAY_DIR}initialize.c \
 		${SRC_DIR}${RAY_DIR}mlx_utils.c \

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 22:08:09 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:13:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,15 @@ static void	mlx_pointers_init(t_data *data)
 	data->textures.door.img = NULL;
 }
 
-void	set_wall_scaling_factor(t_data *data)
-{
-	double	scaling[] = {0, 0, 0, 41.67, 31.25, 25, 21, 17.87, 15.62, 13.89, 12.5, 11.36, 10.42, 9.61, 8.93, 8.33, 7.81, 7.35, 6.94, 6.58, 6.25, 5.95, 5.68, 5.43, 5.21, 5, 4.81, 4.63, 4.46, 4.31, 4.17, 4.03, 3.91, 3.79, 3.68, 3.57, 3.47, 3.38, 3.29, 3.21, 3.13, 3.05, 2.98, 2.91, 2.84, 2.78, 2.72, 2.66, 2.6, 2.55, 2.5};
-	
-	data->scaling = scaling[data->map_width];
-}
-
 void	data_init(t_data *data)
 {
 	data->mlx.mlx = NULL;
 	data->mlx.win = NULL;
+	data->map_width = 32;  //change this
+	data->map_height = 15;  //change this
 	mlx_pointers_init(data);
 	set_player_spawn(data, data->map[map_get_player_pos(data->map)] - 2);
 	set_wall_scaling_factor(data);
-	data->map_width = 32;  //change this
-	data->map_height = 15;  //change this
 	data->map_width_old = 33;  //change this
 	data->map_height_old = 16; //change this
 	data->x_scale = (float)SCREEN_WIDTH / 8;
@@ -82,8 +75,6 @@ void	data_init(t_data *data)
 	data->min_distance = 0;
 	data->player.x_pos = map_get_player_pos(data->map) % data->map_width;
 	data->player.y_pos = (float)map_get_player_pos(data->map) / data->map_width;
-	data->player.x_oldpos = map_get_player_pos(data->maps[1]) % data->map_width;
-	data->player.y_oldpos = (float)map_get_player_pos(data->maps[1]) / data->map_width;
 	data->elev.floor = 0;
 	data->floors = 2;
 	data->elev.stage = 3;

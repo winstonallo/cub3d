@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 22:08:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 22:25:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	data_init(t_data *data);
 int		isdirection(char c);
 void	set_directions(t_data *data);
 bool	is_not_wall(int a, int b, int c, int d);
+void	set_wall_scaling_factor(t_data *data);
 
 //raycaster
 void	raycast(t_data *data);
