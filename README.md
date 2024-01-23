@@ -4,6 +4,7 @@
 
 Old-school raycasting engine
 
-![Image 12 01 24 at 13 28](https://github.com/winstonallo/cub3d/assets/136271426/05105479-0103-4cb1-ba1e-6f30140fbc72)
+![Screenshot from 2024-01-23 23-50-48](https://github.com/winstonallo/cub3d/assets/136271426/c9d45df9-84e9-4842-867d-af9e9302ea86)
+
 
 Work in progress
