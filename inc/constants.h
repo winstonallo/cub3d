@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:19:30 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/22 18:11:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:11:58 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define WALL_HEIGHT 1.2
 # define COLL_SENS 0.15
 # define SOME_LARGE_VALUE 1000000
-# define HIT_POS_OFFSET 3.79
+# define HIT_POS_OFFSET 2.72
 # define SCALE 125.0
 # define FOV_INCREMENT 1.04719755
 # define FOV 120

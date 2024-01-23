@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 17:57:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:26:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ static void	throw_rays(t_data *data, float angle)
 
 	horizontal_vars_init(&horizontal, &data->player, angle);
 	vertical_vars_init(&vertical, &data->player, angle);
-	scan(&horizontal, data, data->map_width);
-	scan(&vertical, data, data->map_width);
+	scan(&horizontal, data, fmax(data->map_width, data->map_height));
+	scan(&vertical, data, fmax(data->map_width, data->map_height));
 	get_line(&h_line, horizontal, data);
 	get_line(&v_line, vertical, data);
 	calculate_distance(data, v_line, h_line);

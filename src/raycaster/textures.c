@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 18:18:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:20:33 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	get_pixel(t_txtr *texture, int x, int y)
 
 void	set_hit_position(t_data *data)
 {
-	data->hit_pos = fmod(data->hit_pos / HIT_POS_OFFSET, data->map_width);
+	data->hit_pos = fmod(data->hit_pos / data->scaling, data->map_width);
 	data->hit_pos /= data->map_width;
 }
 

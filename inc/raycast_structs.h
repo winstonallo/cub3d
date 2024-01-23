@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:15:16 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/22 17:58:17 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:36:00 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,7 @@ typedef struct s_data
 	int						button_index;
 	int						clicked;
 	bool					door;
+	double					scaling;
 	float					line_height;
 	float					line_offset;
 	float					target_line_height;
