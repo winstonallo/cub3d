@@ -6,12 +6,32 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:32:42 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 16:44:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:30:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
-#include <stdbool.h>
+
+void	draw_background(t_data *data)
+{
+	int		x;
+	int		y;
+
+	x = -1;
+	data->ceiling_color = HEXA_MIDNIGHT_BLUE;
+	data->floor_color = HEXA_BLACK;
+	while (++x < SCREEN_WIDTH)
+	{
+		y = -1;
+		while (++y < SCREEN_HEIGHT)
+		{
+			if (y < SCREEN_HEIGHT / 2)
+				put_pixel(data, x, y, data->ceiling_color);
+			else
+				put_pixel(data, x, y, data->floor_color);
+		}
+	}
+}
 
 void	put_pixel(t_data *data, int x, int y, int color)
 {

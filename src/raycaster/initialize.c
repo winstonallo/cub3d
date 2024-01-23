@@ -6,19 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 23:26:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:29:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
-
-void	get_texture_data(t_txtr *t, t_data *data, char *path)
-{
-	t->img = mlx_xpm_file_to_image(data->mlx.mlx, path, &t->width, &t->height);
-	if (t->img == NULL)
-		exit_failure(data, "Error\nimage initialization failed");
-	t->addr = mlx_get_data_addr(t->img, &t->bpp,&t->l_l, &t->endian);
-}
 
 void	textures_init(t_data *data)
 {
@@ -29,19 +21,24 @@ void	textures_init(t_data *data)
 	get_texture_data(&data->textures.door, data, "src/textures/Wall5.xpm");
 }
 
+void	set_player_angle(float *angle, char pos)
+{
+	if (pos == 'N')
+		*angle = 3 * M_PI / 2;
+	else if (pos == 'S')
+		*angle = M_PI / 2;
+	else if (pos == 'E')
+		*angle = 0;
+	else if (pos == 'W')
+		*angle = M_PI;
+}
+
 void	set_player_spawn(t_data *data, int player_pos)
 {
 	char	pos;
 
 	pos = data->map[player_pos] - 2;
-	if (pos == SOUTH)
-		data->player.angle = PI / 2;
-	else if (pos == EAST)
-		data->player.angle = 0;
-	else if (pos == NORTH)
-		data->player.angle = 3 * PI / 2;
-	else if (pos == WEST)
-		data->player.angle = PI;
+	set_player_angle(&data->player.angle, pos);
 	data->player.x_dir = cos(data->player.angle) * 5;
 	data->player.y_dir = sin(data->player.angle) * 5;
 	data->player.x_pos = player_pos % data->map_width;
