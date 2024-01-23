@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 23:13:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:15:31 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ void	data_init(t_data *data)
 	data->map_height_old = 16; //change this
 	data->x_scale = (float)SCREEN_WIDTH / 8;
 	data->y_scale = (float)SCREEN_HEIGHT / 8;
-	data->win_width = SCREEN_WIDTH;
-	data->win_height = SCREEN_HEIGHT;
 	data->line_color = 0x33ff00;
 	data->map_size = data->map_height * data->map_width;
 	data->min_distance = 0;
