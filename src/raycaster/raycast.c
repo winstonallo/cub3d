@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 23:42:51 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:49:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	get_shortest_line(t_data *data)
 {
 	t_line		v_line;
 	t_line		h_line;
-	
+
 	get_line(&v_line, data->v_ray, data);
 	get_line(&h_line, data->h_ray, data);
 	calculate_distance(data, v_line, h_line);
