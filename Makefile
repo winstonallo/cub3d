@@ -51,6 +51,7 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${RAY_DIR}raycasting_utils.c \
 		${SRC_DIR}${RAY_DIR}math_utils.c \
 		${SRC_DIR}${RAY_DIR}exit.c \
+		${SRC_DIR}${RAY_DIR}rays_init.c \
 		${SRC_DIR}${RAY_DIR}line_utils.c \
 		${SRC_DIR}${RAY_DIR}textures.c \
 		${SRC_DIR}${MAP_DIR}check_if_helper.c \

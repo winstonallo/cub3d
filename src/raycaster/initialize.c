@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 23:29:46 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:48:41 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	mlx_pointers_init(t_data *data)
 void	data_init(t_data *data)
 {
 	data->map_width = 32;  		//TODO: make dynamic
-	data->map_height = 15;  	//TODO: make dynamic
+	data->map_height = 14;	 	//TODO: make dynamic
 	data->map_width_old = 33;  	//TODO: make dynamic
 	data->map_height_old = 16; 	//TODO: make dynamic
 	mlx_pointers_init(data);

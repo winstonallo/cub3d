@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:15:16 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/23 21:18:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:37:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,8 @@ typedef struct s_data
 	float					hit_pos;
 	float					angle;
 	double					scaling;
+	struct s_raycast		h_ray;
+	struct s_raycast		v_ray;
 	struct s_texture_base	textures;
 	struct s_player			player;
 	struct s_mlx			mlx;
