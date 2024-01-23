@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 22:19:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 23:13:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:33:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	set_wall_scaling_factor(t_data *data)
 
 	scaling = (double *)ft_calloc(sizeof(double), 51);
 	if (!scaling)
-		exit_failure(data, "Error\nAllocation failed in set_wall_scaling_factor");
+		exit_failure(data, "Error\nMalloc failure in set_wall_scaling_factor");
 	scale_array_init(&scaling);
 	data->scaling = scaling[data->map_width];
 }

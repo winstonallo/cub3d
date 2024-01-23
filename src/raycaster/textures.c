@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 23:30:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:31:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	get_texture_data(t_txtr *t, t_data *data, char *path)
 	t->img = mlx_xpm_file_to_image(data->mlx.mlx, path, &t->width, &t->height);
 	if (t->img == NULL)
 		exit_failure(data, "Error\nimage initialization failed");
-	t->addr = mlx_get_data_addr(t->img, &t->bpp,&t->l_l, &t->endian);
+	t->addr = mlx_get_data_addr(t->img, &t->bpp, &t->l_l, &t->endian);
 }
 
 void	set_texture(t_data *data, t_txtr *texture)

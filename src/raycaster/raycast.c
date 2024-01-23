@@ -6,59 +6,59 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 20:26:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:34:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-static void	horizontal_vars_init(t_raycast *h_ray, t_player *player, float angle)
+static void	horizontal_vars_init(t_raycast *h_ray, t_player *p, float angle)
 {
 	h_ray->max_depth = 0;
 	h_ray->a_tan = -1 / tan(angle);
 	if (angle > PI)
 	{
-		h_ray->reach_y = (int)player->y_pos - 0.0001;
+		h_ray->reach_y = (int)p->y_pos - 0.0001;
 		h_ray->inc_y = -1;
 	}
 	else if (angle < PI)
 	{
-		h_ray->reach_y = (int)player->y_pos + 1;
+		h_ray->reach_y = (int)p->y_pos + 1;
 		h_ray->inc_y = 1;
 	}
 	else
 	{
-		h_ray->reach_y = player->y_pos;
+		h_ray->reach_y = p->y_pos;
 		h_ray->inc_y = 0;
 		h_ray->max_depth = 33;
 	}
-	h_ray->reach_x = (player->y_pos - h_ray->reach_y)
-		* h_ray->a_tan + player->x_pos;
+	h_ray->reach_x = (p->y_pos - h_ray->reach_y)
+		* h_ray->a_tan + p->x_pos;
 	h_ray->inc_x = -h_ray->inc_y * (h_ray->a_tan);
 }
 
-static void	vertical_vars_init(t_raycast *v_ray, t_player *player, float angle)
+static void	vertical_vars_init(t_raycast *v_ray, t_player *p, float angle)
 {
 	v_ray->max_depth = 0;
 	v_ray->n_tan = -tan(angle);
 	if (angle > P2 && angle < P3)
 	{
-		v_ray->reach_x = (int)player->x_pos - 0.0001;
+		v_ray->reach_x = (int)p->x_pos - 0.0001;
 		v_ray->inc_x = -1;
 	}
 	else if (angle < P2 || angle > P3)
 	{
-		v_ray->reach_x = (int)player->x_pos + 1;
+		v_ray->reach_x = (int)p->x_pos + 1;
 		v_ray->inc_x = 1;
 	}
 	else
 	{
 		v_ray->inc_x = 0;
-		v_ray->reach_x = player->x_pos;
+		v_ray->reach_x = p->x_pos;
 		v_ray->max_depth = 33;
 	}
-	v_ray->reach_y = (player->x_pos - v_ray->reach_x)
-		* v_ray->n_tan + player->y_pos;
+	v_ray->reach_y = (p->x_pos - v_ray->reach_x)
+		* v_ray->n_tan + p->y_pos;
 	v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
 }
 
