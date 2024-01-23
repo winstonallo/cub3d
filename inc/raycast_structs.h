@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:15:16 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/23 19:36:00 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:18:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,14 +216,11 @@ typedef struct s_elevator
 
 typedef struct s_texture_base
 {
-	struct s_txtr		wall1;
-	struct s_txtr		wall2;
-	struct s_txtr		wall3;
-	struct s_txtr		wall4;
-	struct s_txtr		wall5;
-	struct s_txtr		wall6;
-	struct s_txtr		wall7;
-	struct s_txtr		wall8;
+	struct s_txtr		north;
+	struct s_txtr		south;
+	struct s_txtr		east;
+	struct s_txtr		west;
+	struct s_txtr		door;
 }	t_texture_base;
 
 typedef struct s_data
@@ -248,7 +245,10 @@ typedef struct s_data
 	int						button_index;
 	int						clicked;
 	bool					door;
-	double					scaling;
+	char					*no_txtr;
+	char					*so_txtr;
+	char					*we_txtr;
+	char					*ea_txtr;
 	float					line_height;
 	float					line_offset;
 	float					target_line_height;
@@ -258,6 +258,7 @@ typedef struct s_data
 	float					min_distance;
 	float					hit_pos;
 	float					angle;
+	double					scaling;
 	struct s_texture_base	textures;
 	struct s_player			player;
 	struct s_mlx			mlx;

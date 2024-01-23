@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 20:38:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:29:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,11 @@ void	get_texture_data(t_txtr *t, t_data *data, char *path)
 
 void	textures_init(t_data *data)
 {
-	get_texture_data(&data->textures.wall1, data, "src/textures/pepe.xpm");
-	get_texture_data(&data->textures.wall2, data, "src/textures/Wall2.xpm");
-	get_texture_data(&data->textures.wall3, data, "src/textures/Wall3.xpm");
-	get_texture_data(&data->textures.wall4, data, "src/textures/Wall4.xpm");
-	get_texture_data(&data->textures.wall5, data, "src/textures/Wall5.xpm");
-	get_texture_data(&data->textures.wall6, data, "src/textures/Wall6.xpm");
-	get_texture_data(&data->textures.wall7, data, "src/textures/Wall7.xpm");
-	get_texture_data(&data->textures.wall8, data, "src/textures/Wall8.xpm");
+	get_texture_data(&data->textures.north, data, data->no_txtr);
+	get_texture_data(&data->textures.south, data, data->so_txtr);
+	get_texture_data(&data->textures.east, data, data->ea_txtr);
+	get_texture_data(&data->textures.west, data, data->we_txtr);
+	get_texture_data(&data->textures.door, data, "src/textures/Wall5.xpm");
 }
 
 void	set_player_spawn(t_data *data, char pos)
@@ -51,19 +48,20 @@ static void	mlx_pointers_init(t_data *data)
 	data->mlx.mlx = NULL;
 	data->mlx.win = NULL;
 	data->mlx.img = NULL;
-	data->textures.wall1.img = NULL;
-	data->textures.wall2.img = NULL;
-	data->textures.wall3.img = NULL;
-	data->textures.wall4.img = NULL;
-	data->textures.wall5.img = NULL;
-	data->textures.wall6.img = NULL;
-	data->textures.wall7.img = NULL;
-	data->textures.wall8.img = NULL;
+	data->textures.south.img = NULL;
+	data->textures.north.img = NULL;
+	data->textures.east.img = NULL;
+	data->textures.west.img = NULL;
+	data->textures.door.img = NULL;
 }
 
 void	set_wall_scaling_factor(t_data *data)
 {
-	if (data->map_width == 5)
+	if (data->map_width == 3)
+		data->scaling = 41.67;
+	else if (data->map_width == 4)
+		data->scaling = 31.25;
+	else if (data->map_width == 5)
 		data->scaling = 25;
 	else if (data->map_width == 6)
 		data->scaling = 21;
@@ -121,6 +119,40 @@ void	set_wall_scaling_factor(t_data *data)
 		data->scaling = 3.91;
 	else if (data->map_width == 33)
 		data->scaling = 3.79;
+	else if (data->map_width == 34)
+		data->scaling = 3.68;
+	else if (data->map_width == 35)
+		data->scaling = 3.57;
+	else if (data->map_width == 36)
+		data->scaling = 3.47;
+	else if (data->map_width == 37)
+		data->scaling = 3.38;
+	else if (data->map_width == 38)
+		data->scaling = 3.29;
+	else if (data->map_width == 39)
+		data->scaling = 3.21;
+	else if (data->map_width == 40)
+		data->scaling = 3.13;
+	else if (data->map_width == 41)
+		data->scaling = 3.05;
+	else if (data->map_width == 42)
+		data->scaling = 2.98;
+	else if (data->map_width == 43)
+		data->scaling = 2.91;
+	else if (data->map_width == 44)
+		data->scaling = 2.84;
+	else if (data->map_width == 45)
+		data->scaling = 2.78;
+	else if (data->map_width == 46)
+		data->scaling = 2.72;
+	else if (data->map_width == 47)
+		data->scaling = 2.66;
+	else if (data->map_width == 48)
+		data->scaling = 2.6;
+	else if (data->map_width == 49)
+		data->scaling = 2.55;
+	else if (data->map_width == 50)
+		data->scaling = 2.5;
 
 }
 

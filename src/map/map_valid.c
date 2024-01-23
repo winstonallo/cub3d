@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 18:18:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:10:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,13 @@ char	*map_valid(char *loaded)
 	return (changed);
 }
 
-int	*map_main(char *map)
+int	*map_main(char *map, t_data *data)
 {
 	int	*sliced_map;
 
 	if (check_if_exists(map) < 0)
 		return (NULL);
-	if (check_if_valid(map) < 0)
+	if (check_if_valid(map, data) < 0)
 		return (NULL);
 	sliced_map = slice_map(map);
 	if (!sliced_map)

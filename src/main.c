@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 18:03:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:29:22 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	maps = -1;
 	while (++maps < argc - 1)
 	{
-		data.maps[maps] = map(argv[1 + maps]);
+		data.maps[maps] = map(argv[1 + maps], &data);
 		if (!data.maps[maps])
 		{
 			while (--maps >= 0)

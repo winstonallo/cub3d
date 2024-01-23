@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:22 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 18:17:57 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:25:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	loop(void *data)
 
 static void	play_game(t_data *data)
 {
-	data->mlx.img = mlx_new_image(data->mlx.mlx,
-			SCREEN_WIDTH, SCREEN_HEIGHT);
+	data->mlx.img = mlx_new_image(data->mlx.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (data->mlx.img == NULL)
 		exit_failure(data, "Error\nimage initialization failed");
 	data->img.addr = mlx_get_data_addr(data->mlx.img, &data->img.bpp,

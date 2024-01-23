@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 18:20:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:19:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ void	draw_background(t_data *data)
 void	set_texture(t_data *data, t_txtr *texture)
 {
 	if (data->door == true)
-		*texture = data->textures.wall8;
+		*texture = data->textures.door;
 	if (data->hit == NORTH)
-		*texture = data->textures.wall4;
+		*texture = data->textures.north;
 	else if (data->hit == EAST)
-		*texture = data->textures.wall2;
+		*texture = data->textures.east;
 	else if (data->hit == SOUTH)
-		*texture = data->textures.wall3;
+		*texture = data->textures.south;
 	else if (data->hit == WEST)
-		*texture = data->textures.wall5;
+		*texture = data->textures.west;
 }
 
 int	get_pixel(t_txtr *texture, int x, int y)

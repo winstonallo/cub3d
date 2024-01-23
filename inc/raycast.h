@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 18:04:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:16:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	init_line(t_line *line, t_data *data, int length);
 int	elevator_init(t_data *data);
 
 //map
-int			*map(char *map);
+int			*map(char *map, t_data *data);
 int			map_get_player_pos(int *map);
 t_txtr		map_get_textures(char *map);
 int			replace(char *fname, char *pos, char *content);
