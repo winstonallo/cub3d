@@ -6,94 +6,39 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 17:57:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:49:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-static void	horizontal_vars_init(t_raycast *h_ray, t_player *player, float angle)
+void	raycast_init(t_data *data, float angle)
 {
-	h_ray->max_depth = 0;
-	h_ray->a_tan = -1 / tan(angle);
-	if (angle > PI)
-	{
-		h_ray->reach_y = (int)player->y_pos - 0.0001;
-		h_ray->inc_y = -1;
-	}
-	else if (angle < PI)
-	{
-		h_ray->reach_y = (int)player->y_pos + 1;
-		h_ray->inc_y = 1;
-	}
-	else
-	{
-		h_ray->reach_y = player->y_pos;
-		h_ray->inc_y = 0;
-		h_ray->max_depth = 33;
-	}
-	h_ray->reach_x = (player->y_pos - h_ray->reach_y)
-		* h_ray->a_tan + player->x_pos;
-	h_ray->inc_x = -h_ray->inc_y * (h_ray->a_tan);
+	horizontal_vars_init(&data->h_ray, &data->player, angle);
+	vertical_vars_init(&data->v_ray, &data->player, angle);
 }
 
-static void	vertical_vars_init(t_raycast *v_ray, t_player *player, float angle)
+void	perform_scan(t_data *data)
 {
-	v_ray->max_depth = 0;
-	v_ray->n_tan = -tan(angle);
-	if (angle > P2 && angle < P3)
-	{
-		v_ray->reach_x = (int)player->x_pos - 0.0001;
-		v_ray->inc_x = -1;
-	}
-	else if (angle < P2 || angle > P3)
-	{
-		v_ray->reach_x = (int)player->x_pos + 1;
-		v_ray->inc_x = 1;
-	}
-	else
-	{
-		v_ray->inc_x = 0;
-		v_ray->reach_x = player->x_pos;
-		v_ray->max_depth = 33;
-	}
-	v_ray->reach_y = (player->x_pos - v_ray->reach_x)
-		* v_ray->n_tan + player->y_pos;
-	v_ray->inc_y = -v_ray->inc_x * v_ray->n_tan;
+	scan(&data->h_ray, data, data->map_height);
+	scan(&data->v_ray, data, data->map_width);
 }
 
-static void	scan(t_raycast *ray, t_data *data, int max)
+void	get_shortest_line(t_data *data)
 {
-	while (ray->max_depth < max)
-	{
-		ray->map_x = ((int)ray->reach_x);
-		ray->map_y = ((int)ray->reach_y);
-		ray->map_pos = ray->map_y * data->map_width + ray->map_x;
-		if (collision(data, ray->reach_x, ray->reach_y))
-			return ;
-		else
-		{
-			ray->reach_x += ray->inc_x;
-			ray->reach_y += ray->inc_y;
-			ray->max_depth++;
-		}
-	}
+	t_line		v_line;
+	t_line		h_line;
+
+	get_line(&v_line, data->v_ray, data);
+	get_line(&h_line, data->h_ray, data);
+	calculate_distance(data, v_line, h_line);
 }
 
 static void	throw_rays(t_data *data, float angle)
 {
-	t_line		v_line;
-	t_line		h_line;
-	t_raycast	vertical;
-	t_raycast	horizontal;
-
-	horizontal_vars_init(&horizontal, &data->player, angle);
-	vertical_vars_init(&vertical, &data->player, angle);
-	scan(&horizontal, data, data->map_width);
-	scan(&vertical, data, data->map_width);
-	get_line(&h_line, horizontal, data);
-	get_line(&v_line, vertical, data);
-	calculate_distance(data, v_line, h_line);
+	raycast_init(data, angle);
+	perform_scan(data);
+	get_shortest_line(data);
 	draw_line(data, data->shortest_line, HEXA_RED, 1);
 }
 

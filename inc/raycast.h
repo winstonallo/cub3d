@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 18:04:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:44:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,16 @@ void	set_data_view(t_data *data);
 //map
 void	draw_map(t_data *data);
 void	draw_player(t_data *data);
-void	data_init(t_data *data, int argc);
+void	data_init(t_data *data);
 int		isdirection(char c);
 void	set_directions(t_data *data);
 bool	is_not_wall(int a, int b, int c, int d);
+void	get_texture_data(t_txtr *t, t_data *data, char *path);
+void	set_wall_scaling_factor(t_data *data);
+void	vertical_vars_init(t_raycast *v_ray, t_player *p, float angle);
+void	horizontal_vars_init(t_raycast *h_ray, t_player *p, float angle);
+void	scan(t_raycast *ray, t_data *data, int max);
+
 
 //raycaster
 void	raycast(t_data *data);
@@ -85,7 +91,7 @@ void	init_line(t_line *line, t_data *data, int length);
 int	elevator_init(t_data *data);
 
 //map
-int			*map(char *map);
+int			*map(char *map, t_data *data);
 int			map_get_player_pos(int *map);
 t_txtr		map_get_textures(char *map);
 int			replace(char *fname, char *pos, char *content);

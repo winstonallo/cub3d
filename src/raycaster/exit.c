@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 12:18:58 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 17:56:23 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:25:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 void	destroy_textures(t_data *data)
 {
-	mlx_destroy_image(data->mlx.mlx, data->textures.wall1.img);
-	mlx_destroy_image(data->mlx.mlx, data->textures.wall2.img);
-	mlx_destroy_image(data->mlx.mlx, data->textures.wall3.img);
-	mlx_destroy_image(data->mlx.mlx, data->textures.wall4.img);
-	mlx_destroy_image(data->mlx.mlx, data->textures.wall5.img);
-	mlx_destroy_image(data->mlx.mlx, data->textures.wall6.img);
-	mlx_destroy_image(data->mlx.mlx, data->textures.wall7.img);
-	mlx_destroy_image(data->mlx.mlx, data->textures.wall8.img);
+	mlx_destroy_image(data->mlx.mlx, data->textures.north.img);
+	mlx_destroy_image(data->mlx.mlx, data->textures.west.img);
+	mlx_destroy_image(data->mlx.mlx, data->textures.east.img);
+	mlx_destroy_image(data->mlx.mlx, data->textures.south.img);
+	mlx_destroy_image(data->mlx.mlx, data->textures.door.img);
 }
 
 void	exit_failure(t_data *data, char *msg)

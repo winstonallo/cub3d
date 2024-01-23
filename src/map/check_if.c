@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:39:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/21 22:33:23 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/23 21:13:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static	char	**check_if_all_textures_available(char *loaded_map, char **err)
 	return (params);
 }
 
-static	int	check_if_all_textures_valid(char *map, char **tags, char **error)
+static	int	check_if_all_textures_valid(char *map, char **tags, char **error, t_data *data)
 {
 	t_check	*check;
 	int		valid;
@@ -68,7 +68,7 @@ static	int	check_if_all_textures_valid(char *map, char **tags, char **error)
 			return (free(check), -1);
 		if (check->change != 0)
 			check->str[4] = 32;
-		valid = validate_file(check->str, valid, error, pos);
+		valid = validate_file(check->str, valid, error, pos, data);
 		free(check->str);
 	}
 	free(check);
@@ -104,7 +104,7 @@ static	int	check_if_all_colors_valid(char *m, char **tags, char **error)
 	return (vp[1] - 2);
 }
 
-int	check_if_valid(char *map)
+int	check_if_valid(char *map, t_data *data)
 {
 	char	**error_params;
 	char	**tags;
@@ -121,7 +121,7 @@ int	check_if_valid(char *map)
 	tags = check_if_all_textures_available(open_map, error_params);
 	if (!tags)
 		return (m_matrix_free(error_params), free(open_map), -1);
-	if (check_if_all_textures_valid(open_map, tags, error_params) < 0)
+	if (check_if_all_textures_valid(open_map, tags, error_params, data) < 0)
 		return (m_matrix_free(error_params), m_matrix_free(tags), free(open_map), -1);
 	if (check_if_all_colors_valid(open_map, tags, error_params) < 0)
 		return (m_matrix_free(error_params), m_matrix_free(tags), free(open_map),-1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/20 21:22:12 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/23 21:15:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,42 @@ char	*str_join_block(char *str, char *str_temp)
 	return (temp);
 }
 
-int	validate_file(char *str, int valid, char **error, int pos)
+void	store_texture_path(char *str, int pos, t_data *data)
+{
+	if (pos == 0)
+	{
+		data->no_txtr = ft_strdup(str);
+		if (!data->no_txtr)
+			return (perror("Error\nAllocation failed in store_texture_path"));
+	}
+	else if (pos == 1)
+	{
+		data->so_txtr = ft_strdup(str);
+		if (!data->so_txtr)
+			return (perror("Error\nAllocation failed in store_texture_path"));
+	}
+	else if (pos == 2)
+	{
+		data->we_txtr = ft_strdup(str);
+		if (!data->we_txtr)
+			return (perror("Error\nAllocation failed in store_texture_path"));
+	}
+	else if (pos == 3)
+	{
+		data->ea_txtr = ft_strdup(str);
+		if (!data->ea_txtr)
+			return (perror("Error\nAllocation failed in store_texture_path"));
+	}
+}
+
+int	validate_file(char *str, int valid, char **error, int pos, t_data *data)
 {
 	int	fd;
 
 	fd = open(str, O_RDONLY);
+	store_texture_path(str, pos, data);
 	if (fd < 0 && valid == 4)
-		perror("Error\n");
+		perror("Error");
 	if (fd < 0)
 		return (printf("%s texture path invalid\n", error[pos]), valid - 1);
 	close(fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/21 22:16:20 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/23 21:55:20 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ char	*fixed(char *origin)
 	free(origin);
 	if (!new)
 		return (NULL);
-	if (check_map_if_valid(new) < 0)
+	if (check_map_if_valid(new, -1, 0) < 0)
 		return (free(new), NULL);
 	if (check_player_in_map(new) < 0)
 		return (free(new), NULL);

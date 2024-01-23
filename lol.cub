@@ -1,0 +1,21 @@
+NO ./Makefile
+SO ./Makefile
+WE ./Makefile
+EA ./Makefile
+
+F 220,100,0
+C 225,30,0
+
+111
+101
+101
+101
+101
+1N1
+101
+101
+101
+101
+101
+111
+

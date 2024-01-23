@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:19:30 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/22 18:11:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:24:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@
 # define WALL_HEIGHT 1.2
 # define COLL_SENS 0.15
 # define SOME_LARGE_VALUE 1000000
-# define HIT_POS_OFFSET 3.79
+# define HIT_POS_OFFSET 2.72
 # define SCALE 125.0
 # define FOV_INCREMENT 1.04719755
 # define FOV 120
+# define NORTH 'N'
+# define SOUTH 'S'
+# define EAST 'E'
+# define WEST 'W'
 
 //keys
 # define ESCAPE 65307
@@ -55,19 +59,6 @@ typedef enum s_ray
 	VERTICAL,
 	HORIZONTAL
 }	t_ray;
-
-typedef enum s_dir
-{
-	NO_DIR,
-	NORTH,
-	SOUTH,
-	EAST,
-	WEST,
-	NORTH_EAST,
-	NORTH_WEST,
-	SOUTH_EAST,
-	SOUTH_WEST
-}	t_dir;
 
 typedef enum s_move
 {

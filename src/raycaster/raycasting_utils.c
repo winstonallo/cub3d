@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/18 18:58:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:16:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	adjust_vars(t_data *data, float angle)
 
 void	get_hit_direction(t_data *data, int direction, float side)
 {
-	if (direction == HORIZONTAL)
+	if (direction == VERTICAL)
 	{
 		if (side >= 0)
 			data->hit = SOUTH;

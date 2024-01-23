@@ -6,45 +6,32 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 18:18:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:31:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-void	draw_background(t_data *data)
+void	get_texture_data(t_txtr *t, t_data *data, char *path)
 {
-	int		x;
-	int		y;
-
-	x = -1;
-	data->ceiling_color = HEXA_MIDNIGHT_BLUE;
-	data->floor_color = HEXA_BLACK;
-	while (++x < SCREEN_WIDTH)
-	{
-		y = -1;
-		while (++y < SCREEN_HEIGHT)
-		{
-			if (y < SCREEN_HEIGHT / 2)
-				put_pixel(data, x, y, data->ceiling_color);
-			else
-				put_pixel(data, x, y, data->floor_color);
-		}
-	}
+	t->img = mlx_xpm_file_to_image(data->mlx.mlx, path, &t->width, &t->height);
+	if (t->img == NULL)
+		exit_failure(data, "Error\nimage initialization failed");
+	t->addr = mlx_get_data_addr(t->img, &t->bpp, &t->l_l, &t->endian);
 }
 
 void	set_texture(t_data *data, t_txtr *texture)
 {
 	if (data->door == true)
-		*texture = data->textures.wall8;
+		*texture = data->textures.door;
 	if (data->hit == NORTH)
-		*texture = data->textures.wall4;
+		*texture = data->textures.north;
 	else if (data->hit == EAST)
-		*texture = data->textures.wall2;
+		*texture = data->textures.east;
 	else if (data->hit == SOUTH)
-		*texture = data->textures.wall3;
+		*texture = data->textures.south;
 	else if (data->hit == WEST)
-		*texture = data->textures.wall5;
+		*texture = data->textures.west;
 }
 
 int	get_pixel(t_txtr *texture, int x, int y)
@@ -61,7 +48,7 @@ int	get_pixel(t_txtr *texture, int x, int y)
 
 void	set_hit_position(t_data *data)
 {
-	data->hit_pos = fmod(data->hit_pos / HIT_POS_OFFSET, data->map_width);
+	data->hit_pos = fmod(data->hit_pos / data->scaling, data->map_width);
 	data->hit_pos /= data->map_width;
 }
 

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 18:18:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:55:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,9 @@ static	char	*replace_hex(char *loaded)
 
 int	mpl(char *map);
 
-int	check_map_if_valid(char *m)
+int	check_map_if_valid(char *m, int i, int leaks)
 {
-	int	i;
-	int	leaks;
-
-	i = -1;
-	leaks = 0;
 	while (m[++i])
-	{
 		if (m[i] == 'X')
 			if ((m[i - 1] != 'X' && m[i - 1] != '1' && m[i - 1] != 'N'
 					&& m[i - 1] != 'S' && m[i - 1] != 'W' && m[i - 1] != 'E'
@@ -62,7 +56,6 @@ int	check_map_if_valid(char *m)
 					&& m[i + mpl(m)] != 'U' && m[i + mpl(m)] != 'L'
 					&& m[i + mpl(m)] != 'R'))
 				leaks++;
-	}
 	if (leaks > 0)
 		return (printf("Error\n%i leaks found\n", leaks), perror(""), -1);
 	return (0);
@@ -109,13 +102,13 @@ char	*map_valid(char *loaded)
 	return (changed);
 }
 
-int	*map_main(char *map)
+int	*map_main(char *map, t_data *data)
 {
 	int	*sliced_map;
 
 	if (check_if_exists(map) < 0)
 		return (NULL);
-	if (check_if_valid(map) < 0)
+	if (check_if_valid(map, data) < 0)
 		return (NULL);
 	sliced_map = slice_map(map);
 	if (!sliced_map)
