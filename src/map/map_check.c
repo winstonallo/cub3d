@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 17:53:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:31:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,9 @@ int	*slice_map(char *map, t_data *data)
 	fd = open(map, O_RDONLY);
 	loaded_map = load_map(fd);
 	if (!loaded_map)
-		return (close(fd), perror("Error\nCan't load map in slice_map"), NULL);
+	{
+		return (close(fd), NULL);
+	}
 	updated = check_map(loaded_map);
 	free(loaded_map);
 	if (!updated)

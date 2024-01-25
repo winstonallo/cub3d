@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 21:15:10 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/25 17:55:13 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:38:32 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char	*true_size(char *map, int height)
 	pos = before(map, height) - 1;
 	str = (char *)malloc(((after(map, pos) - pos) * ll));
 	if (!str)
-		return (free(map), perror("Error\nAlloc failed in true_size"), NULL);
+		return (perror("Error\nAlloc failed in true_size"), NULL);
 	pos2 = 0;
 	pos = pos2;
 	return (str);

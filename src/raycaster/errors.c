@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:43:57 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 17:44:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:36:31 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	check_argument_count(int argc)
 
 void	free_textures(t_data *data)
 {
-	free(data->ea_txtr);
-	free(data->we_txtr);
-	free(data->no_txtr);
-	free(data->so_txtr);
+	freeze(data->ea_txtr);
+	freeze(data->we_txtr);
+	freeze(data->no_txtr);
+	freeze(data->so_txtr);
 }

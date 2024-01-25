@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:05:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:28:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include "cub3d.h"
 # include "raycast_structs.h"
+# include "raycast.h"
 
 typedef struct s_fixed_struct
 {

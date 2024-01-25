@@ -6,11 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:03:26 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:41:40 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
+#include "../../inc/raycast.h"
+#include <stdio.h>
 #include <unistd.h>
 
 char	*str_join_block(char *str, char *str_temp)
@@ -31,25 +33,25 @@ int	store_texture_path(char *str, int pos, t_data *data)
 	{
 		data->no_txtr = ft_strdup(str);
 		if (!data->no_txtr)
-			return (perror("Error\nAlloc failed in s_t_p"), -1);
+			return (perror("Error\nAlloc failed"), -1);
 	}
 	else if (pos == 1)
 	{
 		data->so_txtr = ft_strdup(str);
 		if (!data->so_txtr)
-			return (perror("Error\nAlloc failed in s_t_p"), -2);
+			return (perror("Error\nAlloc failed"), -2);
 	}
 	else if (pos == 2)
 	{
 		data->we_txtr = ft_strdup(str);
 		if (!data->we_txtr)
-			return (perror("Error\nAlloc failed in s_t_p"), -3);
+			return (perror("Error\nAlloc failed"), -3);
 	}
 	else if (pos == 3)
 	{
 		data->ea_txtr = ft_strdup(str);
 		if (!data->ea_txtr)
-			return (perror("Error\nAlloc failed in s_t_p"), -4);
+			return (perror("Error\nAlloc failed"), -4);
 	}
 	return (0);
 }
@@ -66,13 +68,6 @@ int	validate_file(t_check *check, t_data *data)
 	{
 		if (!(fd < 0))
 			close(fd);
-		if (err == -2)
-			return (free(data->no_txtr), check->valid - 1);
-		if (err == -3)
-			return (free(data->no_txtr), free(data->so_txtr), check->valid - 1);
-		if (err == -4)
-			return (free(data->no_txtr), free(data->so_txtr),
-				free(data->we_txtr), check->valid - 1);
 		return (check->valid - 1);
 	}
 	if (fd < 0 && check->valid == 4)
