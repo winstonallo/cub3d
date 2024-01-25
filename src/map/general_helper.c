@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 01:27:13 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/25 16:24:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	validate_file(t_check *check, t_data *data, char **error)
 	return (check->valid - 0);
 }
 
-int	validate_rgb(char *str, int valid, char **error, int pos)
+int	validate_rgb(char *str, int valid, char **error, int pos, t_data *data, int ident)
 {
 	int	correct;
 	int	index;
@@ -111,7 +111,7 @@ int	validate_rgb(char *str, int valid, char **error, int pos)
 			dots++;
 		index++;
 	}
-	correct = check_if_rgb_correct(str);
+	correct = check_if_rgb_correct(str, data, ident);
 	if (correct == -1)
 		return (-1);
 	if (dots != 2 || correct != 3)

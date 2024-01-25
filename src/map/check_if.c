@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:39:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 01:28:02 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/25 16:23:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,31 @@ static	int	check_if_all_textures_valid(char *map, char **tags, char **error, t_d
 	return (check.valid - 4);
 }
 
-static	int	check_if_all_colors_valid(char *m, char **tags, char **error)
+int	skip_spaces(char *str)
+{
+	int	pos;
+
+	pos = 0;
+	while (str[pos] == ' ')
+		pos++;
+	return (pos);
+}
+
+int	skip(char *map)
+{
+	int	pos;
+
+	pos = 0;
+	while (map[pos] && map[pos] != ' ' && map[pos] != '\n')
+		pos++;
+	return (pos - 1);
+}
+
+static	int	check_if_all_colors_valid(char *m, char **tags, char **error, t_data *data)
 {
 	t_check	c;
 	int		vp[2];
+	char	*temp;
 
 	vp[1] = 2;
 	vp[0] = -1;
@@ -78,14 +99,15 @@ static	int	check_if_all_colors_valid(char *m, char **tags, char **error)
 		c.change = 0;
 		if (check_for(&c, m, tags, vp[0] + 4) != 0)
 			return (-1);
-		c.str = copy(ft_strnstr(m, tags[vp[0] + 4], ft_strlen(m)) + 2, c.fd);
+		temp = ft_strnstr(m, tags[vp[0] + 4], ft_strlen(m)) + 2 + skip(ft_strnstr(m, tags[vp[0] + 4], ft_strlen(m)));
+		temp += skip_spaces(temp);
+		c.str = copy(temp, c.fd);
 		if (!c.str)
 			return (-1);
 		if (c.change != 0)
 			c.str[4] = 32;
-		vp[1] = validate_rgb(c.str, vp[1], error, vp[0] + 4);
-		if (vp[1] == -1)
-			return (free(c.str), -1);
+		char ch = (ft_strnstr(m, tags[vp[0] + 4], ft_strlen(m)))[0];
+		vp[1] = validate_rgb(c.str, vp[1], error, vp[0] + 4, data, ch);
 		free(c.str);
 	}
 	return (vp[1] - 2);
@@ -110,7 +132,7 @@ int	check_if_valid(char *map, t_data *data)
 		return (m_matrix_free(error_params), free(open_map), -1);
 	if (check_if_all_textures_valid(open_map, tags, error_params, data) < 0)
 		return (m_matrix_free(error_params), m_matrix_free(tags), free(open_map), -1);
-	if (check_if_all_colors_valid(open_map, tags, error_params) < 0)
+	if (check_if_all_colors_valid(open_map, tags, error_params, data) < 0)
 		return (m_matrix_free(error_params), m_matrix_free(tags), free(open_map),-1);
 	m_matrix_free(error_params);
 	m_matrix_free(tags);
