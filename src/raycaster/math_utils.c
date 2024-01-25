@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:29:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 12:45:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:03:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void	normalize_angle(double *angle, double increment)
 
 double	dist(t_line line)
 {
-	return (sqrt((line.x1 - line.x0) * (line.x1 - line.x0)
-			+ (line.y1 - line.y0) * (line.y1 - line.y0)));
+	return (sqrt(pow(line.x1 - line.x0, 2) + pow(line.y1 - line.y0, 2)));
 }
 
 bool	is_not_wall(int a, int b, int c, int d)
