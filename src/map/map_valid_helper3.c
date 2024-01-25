@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 21:15:10 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/25 15:29:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:55:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	after(char *map, int line)
 			while (map[pos] == 32)
 				pos++;
 			if (map[pos] == 10)
-				break;
+				break ;
 			line++;
 		}
 		else

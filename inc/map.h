@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 15:36:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:05:08 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ char	*load_map(int fd);
 char	*str_join_block(char *str, char *str_temp);
 char	*copy(char *to_copy, int size);
 int		skip_whitespaces(char *str, int pos);
-int		validate_file(t_check *check, t_data *data, char **errors);
-int		validate_rgb(char *str, int valid, char **error, int pos, t_data *data, int ident);
+int		validate_file(t_check *check, t_data *data);
+int		validate_rgb(char *str, int valid, t_data *data, int ident);
 int		check_if_rgb_correct(char *str, t_data *data, int ident);
+int		skip(char *map);
+int		len(char *str);
 
 // Map functions //
 char	*map_valid(char *loaded, t_data *data);

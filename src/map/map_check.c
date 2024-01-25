@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 15:32:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:53:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ static int	check_for_invalid_textures(char *origin)
 	pos = 0;
 	while (origin[pos])
 	{
-		if (!(origin[pos] == '1' || origin[pos] == '2' || origin[pos] == '0' || origin[pos] == 'N'
-				|| origin[pos] == 'W' || origin[pos] == 'S' || origin[pos] == 'E'
-				|| origin[pos] == '\n' || origin[pos] == ' ' || origin[pos] == 0))
+		if (!(origin[pos] == '1' || origin[pos] == '2' || origin[pos] == '0'
+				|| origin[pos] == 'N' || origin[pos] == 'W'
+				|| origin[pos] == 'S' || origin[pos] == 'E'
+				|| origin[pos] == '\n' || origin[pos] == ' '
+				|| origin[pos] == 0))
 			return (perror("Error\nMap invalid. Invalid character found"), -1);
 		pos++;
 	}
@@ -100,7 +102,7 @@ int	*slice_map(char *map, t_data *data)
 	fd = open(map, O_RDONLY);
 	loaded_map = load_map(fd);
 	if (!loaded_map)
-		return (close(fd), perror("Error\nCan't load map in slice_map"), close(fd), NULL);
+		return (close(fd), perror("Error\nCan't load map in slice_map"), NULL);
 	updated = check_map(loaded_map);
 	free(loaded_map);
 	if (!updated)

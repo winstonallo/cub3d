@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/24 21:24:22 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/25 17:41:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	check_map_if_valid(char *m, int i, int leaks)
 				|| check_multiple_chars(m[i + mpl(m) + 1], "X1NWES") < 0)
 				leaks++;
 	if (leaks > 0)
-		return (printf("Error\n%i leaks found\n", leaks), perror(""), -1);
+		return (printf("Error\n%i leaks found\n", leaks), -1);
 	return (0);
 }
 
@@ -80,7 +80,7 @@ int	check_player_in_map(char *map)
 				|| (map[pos + mpl(map)] != '1' && map[pos + mpl(map)] != 'X')
 				|| (map[pos + 1] != '1' && map[pos + 1] != 'X')
 				|| (map[pos - 1] != '1' && map[pos - 1] != 'X'))
-				return (perror("Error\nPlayer out of map"), -1);
+				return (ft_putstr_fd("Error\nPlayer out of map", 2), -1);
 		}
 		pos++;
 	}

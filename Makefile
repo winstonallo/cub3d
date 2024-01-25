@@ -24,9 +24,11 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${RAY_DIR}rays_init.c \
 		${SRC_DIR}${RAY_DIR}line_utils.c \
 		${SRC_DIR}${RAY_DIR}textures.c \
+		${SRC_DIR}${RAY_DIR}errors.c \
 		${SRC_DIR}${MAP_DIR}check_if_helper.c \
 		${SRC_DIR}${MAP_DIR}general_helper.c \
 		${SRC_DIR}${MAP_DIR}general_helper2.c \
+		${SRC_DIR}${MAP_DIR}general_helper3.c \
 		${SRC_DIR}${MAP_DIR}check_if.c \
 		${SRC_DIR}${MAP_DIR}map_check.c \
 		${SRC_DIR}${MAP_DIR}map_public.c \

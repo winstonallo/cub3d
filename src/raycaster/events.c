@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 12:45:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:16:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ int	event(int key, t_data *data)
 		return (adjust(data, data->player.x_dir, data->player.y_dir));
 	else if (key == S)
 		return (adjust(data, -data->player.x_dir, -data->player.y_dir));
-	else if (key == E)
-		return (adjust(data, -data->player.y_dir, data->player.x_dir));
-	else if (key == Q)
-		return (adjust(data, data->player.y_dir, -data->player.x_dir));
-	else if (key == A)
-		return (turn(TURN_LEFT, data));
 	else if (key == D)
+		return (adjust(data, -data->player.y_dir, data->player.x_dir));
+	else if (key == A)
+		return (adjust(data, data->player.y_dir, -data->player.x_dir));
+	else if (key == 65361)
+		return (turn(TURN_LEFT, data));
+	else if (key == 65363)
 		return (turn(TURN_RIGHT, data));
 	else if (key == ESCAPE)
 		exit_success(data);

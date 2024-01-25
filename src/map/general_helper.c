@@ -6,21 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 16:24:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:03:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
-
-void	m_matrix_free(char **error_names)
-{
-	int	i;
-
-	i = 0;
-	while (error_names[i])
-		free(error_names[i++]);
-	free(error_names);
-}
+#include <unistd.h>
 
 char	*str_join_block(char *str, char *str_temp)
 {
@@ -63,7 +54,7 @@ int	store_texture_path(char *str, int pos, t_data *data)
 	return (0);
 }
 
-int	validate_file(t_check *check, t_data *data, char **error)
+int	validate_file(t_check *check, t_data *data)
 {
 	int	fd;
 	int	err;
@@ -87,13 +78,12 @@ int	validate_file(t_check *check, t_data *data, char **error)
 	if (fd < 0 && check->valid == 4)
 		perror("Error");
 	if (fd < 0)
-		return (printf("%s texture path invalid\n",
-			error[check->pos]), perror(""), check->valid - 1);
+		return (perror("Error\ntexture path invalid"), check->valid - 1);
 	close(fd);
 	return (check->valid - 0);
 }
 
-int	validate_rgb(char *str, int valid, char **error, int pos, t_data *data, int ident)
+int	validate_rgb(char *str, int valid, t_data *data, int ident)
 {
 	int	correct;
 	int	index;
@@ -115,8 +105,11 @@ int	validate_rgb(char *str, int valid, char **error, int pos, t_data *data, int 
 	if (correct == -1)
 		return (-1);
 	if (dots != 2 || correct != 3)
-		return (printf("%s RGB color code invalid\n", error[pos]), valid - 1);
-	return (valid - 0);
+	{
+		ft_putstr_fd("Error\nRGB color code invalid", STDERR_FILENO);
+		return (valid - 1);
+	}
+	return (valid);
 }
 
 int	skip_whitespaces(char *str, int pos)
