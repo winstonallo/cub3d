@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:41:51 by abied-ch         ###   ########.fr       */
+/*   Created: 2024/01/25 17:43:57 by abied-ch          #+#    #+#             */
+/*   Updated: 2024/01/25 18:36:31 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/raycast.h"
-#include <stdlib.h>
+#include "../../inc/raycast.h"
 
-void	textures_pointers_init(t_data *data)
+void	check_argument_count(int argc)
 {
-	data->ea_txtr = NULL;
-	data->we_txtr = NULL;
-	data->so_txtr = NULL;
-	data->no_txtr = NULL;
-}
-
-int	main(int argc, char **argv)
-{
-	t_data	data;
-
-	check_argument_count(argc);
-	textures_pointers_init(&data);
-	data.map = map(argv[1], &data);
-	if (!data.map)
+	if (argc < 2)
 	{
-		free_textures(&data);
+		ft_putstr_fd("Error\nWrong format. Use: ./cub3d [mapnames]\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	data_init(&data);
-	start_game(&data);
-	return (0);
+	else if (argc > 3)
+	{
+		ft_putstr_fd("Error\nToo many maps (max 1)\n", 2);
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	free_textures(t_data *data)
+{
+	freeze(data->ea_txtr);
+	freeze(data->we_txtr);
+	freeze(data->no_txtr);
+	freeze(data->so_txtr);
 }

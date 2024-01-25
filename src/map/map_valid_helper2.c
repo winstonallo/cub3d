@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_helper2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:43:02 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 00:24:11 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/25 18:37:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*remove_nls_subpart(char *updated, int nls)
 
 	sub = (char *)malloc(ft_strlen(updated) + 1);
 	if (!sub)
-		return (free(updated), perror("Error\nAlloc failed in remove_nls_subpart"), NULL);
+		return (free(updated), perror("Error\nAllocation failed"), NULL);
 	pos = 0;
 	nl = 0;
 	while (updated[pos])
@@ -85,9 +85,21 @@ int	*slicer(char *map)
 			arr[pos++] = 0;
 		if (map[i] == 'N' || map[i] == 'S' || map[i] == 'W' || map[i] == 'E')
 			arr[pos++] = 2 + map[i];
-		if (map[i] == 'L' || map[i] == 'R' || map[i] == 'U' || map[i] == 'G')
-			arr[pos++] = 97 + map[i];
 	}
 	arr[pos] = -2;
 	return (arr);
+}
+
+int	*map_main(char *map, t_data *data)
+{
+	int	*sliced_map;
+
+	if (check_if_exists(map) < 0)
+		return (NULL);
+	if (check_if_valid(map, data) < 0)
+		return (NULL);
+	sliced_map = slice_map(map, data);
+	if (!sliced_map)
+		return (NULL);
+	return (sliced_map);
 }

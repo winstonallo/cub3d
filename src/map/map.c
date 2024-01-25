@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 21:10:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:53:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_texture	map_get_textures(char *map)
 	loaded = load_map(fd);
 	texture.err_code = 1;
 	if (!loaded)
-		return (close(fd), perror("Error\nAlloc failed in map_get_textures\n"), texture);
+		return (close(fd), perror("Error\nAllocation failed\n"), texture);
 	close(fd);
 	params = fill_params(0);
 	if (!params)

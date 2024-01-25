@@ -4,43 +4,13 @@ OBJ_DIR = obj
 
 SRC_DIR = src/
 
-MAP_DIR = font/
-
-IMGEDIT_DIR = image_edit/
-
 RAY_DIR = raycaster/
 
-GIF_DIR = mlx_gif/
-
-BUTTON_DIR = button/
-
 MAP_DIR = map/
-
-FONT_DIR = font/
-
-ELEV_DIR = elevator/
 
 STANDARD = /
 
 SRCS = 	${SRC_DIR}main.c \
-		$(SRC_DIR)${ELEV_DIR}elevator.c \
-		$(SRC_DIR)${ELEV_DIR}basic_function.c \
-		${SRC_DIR}${GIF_DIR}gif.c\
-		${SRC_DIR}${GIF_DIR}gif_public.c\
-		${SRC_DIR}${GIF_DIR}gif_helper.c\
-		${SRC_DIR}${BUTTON_DIR}button.c\
-		${SRC_DIR}${BUTTON_DIR}button_init.c\
-		${SRC_DIR}${BUTTON_DIR}button_settings.c\
-		${SRC_DIR}${BUTTON_DIR}button_animation.c\
-		${SRC_DIR}${BUTTON_DIR}button_functions.c\
-		${SRC_DIR}${BUTTON_DIR}button_public.c\
-		${SRC_DIR}${BUTTON_DIR}button_public2.c\
-		${SRC_DIR}${IMGEDIT_DIR}image_edit.c\
-		${SRC_DIR}${FONT_DIR}font.c\
-		${SRC_DIR}${FONT_DIR}font_public.c\
-		${SRC_DIR}${FONT_DIR}font_init.c\
-		${SRC_DIR}${FONT_DIR}font_init_helper.c\
-		${SRC_DIR}${FONT_DIR}font_write.c\
 		${SRC_DIR}${RAY_DIR}raycast.c \
 		${SRC_DIR}${RAY_DIR}scaling.c \
 		${SRC_DIR}${RAY_DIR}drawing_utils.c \
@@ -54,14 +24,17 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${RAY_DIR}rays_init.c \
 		${SRC_DIR}${RAY_DIR}line_utils.c \
 		${SRC_DIR}${RAY_DIR}textures.c \
+		${SRC_DIR}${RAY_DIR}errors.c \
 		${SRC_DIR}${MAP_DIR}check_if_helper.c \
 		${SRC_DIR}${MAP_DIR}general_helper.c \
 		${SRC_DIR}${MAP_DIR}general_helper2.c \
+		${SRC_DIR}${MAP_DIR}general_helper3.c \
 		${SRC_DIR}${MAP_DIR}check_if.c \
 		${SRC_DIR}${MAP_DIR}map_check.c \
 		${SRC_DIR}${MAP_DIR}map_public.c \
 		${SRC_DIR}${MAP_DIR}map_valid_helper.c \
 		${SRC_DIR}${MAP_DIR}map_valid_helper2.c \
+		${SRC_DIR}${MAP_DIR}map_valid_helper3.c \
 		${SRC_DIR}${MAP_DIR}map_valid.c \
 		${SRC_DIR}${MAP_DIR}map.c \
 
@@ -83,13 +56,8 @@ $(NAME): $(OBJS) $(LIBFT_OBJS)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)$(STANDARD)$(GIF_DIR)
-	mkdir -p $(OBJ_DIR)$(STANDARD)$(BUTTON_DIR)
-	mkdir -p $(OBJ_DIR)$(STANDARD)$(IMGEDIT_DIR)
 	mkdir -p $(OBJ_DIR)$(STANDARD)$(RAY_DIR)
 	mkdir -p $(OBJ_DIR)$(STANDARD)$(MAP_DIR)
-	mkdir -p $(OBJ_DIR)$(STANDARD)$(FONT_DIR)
-	mkdir -p $(OBJ_DIR)$(STANDARD)$(ELEV_DIR)
 
 $(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@

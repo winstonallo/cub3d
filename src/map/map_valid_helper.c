@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 21:55:20 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:29:17 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,206 +30,43 @@ int	new_lines(char *map)
 	return (nl);
 }
 
-static	int	line_len(char *map)
+static	char	*fixed_box(char *map, int height, t_fixed_struct f)
 {
-	int	line_before;
-	int	len;
-	int	pos;
-
-	len = 0;
-	pos = 0;
-	while (map[pos])
-	{
-		line_before = 0;
-		while (map[pos] && map[pos] != '\n')
-		{
-			line_before++;
-			pos++;
-		}
-		if (len < line_before)
-			len = line_before;
-		if (map[pos])
-			pos++;
-	}
-	return (len);
-}
-
-// static	void	replace_char(t_map *struct_map, char *map, char *str, char cha)
-// {
-// 	while (map[struct_map->pos] && map[struct_map->pos] != '\n')
-// 	{
-// 		struct_map->stepper++;
-// 		if (map[struct_map->pos] == ' ')
-// 			str[struct_map->pos2] = cha;
-// 		else
-// 			str[struct_map->pos2] = map[struct_map->pos];
-// 		struct_map->pos++;
-// 		struct_map->pos2++;
-// 	}
-// }
-
-static	int	before(char *map, int height)
-{
-	int	breaker;
-	int	inner;
-	int	i;
-
-	i = -1;
-	breaker = 0;
-	while (++i < height && breaker == 0)
-	{
-		inner = -1;
-		while (map[++inner + i] && breaker == 0)
-		{
-			while (map[inner + i] == 32)
-				inner++;
-			if (map[inner + i] != 10)
-				breaker = 1;
-			else
-				break ;
-		}
-	}
-	return (i);
-}
-
-static	int	after(char *map, int line)
-{
-	int	pos;
-
-	pos = 0;
-	while (map[pos] && map[pos] == 10)
-		pos++;
-	pos--;
-	while (map[pos])
-	{
-		if (map[pos] == 10)
-		{
-			pos++;
-			while (map[pos] == 32)
-				pos++;
-			if (map[pos] == 10)
-				break;
-			line++;
-		}
-		else
-			pos++;
-	}
-	if (map[pos - 2] == '1' && map[pos - 1] == 10 && map[pos] == 0)
-		line--;
-	return (line);
-}
-
-// static	int	before_and_after(char *map, int height)
-// {
-// 	int	l;
-// 	int	line;
-// 	int	pos;
-
-// 	l = before(map, height);
-// 	line = 0;
-// 	while (map[line] && line < l)
-// 		line++;
-// 	pos = line;
-// 	while (map[++pos] && (line >= l && line < after(map, l)))
-// 	{
-// 		if (map[pos] == 10)
-// 		{
-// 			if (map[pos + 1] == 0 && line + 1 < after(map, l))
-// 			{
-// 				pos++;
-// 				break;
-// 			}
-// 			line++;
-// 		}
-// 	}
-// 	if (map[pos - 1] == 10)
-// 		pos--;
-// 	return (pos - height + 1);
-// }
-
-static	int	longest_line(char *map, int height)
-{
-	int	line;
-	int	pos;
-	int	ll;
-
-	pos = before(map, height) - 1;
-	ll = 0;
-	while (map[pos])
-	{
-		line = mpl(&map[pos]);
-		pos += line;
-		if (line > ll)
-			ll = line;
-		if (map[pos] == '\n')
-			pos++;
-	}
-	return (ll + 1);
-}
-
-static	char	*true_size(char *map, int height)
-{
-	char	*str;
-	int		ll;
-	int		pos;
-	int		pos2;
-
-	ll = longest_line(map, height);
-	pos = before(map, height) - 1;
-	str = (char *)malloc(((after(map, pos) - pos) * ll));
-	if (!str)
-		return (free(map), perror("Error\nAlloc failed in true_size"), NULL);
-	pos2 = 0;
-	pos = pos2;
-	return (str);
-}
-
-static	char	*fixed_box(char *map, int height, int len)
-{
-	char	*str;
-	int		box_size;
-	int		index;
-	int		pos;
-	int		ll;
-	int		line;
-
-	(void)len;
-	str = true_size(map, height);
-	if (!str)
+	f.str = true_size(map, height);
+	if (!f.str)
 		return (NULL);
-	pos = before(map, height) - 1;
-	ll = longest_line(map, height);
-	box_size = ((after(map, pos) - pos) * ll) + 1;
-	index = 0;
-	while (map[pos] && index < box_size - 1)
+	f.pos = before(map, height) - 1;
+	f.box_size = ((after(map, f.pos) - f.pos) * f.ll) + 1;
+	f.index = 0;
+	while (map[f.pos] && f.index < f.box_size - 1)
 	{
-		line = 0;
-		while (map[pos] && map[pos] != 10 && index < box_size - 1)
+		f.line = 0;
+		while (map[f.pos] && map[f.pos] != 10 && f.index < f.box_size - 1)
 		{
-			str[index++] = map[pos++];
-			line++;
+			f.str[f.index++] = map[f.pos++];
+			f.line++;
 		}
-		while (line < ll - 1 && index < box_size - 1)
+		while (f.line < f.ll - 1 && f.index < f.box_size - 1)
 		{
-			str[index++] = ' ';
-			line++;
+			f.str[f.index++] = ' ';
+			f.line++;
 		}
-		if (map[pos])
-			str[index++] = map[pos++];
+		if (map[f.pos])
+			f.str[f.index++] = map[f.pos++];
 	}
-	str[index] = 0;
-	return (str);
+	f.str[f.index - 1] = 0;
+	return (f.str);
 }
 
 char	*fixed(char *origin)
 {
-	char	*new;
-	int		height;
-	int		len;
+	t_fixed_struct	fixed_s;
+	char			*new;
+	int				height;
 
-	len = line_len(origin);
 	height = new_lines(origin);
-	new = fixed_box(origin, height, len);
+	fixed_s.ll = longest_line(origin, height);
+	new = fixed_box(origin, height, fixed_s);
 	free(origin);
 	if (!new)
 		return (NULL);

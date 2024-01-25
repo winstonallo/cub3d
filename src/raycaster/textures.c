@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:31:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 23:31:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:20:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	get_texture_data(t_txtr *t, t_data *data, char *path)
 
 void	set_texture(t_data *data, t_txtr *texture)
 {
-	if (data->door == true)
-		*texture = data->textures.door;
 	if (data->hit == NORTH)
 		*texture = data->textures.north;
 	else if (data->hit == EAST)
@@ -52,24 +50,21 @@ void	set_hit_position(t_data *data)
 	data->hit_pos /= data->map_width;
 }
 
-void	draw_texture(t_data *data, int x, t_line line, t_txtr *texture)
+void	draw_texture(t_data *data, int x, t_line line, t_txtr *t)
 {
 	int		color;
 	int		y;
-	int		texture_y;
+	int		txtr_y;
+	int		txtr_x;
 	int		screen_y;
-	int		texture_x;
 
 	set_hit_position(data);
 	y = -1;
 	while (++y < line.wall_height)
 	{
-		if (texture->height == 0)
-			break ;
-		texture_y = (int)((float)y / (float)line.wall_height * texture->height)
-			% texture->height;
-		texture_x = (int)((data->hit_pos) * (float)texture->width);
-		color = get_pixel(texture, texture_x, texture_y);
+		txtr_y = (int)((double)y / line.wall_height * t->height) % t->height;
+		txtr_x = (int)((data->hit_pos) * (double)t->width);
+		color = get_pixel(t, txtr_x, txtr_y);
 		screen_y = line.y0 + y;
 		if (screen_y >= 0 && screen_y < SCREEN_HEIGHT)
 			put_pixel(data, x, screen_y, color);

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:37:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/20 20:06:33 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/25 17:49:23 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
+#include "../../inc/constants.h"
 
 char	**fill_params(int flag)
 {
@@ -81,13 +82,26 @@ int	check_for(t_check *check, char *map, char **tags, int pos)
 	return (0);
 }
 
-int	check_if_rgb_correct(char *str)
+void	get_color(char **rgb, t_data *data, int ident)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = ft_atoi(rgb[0]);
+	g = ft_atoi(rgb[1]);
+	b = ft_atoi(rgb[2]);
+	if (ident == 'F')
+		data->floor_color = (r << 16) | (g << 8) | b;
+	else
+		data->ceiling_color = (r << 16) | (g << 8) | b;
+}
+
+int	check_if_rgb_correct(char *str, t_data *data, int ident)
 {
 	char	**rgb;
 	int		correct;
-	int		r;
 	int		g;
-	int		b;
 
 	g = -1;
 	while (str[++g])
@@ -97,15 +111,14 @@ int	check_if_rgb_correct(char *str)
 	if (!rgb)
 		return (perror("Error\nAllocation failed in check_if_rgb_correct"), -1);
 	correct = 0;
-	r = ft_atoi(rgb[0]);
-	g = ft_atoi(rgb[1]);
-	b = ft_atoi(rgb[2]);
-	if (r >= 0 && r < 256)
+	if (ft_atoi(rgb[0]) >= 0 && ft_atoi(rgb[0]) < 256)
 		correct++;
-	if (g >= 0 && g < 256)
+	if (ft_atoi(rgb[1]) >= 0 && ft_atoi(rgb[1]) < 256)
 		correct++;
-	if (b >= 0 && b < 256)
+	if (ft_atoi(rgb[2]) >= 0 && ft_atoi(rgb[2]) < 256)
 		correct++;
+	if (correct == 3)
+		get_color(rgb, data, ident);
 	m_matrix_free(rgb);
 	return (correct);
 }

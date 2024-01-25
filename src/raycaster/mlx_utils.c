@@ -6,21 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:22 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 22:09:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:16:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
-#include <stdio.h>
-
-int	loop(void *data)
-{
-	t_data	*game;
-
-	game = (t_data *)data;
-	gif_loop(game);
-	return (0);
-}
 
 static void	play_game(t_data *data)
 {
@@ -32,22 +22,9 @@ static void	play_game(t_data *data)
 	textures_init(data);
 	raycast(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
-	mlx_loop_hook(data->mlx.mlx, loop, data);
 	mlx_hook(data->mlx.win, 2, 1L, event, data);
 	mlx_hook(data->mlx.win, 17, 0, exit_success, data);
 	mlx_loop(data->mlx.mlx);
-}
-
-void	start_game_f_b_g(t_data *data)
-{
-	data->font = font_init(data->mlx.mlx);
-	if (!data->font)
-		exit_failure(data, "Error\nFont initialization failed");
-	data->gifs = 0;
-	if (gif_init(data, "src/mlx_gif/gifs/rick/frame", -800, -800) < 0)
-		exit_failure(data, "Error\nFont initialization failed");
-	if (gif_init(data, "src/mlx_gif/gifs/bongo/frame", -800, -800) < 0)
-		exit_failure(data, "Error\nFont initialization failed");
 }
 
 void	start_game(t_data *data)
@@ -59,7 +36,6 @@ void	start_game(t_data *data)
 			"cub3d");
 	if (data->mlx.win == NULL)
 		exit_failure(data, "Error\nWindow initialization failed");
-	start_game_f_b_g(data);
 	play_game(data);
 }
 
