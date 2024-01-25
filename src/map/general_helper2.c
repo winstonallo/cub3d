@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 13:06:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:31:20 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	get_texture_helper(t_texture *texture, char *loaded, char **params)
 		{
 			while (--i >= 0)
 				close(texture->texture_fds[i]);
-			return (perror("Error\nCant open texture in get_texture_helper"), -1);
+			return (perror("Error\nCan't open texture"), -1);
 		}
 	}
 	return (0);
@@ -132,9 +132,9 @@ int	get_rgb_helper(t_texture *texture, char *str, char **params)
 			i[1]++;
 		t[i[1]] = 0;
 		i[2] = -1;
-			while (t[++i[2]])
-				if (t[i[2]] != ',' || (!(t[i[2]] >= '0' && t[i[2]] <= '9')))
-					return (perror("Error\nRgb format invalid:"), free(t), -1);
+		while (t[++i[2]])
+			if (t[i[2]] != ',' || (!(t[i[2]] >= '0' && t[i[2]] <= '9')))
+				return (perror("Error\nRgb format invalid:"), free(t), -1);
 		texture->color_fds[i[0]] = convert_rgb_to_hex(t);
 		if (!texture->color_fds[i[0]])
 			return (free(t), -1);

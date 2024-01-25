@@ -6,13 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:39:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 12:40:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:26:35 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
-
-char	*input(char *map);
 
 int	check_if_exists(char *map)
 {
@@ -46,7 +44,7 @@ static	char	**check_if_all_textures_available(char *loaded_map, char **err)
 	return (params);
 }
 
-static	int	check_if_all_textures_valid(char *map, char **tags, char **error, t_data *data)
+static	int	check_if_all_textures_valid(char *m, char **t, char **er, t_data *d)
 {
 	t_check	*check;
 	int		valid;
@@ -55,19 +53,19 @@ static	int	check_if_all_textures_valid(char *map, char **tags, char **error, t_d
 	if (!check)
 		return (printf("Error\nAllocation failed\n"), -1);
 	valid = 4;
-	data->map_vars.pos = -1;
-	while (++data->map_vars.pos < 4)
+	d->map_vars.pos = -1;
+	while (++d->map_vars.pos < 4)
 	{
 		check->change = 0;
-		if (check_for(check, map, tags, data->map_vars.pos) != 0)
+		if (check_for(check, m, t, d->map_vars.pos) != 0)
 			return (free(check), -1);
-		check->str = copy(ft_strnstr(map, tags[data->map_vars.pos],
-					ft_strlen(map)) + 3, check->fd);
+		check->str = copy(ft_strnstr(m, t[d->map_vars.pos],
+					ft_strlen(m)) + 3, check->fd);
 		if (!check->str)
 			return (free(check), -1);
 		if (check->change != 0)
 			check->str[4] = 32;
-		valid = validate_file(check->str, valid, error, data);
+		valid = validate_file(check->str, valid, er, d);
 		free(check->str);
 	}
 	free(check);
@@ -81,7 +79,7 @@ static	int	check_if_all_colors_valid(char *m, char **tags, char **error)
 
 	c = (t_check *)malloc(sizeof(t_check));
 	if (!c)
-		return (perror("Error\nAllocation failed in check_all_color_valid"), -1);
+		return (perror("Error\nAllocation failed in color validation"), -1);
 	vp[1] = 2;
 	vp[0] = -1;
 	while (++vp[0] < 2)
@@ -105,28 +103,28 @@ static	int	check_if_all_colors_valid(char *m, char **tags, char **error)
 
 int	check_if_valid(char *map, t_data *data)
 {
-	char	**error_params;
+	char	**err_p;
 	char	**tags;
-	char	*open_map;
+	char	*o_m;
 	int		fd;
 
 	fd = open(map, O_RDONLY);
-	open_map = load_map(fd);
-	if (!open_map)
-		return (close(fd), perror("Error\nAllocation failed. Could not load map\n"), -1);
-	error_params = fill_params(1);
-	if (!error_params)
-		return (close(fd), free(open_map), -1);
-	tags = check_if_all_textures_available(open_map, error_params);
+	o_m = load_map(fd);
+	if (!o_m)
+		return (close(fd), perror("Error\nAllocation failed\n"), -1);
+	err_p = fill_params(1);
+	if (!err_p)
+		return (close(fd), free(o_m), -1);
+	tags = check_if_all_textures_available(o_m, err_p);
 	if (!tags)
-		return (m_matrix_free(error_params), free(open_map), -1);
-	if (check_if_all_textures_valid(open_map, tags, error_params, data) < 0)
-		return (m_matrix_free(error_params), m_matrix_free(tags), free(open_map), -1);
-	if (check_if_all_colors_valid(open_map, tags, error_params) < 0)
-		return (m_matrix_free(error_params), m_matrix_free(tags), free(open_map),-1);
-	m_matrix_free(error_params);
+		return (m_matrix_free(err_p), free(o_m), -1);
+	if (check_if_all_textures_valid(o_m, tags, err_p, data) < 0)
+		return (m_matrix_free(err_p), m_matrix_free(tags), free(o_m), -1);
+	if (check_if_all_colors_valid(o_m, tags, err_p) < 0)
+		return (m_matrix_free(err_p), m_matrix_free(tags), free(o_m), -1);
+	m_matrix_free(err_p);
 	m_matrix_free(tags);
-	free(open_map);
+	free(o_m);
 	close(fd);
 	return (0);
 }

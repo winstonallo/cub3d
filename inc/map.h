@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 12:53:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:21:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ int		*slice_map(char *map);
 
 // Map valid helper functions //
 char	*fixed(char *origin);
+int		new_lines(char *map);
+int		line_len(char *map);
+int		before(char *map, int height);
 char	*remove_nls(char *updated);
 int		*slicer(char *map);
 int		check_map_if_valid(char *map, int i, int leaks);

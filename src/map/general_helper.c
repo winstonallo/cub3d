@@ -6,21 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 12:40:24 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:29:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
-
-void	m_matrix_free(char **error_names)
-{
-	int	i;
-
-	i = 0;
-	while (error_names[i])
-		free(error_names[i++]);
-	free(error_names);
-}
 
 char	*str_join_block(char *str, char *str_temp)
 {

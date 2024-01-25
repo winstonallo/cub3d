@@ -31,6 +31,7 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${MAP_DIR}map_check.c \
 		${SRC_DIR}${MAP_DIR}map_public.c \
 		${SRC_DIR}${MAP_DIR}map_valid_helper.c \
+		${SRC_DIR}${MAP_DIR}map_valid_helper_utils.c \
 		${SRC_DIR}${MAP_DIR}map_valid_helper2.c \
 		${SRC_DIR}${MAP_DIR}map_valid.c \
 		${SRC_DIR}${MAP_DIR}map.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_helper2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:43:02 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 00:24:11 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/25 13:30:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*remove_nls_subpart(char *updated, int nls)
 
 	sub = (char *)malloc(ft_strlen(updated) + 1);
 	if (!sub)
-		return (free(updated), perror("Error\nAlloc failed in remove_nls_subpart"), NULL);
+		return (perror("Error\nAlloc failed in remove_nls_subpart"), NULL);
 	pos = 0;
 	nl = 0;
 	while (updated[pos])
@@ -60,7 +60,10 @@ char	*remove_nls(char *updated)
 	}
 	new = remove_nls_subpart(updated, nl);
 	if (!new)
+	{
+		free(updated);
 		return (perror("Error\nAlloc failed in remove_nls"), NULL);
+	}
 	return (new);
 }
 

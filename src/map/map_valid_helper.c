@@ -6,75 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 13:00:54 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:22:40 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
-
-int	new_lines(char *map)
-{
-	int	pos;
-	int	nl;
-
-	pos = 0;
-	nl = 0;
-	while (map[pos])
-	{
-		if (map[pos] == '\n')
-			nl++;
-		pos++;
-	}
-	return (nl);
-}
-
-static	int	line_len(char *map)
-{
-	int	line_before;
-	int	len;
-	int	pos;
-
-	len = 0;
-	pos = 0;
-	while (map[pos])
-	{
-		line_before = 0;
-		while (map[pos] && map[pos] != '\n')
-		{
-			line_before++;
-			pos++;
-		}
-		if (len < line_before)
-			len = line_before;
-		if (map[pos])
-			pos++;
-	}
-	return (len);
-}
-
-static	int	before(char *map, int height)
-{
-	int	breaker;
-	int	inner;
-	int	i;
-
-	i = -1;
-	breaker = 0;
-	while (++i < height && breaker == 0)
-	{
-		inner = -1;
-		while (map[++inner + i] && breaker == 0)
-		{
-			while (map[inner + i] == 32)
-				inner++;
-			if (map[inner + i] != 10)
-				breaker = 1;
-			else
-				break ;
-		}
-	}
-	return (i);
-}
 
 static	int	after(char *map, int line)
 {
@@ -92,7 +28,7 @@ static	int	after(char *map, int line)
 			while (map[pos] == 32)
 				pos++;
 			if (map[pos] == 10)
-				break;
+				break ;
 			line++;
 		}
 		else
@@ -140,17 +76,13 @@ static	char	*true_size(char *map, int height)
 	return (str);
 }
 
-static	char	*fixed_box(char *map, int height, int index)
+static	char	*fixed_box(char *str, char *map, int height, int index)
 {
-	char	*str;
 	int		box_size;
 	int		pos;
 	int		ll;
 	int		line;
 
-	str = true_size(map, height);
-	if (!str)
-		return (NULL);
 	pos = before(map, height) - 1;
 	ll = longest_line(map, height);
 	box_size = ((after(map, pos) - pos) * ll) + 1;
@@ -162,11 +94,8 @@ static	char	*fixed_box(char *map, int height, int index)
 			str[index++] = map[pos++];
 			line++;
 		}
-		while (line < ll - 1 && index < box_size - 1)
-		{
+		while (line++ < ll - 1 && index < box_size - 1)
 			str[index++] = ' ';
-			line++;
-		}
 		if (map[pos])
 			str[index++] = map[pos++];
 	}
@@ -179,10 +108,14 @@ char	*fixed(char *origin)
 	char	*new;
 	int		height;
 	int		len;
+	char	*str;
 
 	len = line_len(origin);
 	height = new_lines(origin);
-	new = fixed_box(origin, height, 0);
+	str = true_size(origin, height);
+	if (!str)
+		return (NULL);
+	new = fixed_box(str, origin, height, 0);
 	free(origin);
 	if (!new)
 		return (NULL);

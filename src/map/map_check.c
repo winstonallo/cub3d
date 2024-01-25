@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 18:19:38 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:28:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,14 @@ static	char	*remove_textures_and_rgb(char *map)
 	return (new);
 }
 
-static char	*check_for_invalid_textures(char *origin)
+static char	*check_for_invalid_textures(char *origin, int pos)
 {
 	char	*temp;
 	int		valid;
-	int		pos;
 
 	temp = ft_strdup(origin);
 	if (!temp)
 		return (free(origin), perror("Error\nAlloc failed in c_f_i_t"), NULL);
-	pos = 0;
 	valid = 0;
 	while (temp[pos])
 	{
@@ -97,7 +95,7 @@ static char	*check_map(char *map)
 	modified = remove_textures_and_rgb(map);
 	if (!modified)
 		return (NULL);
-	modified = check_for_invalid_textures(modified);
+	modified = check_for_invalid_textures(modified, 0);
 	if (!modified)
 		return (NULL);
 	if (check_for_multiple_player(modified) < 0)
@@ -115,7 +113,10 @@ int	*slice_map(char *map)
 	fd = open(map, O_RDONLY);
 	loaded_map = load_map(fd);
 	if (!loaded_map)
-		return (close(fd), perror("Error\nCan't load map in slice_map"), close(fd), NULL);
+	{
+		close(fd);
+		return (perror("Error\nCan't load map in slice_map"), NULL);
+	}
 	updated = check_map(loaded_map);
 	free(loaded_map);
 	if (!updated)

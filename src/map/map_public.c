@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_public.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:13 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/21 23:23:20 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/25 13:29:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,14 @@ int	map_get_player(int *map)
 		i++;
 	}
 	return (i);
+}
+
+void	m_matrix_free(char **error_names)
+{
+	int	i;
+
+	i = 0;
+	while (error_names[i])
+		free(error_names[i++]);
+	free(error_names);
 }
