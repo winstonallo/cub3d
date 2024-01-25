@@ -3,31 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/24 21:24:22 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/25 12:58:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
-
-int	check_multiple_chars(char character, char *to_find)
-{
-	int	found;
-	int	pos;
-
-	pos = -1;
-	found = 0;
-	while (to_find[++pos])
-	{
-		if (character == to_find[pos])
-			found++;
-	}
-	if (found < 1)
-		return (-1);
-	return (0);
-}
+#include <unistd.h>
 
 static	char	*replace_hex(char *loaded)
 {
@@ -50,47 +34,51 @@ static	char	*replace_hex(char *loaded)
 	return (replace);
 }
 
-int	mpl(char *map);
-
 int	check_map_if_valid(char *m, int i, int leaks)
 {
 	while (m[++i])
 		if (m[i] == 'X')
-			if (check_multiple_chars(m[i - 1], "X1NWES") < 0
-				|| check_multiple_chars(m[i + 1], "X1NWES") < 0
-				|| check_multiple_chars(m[i - mpl(m) - 1], "X1NWES") < 0
-				|| check_multiple_chars(m[i + mpl(m) + 1], "X1NWES") < 0)
+			if ((m[i - 1] != 'X' && m[i - 1] != '1' && m[i - 1] != 'N'
+					&& m[i - 1] != 'S' && m[i - 1] != 'W' && m[i - 1] != 'E')
+				|| (m[i + 1] != 'X' && m[i + 1] != '1' && m[i + 1] != 'N'
+					&& m[i + 1] != 'S' && m[i + 1] != 'W' && m[i + 1] != 'E')
+				|| (m[i - mpl(m)] != 'X' && m[i - mpl(m)] != '1'
+					&& m[i - mpl(m)] != 'N' && m[i - mpl(m)] != 'S'
+					&& m[i - mpl(m)] != 'W' && m[i - mpl(m)] != 'E')
+				|| (m[i + mpl(m)] != 'X' && m[i + mpl(m)] != '1'
+					&& m[i + mpl(m)] != 'N' && m[i + mpl(m)] != 'S'
+					&& m[i + mpl(m)] != 'W' && m[i + mpl(m)] != 'E'))
 				leaks++;
 	if (leaks > 0)
-		return (printf("Error\n%i leaks found\n", leaks), perror(""), -1);
+		return (ft_putstr_fd("Error\nPlayer not enclosed in map\n", 2), -1);
 	return (0);
 }
 
 int	check_player_in_map(char *map)
 {
-	int	pos;
+	int		pos;
 
 	pos = 0;
 	while (map[pos])
 	{
-		if (map[pos] == 'N' || map[pos] == 'S'
-			|| map[pos] == 'E' || map[pos] == 'W')
+		if (ft_strchr("NSEW", map[pos]))
 		{
-			if ((map[pos - mpl(map)] != '1' && map[pos - mpl(map)] != 'X')
-				|| (map[pos + mpl(map)] != '1' && map[pos + mpl(map)] != 'X')
-				|| (map[pos + 1] != '1' && map[pos + 1] != 'X')
-				|| (map[pos - 1] != '1' && map[pos - 1] != 'X'))
-				return (perror("Error\nPlayer out of map"), -1);
+			if (!ft_strchr("1X", map[pos - mpl(map)]) || !ft_strchr("1X",
+					map[pos + mpl(map)]) || !ft_strchr("1X", map[pos + 1])
+				|| !ft_strchr("1X", map[pos - 1]))
+			{
+				ft_putstr_fd("Error\nPlayer outside of the map", STDERR_FILENO);
+				return (-1);
+			}
 		}
 		pos++;
 	}
 	return (0);
 }
 
-char	*map_valid(char *loaded, t_data *data)
+char	*map_valid(char *loaded)
 {
 	char	*changed;
-	int		pos;
 
 	changed = replace_hex(loaded);
 	free(loaded);
@@ -99,10 +87,19 @@ char	*map_valid(char *loaded, t_data *data)
 	changed = fixed(changed);
 	if (!changed)
 		return (NULL);
-	pos = 0;
-	while (changed[pos])
-		pos++;
-	data->map_width = mpl(changed);
-	data->map_height = (pos / (data->map_width + 1)) + 1;
 	return (changed);
+}
+
+int	*map_main(char *map, t_data *data)
+{
+	int	*sliced_map;
+
+	if (check_if_exists(map) < 0)
+		return (NULL);
+	if (check_if_valid(map, data) < 0)
+		return (NULL);
+	sliced_map = slice_map(map);
+	if (!sliced_map)
+		return (NULL);
+	return (sliced_map);
 }

@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   general_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 01:27:13 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/25 13:29:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
-
-void	m_matrix_free(char **error_names)
-{
-	int	i;
-
-	i = 0;
-	while (error_names[i])
-		free(error_names[i++]);
-	free(error_names);
-}
 
 char	*str_join_block(char *str, char *str_temp)
 {
@@ -34,63 +24,49 @@ char	*str_join_block(char *str, char *str_temp)
 	return (temp);
 }
 
-int	store_texture_path(char *str, int pos, t_data *data)
+void	store_texture_path(char *str, t_data *data)
 {
-	if (pos == 0)
+	if (data->map_vars.pos == 0)
 	{
 		data->no_txtr = ft_strdup(str);
 		if (!data->no_txtr)
-			return (perror("Error\nAlloc failed in s_t_p"), -1);
+			return (perror("Error\nAllocation failed in store_texture_path"));
 	}
-	else if (pos == 1)
+	else if (data->map_vars.pos == 1)
 	{
 		data->so_txtr = ft_strdup(str);
 		if (!data->so_txtr)
-			return (perror("Error\nAlloc failed in s_t_p"), -2);
+			return (perror("Error\nAllocation failed in store_texture_path"));
 	}
-	else if (pos == 2)
+	else if (data->map_vars.pos == 2)
 	{
 		data->we_txtr = ft_strdup(str);
 		if (!data->we_txtr)
-			return (perror("Error\nAlloc failed in s_t_p"), -3);
+			return (perror("Error\nAllocation failed in store_texture_path"));
 	}
-	else if (pos == 3)
+	else if (data->map_vars.pos == 3)
 	{
 		data->ea_txtr = ft_strdup(str);
 		if (!data->ea_txtr)
-			return (perror("Error\nAlloc failed in s_t_p"), -4);
+			return (perror("Error\nAllocation failed in store_texture_path"));
 	}
-	return (0);
 }
 
-int	validate_file(t_check *check, t_data *data, char **error)
+int	validate_file(char *str, int valid, char **error, t_data *data)
 {
 	int	fd;
-	int	err;
 
-	fd = open(check->str, O_RDONLY);
-	err = store_texture_path(check->str, check->pos, data);
-	free(check->str);
-	if (err < 0)
-	{
-		if (!(fd < 0))
-			close(fd);
-		if (err == -2)
-			return (free(data->no_txtr), check->valid - 1);
-		if (err == -3)
-			return (free(data->no_txtr), free(data->so_txtr), check->valid - 1);
-		if (err == -4)
-			return (free(data->no_txtr), free(data->so_txtr),
-				free(data->we_txtr), check->valid - 1);
-		return (check->valid - 1);
-	}
-	if (fd < 0 && check->valid == 4)
+	fd = open(str, O_RDONLY);
+	store_texture_path(str, data);
+	if (fd < 0 && valid == 4)
 		perror("Error");
 	if (fd < 0)
-		return (printf("%s texture path invalid\n",
-			error[check->pos]), perror(""), check->valid - 1);
+	{
+		printf("%s texture path invalid\n", error[data->map_vars.pos]);
+		return (valid - 1);
+	}
 	close(fd);
-	return (check->valid - 0);
+	return (valid - 0);
 }
 
 int	validate_rgb(char *str, int valid, char **error, int pos)

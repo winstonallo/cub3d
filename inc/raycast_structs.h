@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:15:16 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/25 12:45:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:20:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ typedef struct s_check
 {
 	char	*str;
 	int		change;
+	int		valid;
+	int		pos;
 	int		fd;
 }				t_check;
 
@@ -121,49 +123,19 @@ typedef struct s_txtr
 	int				color;
 }	t_txtr;
 
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-	int	a;
-}				t_color;
-
-typedef struct s_font_inner
-{
-	t_txtr	*letter;
-	int		del;
-}				t_font_inner;
-
-typedef struct s_font
-{
-	t_font_inner	xl_font;
-	t_font_inner	big_font;
-	t_font_inner	medium_font;
-	t_font_inner	small_font;
-}				t_font;
-
 typedef struct s_texture_base
 {
 	struct s_txtr		north;
 	struct s_txtr		south;
 	struct s_txtr		east;
 	struct s_txtr		west;
-	struct s_txtr		door;
 }	t_texture_base;
-
-typedef struct s_map_vars
-{
-	int	pos;
-}				t_map_vars;
 
 typedef struct s_data
 {
 	int						view_dir;
 	int						ceiling_color;
 	int						floor_color;
-	int						map_width_old;
-	int						map_height_old;
 	int						map_width;
 	int						map_height;
 	int						map_size;
@@ -172,13 +144,7 @@ typedef struct s_data
 	int						line_color;
 	int						hit;
 	int						floors;
-	int						argc;
-	int						**maps;
 	int						*map;
-	int						gifs;
-	int						button_index;
-	int						clicked;
-	bool					door;
 	char					*no_txtr;
 	char					*so_txtr;
 	char					*we_txtr;
@@ -193,7 +159,6 @@ typedef struct s_data
 	double					hit_pos;
 	double					angle;
 	double					scaling;
-	struct s_map_vars		map_vars;
 	struct s_raycast		h_ray;
 	struct s_raycast		v_ray;
 	struct s_texture_base	textures;

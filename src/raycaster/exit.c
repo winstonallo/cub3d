@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 12:18:58 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 15:05:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:24:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-void	free_data(t_data *data)
+static void	free_data(t_data *data)
 {
 	freeze(data->no_txtr);
 	freeze(data->we_txtr);
@@ -20,16 +20,20 @@ void	free_data(t_data *data)
 	freeze(data->so_txtr);
 	freeze(data->map);
 	freeze(data->mlx.mlx);
-	freeze(data->maps);
 }
 
-void	destroy_textures(t_data *data)
+static void	texture_destroy(t_data *data, t_txtr *texture)
 {
-	mlx_destroy_image(data->mlx.mlx, data->textures.north.img);
-	mlx_destroy_image(data->mlx.mlx, data->textures.west.img);
-	mlx_destroy_image(data->mlx.mlx, data->textures.east.img);
-	mlx_destroy_image(data->mlx.mlx, data->textures.south.img);
-	mlx_destroy_image(data->mlx.mlx, data->textures.door.img);
+	if (texture->img != NULL)
+		mlx_destroy_image(data->mlx.mlx, texture->img);
+}
+
+static void	destroy_textures(t_data *data)
+{
+	texture_destroy(data, &data->textures.north);
+	texture_destroy(data, &data->textures.south);
+	texture_destroy(data, &data->textures.east);
+	texture_destroy(data, &data->textures.west);
 }
 
 void	exit_failure(t_data *data, char *msg)

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:49:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 22:08:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:20:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,12 @@ static void	check_argument_count(int argc)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int		maps;
 
 	check_argument_count(argc);
-	data.maps = (int **)malloc(sizeof(int *) * (argc - 1));
-	if (!data.maps)
-		return (perror("Error\nAllocation failed in main"), 1);
-	maps = -1;
-	while (++maps < argc - 1)
-	{
-		data.maps[maps] = map(argv[1 + maps], &data);
-		if (!data.maps[maps])
-		{
-			while (--maps >= 0)
-				free(data.maps[maps]);
-			return (free(data.maps), perror("Error\nMap failed to load"), 1);
-		}
-	}
-	data.map = data.maps[0];
-	data.argc = argc - 2;
+	data.map = map(argv[1], &data);
+	if (!data.map)
+		exit(EXIT_FAILURE);
 	data_init(&data);
 	start_game(&data);
-	free(data.maps[0]);
-	free(data.maps);
 	return (0);
 }
