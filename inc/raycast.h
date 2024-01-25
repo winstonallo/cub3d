@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 12:47:09 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:08:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void		set_wall_scaling_factor(t_data *data);
 void		vertical_vars_init(t_raycast *v_ray, t_player *p, double angle);
 void		horizontal_vars_init(t_raycast *h_ray, t_player *p, double angle);
 void		scan(t_raycast *ray, t_data *data, int max);
+int			mpl(char *map);
 
 //raycaster
 void		raycast(t_data *data);
@@ -77,7 +78,7 @@ void		init_line(t_line *line, t_data *data, int length);
 //map
 int			*map(char *map, t_data *data);
 int			map_get_player_pos(int *map);
-t_txtr		map_get_textures(char *map);
+t_texture	map_get_textures(char *map);
 int			replace(char *fname, char *pos, char *content);
 void		start_game(t_data *data);
 

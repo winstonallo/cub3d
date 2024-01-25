@@ -6,14 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:19:30 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/23 23:24:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:49:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
-//math tings
 # define PI 3.1415926535
 # define P2 1.570796327
 # define P3 4.71238898
@@ -28,7 +27,6 @@
 # define WALL_HEIGHT 1.2
 # define COLL_SENS 0.15
 # define SOME_LARGE_VALUE 1000000
-# define HIT_POS_OFFSET 2.72
 # define SCALE 125.0
 # define FOV_INCREMENT 1.04719755
 # define FOV 120
@@ -37,7 +35,6 @@
 # define EAST 'E'
 # define WEST 'W'
 
-//keys
 # define ESCAPE 65307
 # define W 119
 # define A 97
@@ -46,8 +43,6 @@
 # define E 101
 # define Q 113
 
-
-//enums
 typedef enum s_scale
 {
 	MAPSIZE,

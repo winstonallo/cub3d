@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   general_helper2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 17:50:03 by yatabay          ###   ########.fr       */
+/*   Updated: 2024/01/25 13:06:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../inc/cub3d.h"
 #include "../../inc/map.h"
 
 char	*load_map(int fd)

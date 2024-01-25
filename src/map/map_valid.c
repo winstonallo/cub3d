@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 21:55:46 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:58:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
+#include <unistd.h>
 
 static	char	*replace_hex(char *loaded)
 {
@@ -33,55 +34,42 @@ static	char	*replace_hex(char *loaded)
 	return (replace);
 }
 
-int	mpl(char *map);
-
 int	check_map_if_valid(char *m, int i, int leaks)
 {
 	while (m[++i])
 		if (m[i] == 'X')
 			if ((m[i - 1] != 'X' && m[i - 1] != '1' && m[i - 1] != 'N'
-					&& m[i - 1] != 'S' && m[i - 1] != 'W' && m[i - 1] != 'E'
-					&& m[i - 1] != 'U' && m[i - 1] != 'L' && m[i - 1] != 'R')
+					&& m[i - 1] != 'S' && m[i - 1] != 'W' && m[i - 1] != 'E')
 				|| (m[i + 1] != 'X' && m[i + 1] != '1' && m[i + 1] != 'N'
-					&& m[i + 1] != 'S' && m[i + 1] != 'W' && m[i + 1] != 'E'
-					&& m[i - 1] != 'U' && m[i - 1] != 'L' && m[i - 1] != 'R')
+					&& m[i + 1] != 'S' && m[i + 1] != 'W' && m[i + 1] != 'E')
 				|| (m[i - mpl(m)] != 'X' && m[i - mpl(m)] != '1'
 					&& m[i - mpl(m)] != 'N' && m[i - mpl(m)] != 'S'
-					&& m[i - mpl(m)] != 'W' && m[i - mpl(m)] != 'E'
-					&& m[i - mpl(m)] != 'U' && m[i - mpl(m)] != 'L'
-					&& m[i - mpl(m)] != 'R')
+					&& m[i - mpl(m)] != 'W' && m[i - mpl(m)] != 'E')
 				|| (m[i + mpl(m)] != 'X' && m[i + mpl(m)] != '1'
 					&& m[i + mpl(m)] != 'N' && m[i + mpl(m)] != 'S'
-					&& m[i + mpl(m)] != 'W' && m[i + mpl(m)] != 'E'
-					&& m[i + mpl(m)] != 'U' && m[i + mpl(m)] != 'L'
-					&& m[i + mpl(m)] != 'R'))
+					&& m[i + mpl(m)] != 'W' && m[i + mpl(m)] != 'E'))
 				leaks++;
 	if (leaks > 0)
-		return (printf("Error\n%i leaks found\n", leaks), perror(""), -1);
+		return (ft_putstr_fd("Error\nPlayer not enclosed in map\n", 2), -1);
 	return (0);
 }
 
 int	check_player_in_map(char *map)
 {
-	int	pos;
+	int		pos;
 
 	pos = 0;
 	while (map[pos])
 	{
-		if (map[pos] == 'N' || map[pos] == 'S'
-			|| map[pos] == 'E' || map[pos] == 'W')
+		if (ft_strchr("NSEW", map[pos]))
 		{
-			if ((map[pos - mpl(map)] != '1' && map[pos - mpl(map)] != 'X'
-					&& map[pos - mpl(map)] != 'U' && map[pos - mpl(map)] != 'L'
-					&& map[pos - mpl(map)] != 'R')
-				|| (map[pos + mpl(map)] != '1' && map[pos + mpl(map)] != 'X'
-					&& map[pos + mpl(map)] != 'U' && map[pos + mpl(map)] != 'L'
-					&& map[pos + mpl(map)] != 'R')
-				|| (map[pos + 1] != '1' && map[pos + 1] != 'X' && map[pos + 1] != 'U'
-					 && map[pos + 1] != 'L' && map[pos + 1] != 'R')
-				|| (map[pos - 1] != '1' && map[pos - 1] != 'X' && map[pos - 1] != 'U'
-					 && map[pos - 1] != 'L' && map[pos - 1] != 'R'))
-				return (perror("Error\nPlayer out of map"), -1);
+			if (!ft_strchr("1X", map[pos - mpl(map)]) || !ft_strchr("1X",
+					map[pos + mpl(map)]) || !ft_strchr("1X", map[pos + 1])
+				|| !ft_strchr("1X", map[pos - 1]))
+			{
+				ft_putstr_fd("Error\nPlayer outside of the map", STDERR_FILENO);
+				return (-1);
+			}
 		}
 		pos++;
 	}

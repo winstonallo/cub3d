@@ -6,13 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 21:55:20 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:00:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
-
-int	mpl(char *map);
 
 int	new_lines(char *map)
 {
@@ -53,20 +51,6 @@ static	int	line_len(char *map)
 	}
 	return (len);
 }
-
-// static	void	replace_char(t_map *struct_map, char *map, char *str, char cha)
-// {
-// 	while (map[struct_map->pos] && map[struct_map->pos] != '\n')
-// 	{
-// 		struct_map->stepper++;
-// 		if (map[struct_map->pos] == ' ')
-// 			str[struct_map->pos2] = cha;
-// 		else
-// 			str[struct_map->pos2] = map[struct_map->pos];
-// 		struct_map->pos++;
-// 		struct_map->pos2++;
-// 	}
-// }
 
 static	int	before(char *map, int height)
 {
@@ -119,34 +103,6 @@ static	int	after(char *map, int line)
 	return (line);
 }
 
-// static	int	before_and_after(char *map, int height)
-// {
-// 	int	l;
-// 	int	line;
-// 	int	pos;
-
-// 	l = before(map, height);
-// 	line = 0;
-// 	while (map[line] && line < l)
-// 		line++;
-// 	pos = line;
-// 	while (map[++pos] && (line >= l && line < after(map, l)))
-// 	{
-// 		if (map[pos] == 10)
-// 		{
-// 			if (map[pos + 1] == 0 && line + 1 < after(map, l))
-// 			{
-// 				pos++;
-// 				break;
-// 			}
-// 			line++;
-// 		}
-// 	}
-// 	if (map[pos - 1] == 10)
-// 		pos--;
-// 	return (pos - height + 1);
-// }
-
 static	int	longest_line(char *map, int height)
 {
 	int	line;
@@ -184,23 +140,20 @@ static	char	*true_size(char *map, int height)
 	return (str);
 }
 
-static	char	*fixed_box(char *map, int height, int len)
+static	char	*fixed_box(char *map, int height, int index)
 {
 	char	*str;
 	int		box_size;
-	int		index;
 	int		pos;
 	int		ll;
 	int		line;
 
-	(void)len;
 	str = true_size(map, height);
 	if (!str)
 		return (NULL);
 	pos = before(map, height) - 1;
 	ll = longest_line(map, height);
 	box_size = ((after(map, pos) - pos) * ll) + 1;
-	index = 0;
 	while (map[pos] && index < box_size - 1)
 	{
 		line = 0;
@@ -229,7 +182,7 @@ char	*fixed(char *origin)
 
 	len = line_len(origin);
 	height = new_lines(origin);
-	new = fixed_box(origin, height, len);
+	new = fixed_box(origin, height, 0);
 	free(origin);
 	if (!new)
 		return (NULL);

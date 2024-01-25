@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 12:38:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:53:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include "cub3d.h"
+# include "raycast.h"
 # include "raycast_structs.h"
 
 // Check if functions //
