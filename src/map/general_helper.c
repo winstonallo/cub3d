@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 21:15:54 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:40:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,27 @@ char	*str_join_block(char *str, char *str_temp)
 	return (temp);
 }
 
-void	store_texture_path(char *str, int pos, t_data *data)
+void	store_texture_path(char *str, t_data *data)
 {
-	if (pos == 0)
+	if (data->map_vars.pos == 0)
 	{
 		data->no_txtr = ft_strdup(str);
 		if (!data->no_txtr)
 			return (perror("Error\nAllocation failed in store_texture_path"));
 	}
-	else if (pos == 1)
+	else if (data->map_vars.pos == 1)
 	{
 		data->so_txtr = ft_strdup(str);
 		if (!data->so_txtr)
 			return (perror("Error\nAllocation failed in store_texture_path"));
 	}
-	else if (pos == 2)
+	else if (data->map_vars.pos == 2)
 	{
 		data->we_txtr = ft_strdup(str);
 		if (!data->we_txtr)
 			return (perror("Error\nAllocation failed in store_texture_path"));
 	}
-	else if (pos == 3)
+	else if (data->map_vars.pos == 3)
 	{
 		data->ea_txtr = ft_strdup(str);
 		if (!data->ea_txtr)
@@ -62,16 +62,19 @@ void	store_texture_path(char *str, int pos, t_data *data)
 	}
 }
 
-int	validate_file(char *str, int valid, char **error, int pos, t_data *data)
+int	validate_file(char *str, int valid, char **error, t_data *data)
 {
 	int	fd;
 
 	fd = open(str, O_RDONLY);
-	store_texture_path(str, pos, data);
+	store_texture_path(str, data);
 	if (fd < 0 && valid == 4)
 		perror("Error");
 	if (fd < 0)
-		return (printf("%s texture path invalid\n", error[pos]), valid - 1);
+	{
+		printf("%s texture path invalid\n", error[data->map_vars.pos]);
+		return (valid - 1);
+	}
 	close(fd);
 	return (valid - 0);
 }

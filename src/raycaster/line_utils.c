@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:50:31 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 16:56:57 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:48:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-void	set_shortest_line_vars(t_data *data, float min, t_line line, float hit)
+void	set_shortest_line(t_data *data, double min, t_line line, double hit)
 {
 	data->min_distance = min;
 	data->hit_pos = hit;
@@ -44,10 +44,10 @@ void	get_line(t_line *line, t_raycast ray, t_data *data)
 
 void	get_3d_line(t_line *line, int i, t_data *data)
 {
-	line->x0 = i * ((float)SCREEN_WIDTH / 120);
-	line->x1 = i * ((float)SCREEN_WIDTH / 120);
+	line->x0 = i * ((double)SCREEN_WIDTH / 120);
+	line->x1 = i * ((double)SCREEN_WIDTH / 120);
 	line->y0 = data->line_offset;
-	line->y1 = data->line_height * ((float)SCREEN_HEIGHT2 / 120)
+	line->y1 = data->line_height * ((double)SCREEN_HEIGHT2 / 120)
 		+ data->line_offset;
 	line->wall_height = data->line_height;
 	line->scale = SCREEN;

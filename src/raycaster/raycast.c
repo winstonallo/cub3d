@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:34 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 23:49:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:45:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-void	raycast_init(t_data *data, float angle)
+void	raycast_init(t_data *data, double angle)
 {
 	horizontal_vars_init(&data->h_ray, &data->player, angle);
 	vertical_vars_init(&data->v_ray, &data->player, angle);
@@ -34,7 +34,7 @@ void	get_shortest_line(t_data *data)
 	calculate_distance(data, v_line, h_line);
 }
 
-static void	throw_rays(t_data *data, float angle)
+static void	throw_rays(t_data *data, double angle)
 {
 	raycast_init(data, angle);
 	perform_scan(data);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/22 16:48:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:45:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	turn(int direction, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static bool	check_collision(t_data *data, float new_x, float new_y)
+static bool	check_collision(t_data *data, double new_x, double new_y)
 {
 	int	tl;
 	int	tr;
@@ -50,7 +50,7 @@ static bool	check_collision(t_data *data, float new_x, float new_y)
 	return (true);
 }
 
-static void	slide_on_walls(t_data *data, float new_x, float new_y)
+static void	slide_on_walls(t_data *data, double new_x, double new_y)
 {
 	if (!check_collision(data, new_x, new_y))
 	{
@@ -66,10 +66,10 @@ static void	slide_on_walls(t_data *data, float new_x, float new_y)
 	}
 }
 
-static int	adjust(t_data *data, float x_dir, float y_dir)
+static int	adjust(t_data *data, double x_dir, double y_dir)
 {
-	float	new_x;
-	float	new_y;
+	double	new_x;
+	double	new_y;
 
 	new_x = data->player.x_pos + x_dir * SPEED;
 	new_y = data->player.y_pos + y_dir * SPEED;

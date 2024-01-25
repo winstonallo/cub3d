@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:15:16 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/23 23:37:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:45:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ typedef struct s_map
 
 typedef struct s_dist
 {
-	float			y0;
-	float			x0;
-	float			x1;
-	float			y1;
+	double			y0;
+	double			x0;
+	double			x1;
+	double			y1;
 }	t_dist;
 
 typedef struct s_img
@@ -57,12 +57,12 @@ typedef struct s_mlx
 
 typedef struct s_line
 {
-	float			x0;
-	float			y0;
-	float			x1;
-	float			y1;
-	float			x_step;
-	float			y_step;
+	double			x0;
+	double			y0;
+	double			x1;
+	double			y1;
+	double			x_step;
+	double			y_step;
 	int				direction;
 	int				x_inc;
 	int				y_inc;	
@@ -77,18 +77,18 @@ typedef struct s_line
 
 typedef struct s_player
 {
-	float			x_pos;
-	float			y_pos;
-	float			x_oldpos;
-	float			y_oldpos;
+	double			x_pos;
+	double			y_pos;
+	double			x_oldpos;
+	double			y_oldpos;
 	int				x_screen_pos;
 	int				y_screen_pos;
-	float			angle;
-	float			x_dir;
-	float			y_dir;
+	double			angle;
+	double			x_dir;
+	double			y_dir;
 	int				direction;
-	float			x_prev;
-	float			y_prev;
+	double			x_prev;
+	double			y_prev;
 }	t_player;
 
 typedef struct s_raycast
@@ -99,13 +99,13 @@ typedef struct s_raycast
 	int					max_depth;
 	int					direction;
 	int					hit;
-	float				reach_x;
-	float				reach_y;
-	float				angle;
-	float				inc_x;
-	float				inc_y;
-	float				a_tan;
-	float				n_tan;
+	double				reach_x;
+	double				reach_y;
+	double				angle;
+	double				inc_x;
+	double				inc_y;
+	double				a_tan;
+	double				n_tan;
 	struct s_dist		dist;
 }	t_raycast;
 
@@ -120,18 +120,6 @@ typedef struct s_txtr
 	int				height;
 	int				color;
 }	t_txtr;
-
-typedef struct s_button_loop
-{
-	struct	timespec	start_time;
-	struct	timespec	current_time;
-	int					active;
-	int					lap;
-	int					inc;
-	int					i;
-	double				elapsed_time;
-	int					status;
-}				t_button_loop;
 
 typedef struct s_color
 {
@@ -155,65 +143,6 @@ typedef struct s_font
 	t_font_inner	small_font;
 }				t_font;
 
-typedef struct s_cords
-{
-	int	copy_x;
-	int	copy_y;
-	int	img_x;
-	int	img_y;
-}				t_cords;
-
-typedef struct s_data t_data;
-
-typedef struct s_button
-{
-	t_txtr	*img;
-	int		del;
-	int		curr;
-	int		iden;
-	int		active;
-	int		activate;
-	int		posx;
-	int		posy;
-	int		button_clicked;
-	int		(*function)(t_data *, int i);
-}				t_button;
-
-typedef struct s_gif
-{
-	t_txtr	*img;
-	t_txtr	display;
-	int		active;
-	int		posx;
-	int		posy;
-	int		curr;
-	int		del;
-}				t_gif;
-
-
-typedef struct s_font_setting
-{
-	int	x;
-	int	y;
-	int	color;
-	int	identifier;
-}				t_font_setting;
-
-typedef struct s_elevator
-{
-	struct s_gif	*left_wall_down;
-	struct s_gif	*left_wall_up;
-	struct s_gif	*right_wall_down;
-	struct s_gif	*right_wall_up;
-	struct s_gif	*back_wall_down;
-	struct s_gif	*back_wall_up;
-	struct s_gif	door;
-	int				current;
-	int				stage;
-	int				floor;
-	int				active;
-}				t_elevator;
-
 typedef struct s_texture_base
 {
 	struct s_txtr		north;
@@ -222,6 +151,11 @@ typedef struct s_texture_base
 	struct s_txtr		west;
 	struct s_txtr		door;
 }	t_texture_base;
+
+typedef struct s_map_vars
+{
+	int	pos;
+}				t_map_vars;
 
 typedef struct s_data
 {
@@ -249,16 +183,17 @@ typedef struct s_data
 	char					*so_txtr;
 	char					*we_txtr;
 	char					*ea_txtr;
-	float					line_height;
-	float					line_offset;
-	float					target_line_height;
-	float					x_scale;
-	float					y_scale;
-	float					fisheye;
-	float					min_distance;
-	float					hit_pos;
-	float					angle;
+	double					line_height;
+	double					line_offset;
+	double					target_line_height;
+	double					x_scale;
+	double					y_scale;
+	double					fisheye;
+	double					min_distance;
+	double					hit_pos;
+	double					angle;
 	double					scaling;
+	struct s_map_vars		map_vars;
 	struct s_raycast		h_ray;
 	struct s_raycast		v_ray;
 	struct s_texture_base	textures;
@@ -266,11 +201,6 @@ typedef struct s_data
 	struct s_mlx			mlx;
 	struct s_img			img;
 	struct s_line			shortest_line;
-	struct s_gif			**gif;
-	struct s_button			**button;
-	struct s_font			*font;
-	struct s_cords			cords;
-	struct s_elevator		elev;
 }	t_data;
 
 #endif

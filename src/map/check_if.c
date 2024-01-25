@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:39:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 21:13:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:40:58 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,24 @@ static	int	check_if_all_textures_valid(char *map, char **tags, char **error, t_d
 {
 	t_check	*check;
 	int		valid;
-	int		pos;
 
 	check = (t_check *)malloc(sizeof(t_check));
 	if (!check)
 		return (printf("Error\nAllocation failed\n"), -1);
 	valid = 4;
-	pos = -1;
-	while (++pos < 4)
+	data->map_vars.pos = -1;
+	while (++data->map_vars.pos < 4)
 	{
 		check->change = 0;
-		if (check_for(check, map, tags, pos) != 0)
+		if (check_for(check, map, tags, data->map_vars.pos) != 0)
 			return (free(check), -1);
-		check->str = copy(ft_strnstr(map, tags[pos],
+		check->str = copy(ft_strnstr(map, tags[data->map_vars.pos],
 					ft_strlen(map)) + 3, check->fd);
 		if (!check->str)
 			return (free(check), -1);
 		if (check->change != 0)
 			check->str[4] = 32;
-		valid = validate_file(check->str, valid, error, pos, data);
+		valid = validate_file(check->str, valid, error, data);
 		free(check->str);
 	}
 	free(check);

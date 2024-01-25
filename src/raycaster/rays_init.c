@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 23:43:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/23 23:44:07 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:45:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
 
-void	horizontal_vars_init(t_raycast *h_ray, t_player *p, float angle)
+void	horizontal_vars_init(t_raycast *h_ray, t_player *p, double angle)
 {
 	h_ray->max_depth = 0;
 	h_ray->a_tan = -1 / tan(angle);
@@ -37,7 +37,7 @@ void	horizontal_vars_init(t_raycast *h_ray, t_player *p, float angle)
 	h_ray->inc_x = -h_ray->inc_y * (h_ray->a_tan);
 }
 
-void	vertical_vars_init(t_raycast *v_ray, t_player *p, float angle)
+void	vertical_vars_init(t_raycast *v_ray, t_player *p, double angle)
 {
 	v_ray->max_depth = 0;
 	v_ray->n_tan = -tan(angle);
