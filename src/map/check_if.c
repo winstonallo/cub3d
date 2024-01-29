@@ -3,33 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   check_if.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:39:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:03:47 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:02:34 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
+#include <stdbool.h>
 
-int	check_if_exists(char *map)
+bool	check_if_exists(char *map)
 {
 	int	fd;
 	int	counter;
 
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
-		return (perror("Error\nMap-file invalid\n"), -1);
+		return (perror("Error\nCould not find map"), false);
 	counter = 0;
 	while (map[counter])
 		counter++;
 	if (!(map[counter - 4] == '.' && map[counter - 3] == 'c'
 			&& map[counter - 2] == 'u' && map[counter - 1] == 'b'))
-		return (ft_putstr_fd("Error\nMap-file not compatible ", 2), -1);
-	return (fd);
+		return (ft_putendl_fd("Error\nMap-file not compatible", 2), false);
+	close(fd);
+	return (fd > 0);
 }
 
-static	char	**check_if_all_textures_available(char *loaded_map, char **err)
+static	char	**check_if_all_textures_available(char *loaded_map, int *nl)
 {
 	char	**params;
 	int		pos;
@@ -37,7 +39,8 @@ static	char	**check_if_all_textures_available(char *loaded_map, char **err)
 	params = fill_params(0);
 	if (!params)
 		return (NULL);
-	pos = check_if_all_textures_helper(params, err, loaded_map);
+	*nl = 0;
+	pos = check_if_all_textures_helper(params, loaded_map, nl);
 	if (pos < 0)
 		return (m_matrix_free(params), NULL);
 	return (params);
@@ -62,6 +65,8 @@ static	int	check_textures(char *map, char **tags, t_data *data)
 		if (!check.str)
 			return (-1);
 		check.valid = validate_file(&check, data);
+		if (check.valid < 0)
+			return (-1);
 	}
 	return (check.valid - 4);
 }
@@ -81,7 +86,7 @@ static	int	check_if_all_colors_valid(char *m, char **tags, t_data *data)
 			return (-1);
 		temp = ft_strnstr(m, tags[vp[0] + 4], ft_strlen(m))
 			+ skip(ft_strnstr(m, tags[vp[0] + 4], ft_strlen(m)));
-		c.str = copy(temp, len(temp));
+		c.str = copy(temp, len_till_space(temp));
 		if (!c.str)
 			return (-1);
 		ch = (ft_strnstr(m, tags[vp[0] + 4], ft_strlen(m)))[0];
@@ -93,7 +98,7 @@ static	int	check_if_all_colors_valid(char *m, char **tags, t_data *data)
 	return (vp[1] - 2);
 }
 
-int	check_if_valid(char *map, t_data *data)
+int	check_if_valid(char *map, t_data *data, int *nl)
 {
 	char	**err_param;
 	char	**tags;
@@ -103,11 +108,11 @@ int	check_if_valid(char *map, t_data *data)
 	fd = open(map, O_RDONLY);
 	o_m = load_map(fd);
 	if (!o_m)
-		return (close(fd), perror("Error\nAllocation failed\n"), -1);
+		return (close(fd), -1);
 	err_param = fill_params(1);
 	if (!err_param)
 		return (close(fd), free(o_m), -1);
-	tags = check_if_all_textures_available(o_m, err_param);
+	tags = check_if_all_textures_available(o_m, nl);
 	if (!tags)
 		return (m_matrix_free(err_param), free(o_m), -1);
 	if (check_textures(o_m, tags, data) < 0)

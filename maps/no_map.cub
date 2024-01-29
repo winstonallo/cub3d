@@ -1,0 +1,7 @@
+SO         ./src/textures/Wall7.xpm   
+WE ./src/textures/Wall4.xpm
+NO ./src/textures/Wall2.xpm
+EA ./src/textures/Wall8.xpm
+
+C                                   0,0,0          
+F 220,100,0        

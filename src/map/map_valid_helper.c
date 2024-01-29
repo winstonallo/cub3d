@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 15:29:17 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:50:33 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static	char	*fixed_box(char *map, int height, t_fixed_struct f)
 		if (map[f.pos])
 			f.str[f.index++] = map[f.pos++];
 	}
-	f.str[f.index - 1] = 0;
+	f.str[f.index] = 0;
 	return (f.str);
 }
 
@@ -63,6 +63,8 @@ char	*fixed(char *origin)
 	t_fixed_struct	fixed_s;
 	char			*new;
 	int				height;
+	int				pos;
+	int				nl;
 
 	height = new_lines(origin);
 	fixed_s.ll = longest_line(origin, height);
@@ -70,7 +72,13 @@ char	*fixed(char *origin)
 	free(origin);
 	if (!new)
 		return (NULL);
-	if (check_map_if_valid(new, -1, 0) < 0)
+	pos = -1;
+	while (new[++pos])
+		;
+	nl = 0;
+	if (new[pos - 1] == '\n')
+		nl = 1;
+	if (check_map_if_valid(new, -1, 0, nl) < 0)
 		return (free(new), NULL);
 	if (check_player_in_map(new) < 0)
 		return (free(new), NULL);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 18:03:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:05:31 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:36:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,14 @@ int	len(char *str)
 	while (str[++pos] && str[pos] != ' ' && str[pos] != '\n')
 		;
 	return (pos);
+}
+
+int	len_till_space(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i] && str[i] != '\n')
+		;
+	return (i);
 }

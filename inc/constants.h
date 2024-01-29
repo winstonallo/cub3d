@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:19:30 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/25 15:40:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:06:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define DR 0.00872665
 # define MAX_DIST 1000000
 # define WALL_HEIGHT 1.2
-# define COLL_SENS 0.3
+# define COLL_SENS 0.15
 # define SOME_LARGE_VALUE 1000000
 # define SCALE 125.0
 # define FOV_INCREMENT 1.04719755
@@ -34,6 +34,7 @@
 # define SOUTH 'S'
 # define EAST 'E'
 # define WEST 'W'
+# define NEWLINE '\n'
 
 # define ESCAPE 65307
 # define W 119

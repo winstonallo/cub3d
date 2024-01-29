@@ -3,16 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_helper2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:43:02 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:37:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:12:36 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
 
 int	new_lines(char *map);
+
+char	*check_only_spaces(char *map)
+{
+	int	error;
+	int	pos;
+
+	pos = -1;
+	error = 1;
+	while (map[++pos])
+	{
+		if (map[pos] != 32 && map[pos] != 10)
+			error = 0;
+	}
+	if (error != 0)
+		return (free(map), ft_putstr_fd("Error\nFile empty\n", 2), NULL);
+	return (map);
+}
 
 char	*remove_nls_subpart(char *updated, int nls)
 {
@@ -74,7 +91,7 @@ int	*slicer(char *map)
 	pos = 0;
 	arr = (int *)malloc(sizeof(int) * ft_strlen(map));
 	if (!arr)
-		return (perror("Error\nAlloc failed int slicer"), NULL);
+		return (perror("Error\nAllocation failed"), NULL);
 	while (map[++i])
 	{
 		if (map[i] == ' ')
@@ -93,12 +110,13 @@ int	*slicer(char *map)
 int	*map_main(char *map, t_data *data)
 {
 	int	*sliced_map;
+	int	nl;
 
-	if (check_if_exists(map) < 0)
+	if (check_if_exists(map) == false)
 		return (NULL);
-	if (check_if_valid(map, data) < 0)
+	if (check_if_valid(map, data, &nl) < 0)
 		return (NULL);
-	sliced_map = slice_map(map, data);
+	sliced_map = slice_map(map, data, &nl);
 	if (!sliced_map)
 		return (NULL);
 	return (sliced_map);

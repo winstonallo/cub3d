@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:00:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:41:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
+#include <stdio.h>
 
 void	textures_init(t_data *data)
 {
@@ -59,7 +60,7 @@ void	data_init(t_data *data)
 {
 	mlx_pointers_init(data);
 	set_player_spawn(data, map_get_player_pos(data->map));
-	set_wall_scaling_factor(data);
+	set_map_scale(data);
 	data->map_size = data->map_height * data->map_width;
 	data->min_distance = 0;
 }

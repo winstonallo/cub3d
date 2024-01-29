@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:41:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:37:00 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,8 @@ int	validate_file(t_check *check, t_data *data)
 			close(fd);
 		return (check->valid - 1);
 	}
-	if (fd < 0 && check->valid == 4)
-		perror("Error");
 	if (fd < 0)
-		return (perror("Error\ntexture path invalid"), check->valid - 1);
+		return (perror("Error\nTexture path invalid"), -1);
 	close(fd);
 	return (check->valid - 0);
 }
@@ -81,29 +79,25 @@ int	validate_file(t_check *check, t_data *data)
 int	validate_rgb(char *str, int valid, t_data *data, int ident)
 {
 	int	correct;
-	int	index;
+	int	i;
 	int	dots;
 
 	correct = 0;
-	index = 0;
+	i = 0;
 	dots = 0;
-	while (index <= (int)ft_strlen(str))
+	while (i <= (int)ft_strlen(str))
 	{
-		if (str[index] && ((!(str[index] >= '0' && str[index] <= '9'))
-				&& str[index] != ','))
+		if (str[i] && str[i] != ' ' && !ft_isdigit(str[i]) && str[i] != ',')
 			break ;
-		if (str[index] == ',')
+		if (str[i] == ',')
 			dots++;
-		index++;
+		i++;
 	}
 	correct = check_if_rgb_correct(str, data, ident);
 	if (correct == -1)
 		return (-1);
 	if (dots != 2 || correct != 3)
-	{
-		ft_putstr_fd("Error\nRGB color code invalid", STDERR_FILENO);
 		return (valid - 1);
-	}
 	return (valid);
 }
 

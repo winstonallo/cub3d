@@ -1,0 +1,22 @@
+SO         ./src/textures/Wall7.xpm   
+WE ./src/textures/Wall4.xpm
+NO ./src/textures/Wall2.xpm
+
+C                                   0,0,0          
+F 220,100,0        
+
+111
+101
+101
+101
+101
+1N1
+101
+101
+101
+101
+101
+111
+
+
+EA ./src/textures/Wall8.xpm
