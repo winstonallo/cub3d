@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/27 23:58:47 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/29 13:34:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,19 @@ int	validate_file(t_check *check, t_data *data)
 int	validate_rgb(char *str, int valid, t_data *data, int ident)
 {
 	int	correct;
-	int	index;
+	int	i;
 	int	dots;
 
 	correct = 0;
-	index = 0;
+	i = 0;
 	dots = 0;
-	while (index <= (int)ft_strlen(str))
+	while (i <= (int)ft_strlen(str))
 	{
-		if (str[index] && str[index] != ' ' && ((!(str[index] >= '0' && str[index] <= '9'))
-				&& str[index] != ','))
+		if (str[i] && str[i] != ' ' && !ft_isdigit(str[i]) && str[i] != ',')
 			break ;
-		if (str[index] == ',')
+		if (str[i] == ',')
 			dots++;
-		index++;
+		i++;
 	}
 	correct = check_if_rgb_correct(str, data, ident);
 	if (correct == -1)

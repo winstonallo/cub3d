@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:37:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/28 23:16:17 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/29 13:33:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,59 +122,78 @@ void	get_color(char **rgb, t_data *data, int ident)
 		data->ceiling_color = (r << 16) | (g << 8) | b;
 }
 
-int	check_before_split(char *str)
+int	count_commas(char *s)
 {
-	int	passed;
+	int	i;
 	int	komma;
-	int	temp;
-	int	pos;
 
+	i = -1;
 	komma = 0;
-	pos = -1;
-	while (str[++pos] && str[pos] != '\n')
-		if (str[pos] == ',')
+	while (s[++i])
+		if (s[i] == ',')
 			komma++;
-	if (komma != 2)
-		return (ft_putstr_fd("Error\nRGB code invalid\n", 2), -1);
-	pos = -1;
-	while (str[++pos])
-		if (str[pos] == ',' || str[pos] == 32 || (!(str[pos] >= '0' && str[pos] <= '9')))
+	return (komma);
+}
+
+int	check_code_order(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+		if (s[i] == ',' || s[i] == SPACE || !ft_isdigit(s[i]))
 			break ;
-	if (str[pos] != ',')
+	if (s[i] != ',')
 		return (-1);
-	if (pos == 0)
+	if (i == 0)
 		return (-1);
-	komma = pos;
-	komma++;
-	passed = 0;
-	while (str[++pos] && str[pos] != '\n' && passed < 2)
+	return (i + 1);
+}
+
+int	check_substring(char *s, int passed, int pos, int comma)
+{
+	if (s[pos - 2] == SPACE)
+		return (-1);
+	while (s[pos] && s[pos] != '\n' && s[pos] == SPACE)
+		pos++;
+	while (s[pos] && s[pos] != SPACE && s[pos] != '\n' && s[pos] != ',')
+		s[comma++] = s[pos++];
+	if (s[pos] == SPACE && passed < 1)
+		return (-1);
+	if (passed > 0)
 	{
-		if (str[pos - 1] == ',')
+		while (s[pos] && s[pos] != 10)
 		{
-			if (str[pos - 2] == 32)
+			if (s[pos] && s[pos] != 32 && s[pos] != 10)
 				return (-1);
-			while (str[pos] && str[pos] != '\n' && str[pos] == 32)
-				pos++;
-			while (str[pos] && str[pos] != 32 && str[pos] != '\n' && str[pos] != ',')
-				str[komma++] = str[pos++];
-			if (str[pos] == ' ' && passed < 1)
-				return (-1);
-			temp = pos;
-			if (passed > 0)
-			{
-				while (str[temp] && str[temp] != 10)
-				{
-					if (str[temp] && str[temp] != 32 && str[temp] != 10)
-						return (-1);
-					temp++;
-				}
-			}
-			if (passed < 1)
-				str[komma++] = ',';
-			passed++;
+			pos++;
 		}
 	}
-	str[komma] = 0;
+	if (passed < 1)
+		s[comma++] = ',';
+	passed++;
+	return (comma);
+}
+
+int	check_before_split(char *s, int pos, int passed)
+{
+	int	comma;
+	
+	if (count_commas(s) != 2)
+		return (ft_putstr_fd("Error\nRGB code invalid\n", 2), -1);
+	comma = check_code_order(s);
+	if (comma == -1)
+		return (ft_putstr_fd("Error\nRGB code invalid\n", 2), -1);
+	while (s[++pos] && s[pos] != '\n' && passed < 2)
+	{
+		if (s[pos - 1] == ',')
+		{
+			comma = check_substring(s, passed, pos, comma);
+			if (comma == -1)
+				return (ft_putstr_fd("Error\nRGB code invalid\n", 2), -1);
+		}
+	}
+	s[comma] = 0;
 	return (0);
 }
 
@@ -189,7 +208,7 @@ int	check_if_rgb_correct(char *s, t_data *data, int ident)
 		if (s[g] != ',' && s[g] != ' ' && (!(s[g] >= '0' && s[g] <= '9')))
 			return (-1);
 	correct = 0;
-	if (check_before_split(s) < 0)
+	if (check_before_split(s, -1, 0) < 0)
 		return (correct);
 	rgb = ft_split(s, ',');
 	if (!rgb)
