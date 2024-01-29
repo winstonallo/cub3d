@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 22:19:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 14:39:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:21:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,31 @@
 
 static void	high_init(double **scaling)
 {
-	(*scaling)[76] = 1.68;
-	(*scaling)[77] = 1.66;
-	(*scaling)[78] = 1.64;
-	(*scaling)[79] = 1.62;
-	(*scaling)[80] = 1.6;
-	(*scaling)[81] = 1.59;
-	(*scaling)[82] = 1.57;
-	(*scaling)[83] = 1.55;
-	(*scaling)[84] = 1.54;
-	(*scaling)[85] = 1.52;
-	(*scaling)[86] = 1.51;
-	(*scaling)[87] = 1.49;
-	(*scaling)[88] = 1.48;
-	(*scaling)[89] = 1.46;
-	(*scaling)[90] = 1.45;
-	(*scaling)[91] = 1.43;
-	(*scaling)[92] = 1.42;
-	(*scaling)[93] = 1.41;
-	(*scaling)[94] = 1.39;
-	(*scaling)[95] = 1.38;
-	(*scaling)[96] = 1.37;
-	(*scaling)[97] = 1.36;
-	(*scaling)[98] = 1.34;
-	(*scaling)[99] = 1.33;
-	(*scaling)[100] = 1.32;
+	(*scaling)[76] = 1.6445;
+	(*scaling)[77] = 1.625;
+	(*scaling)[78] = 1.605;
+	(*scaling)[79] = 1.582;
+	(*scaling)[80] = 1.562;
+	(*scaling)[81] = 1.543;
+	(*scaling)[82] = 1.525;
+	(*scaling)[83] = 1.507;
+	(*scaling)[84] = 1.49;
+	(*scaling)[85] = 1.473;
+	(*scaling)[86] = 1.456;
+	(*scaling)[87] = 1.44;
+	(*scaling)[88] = 1.42;
+	(*scaling)[89] = 1.405;
+	(*scaling)[90] = 1.388;
+	(*scaling)[91] = 1.375;
+	(*scaling)[92] = 1.36;
+	(*scaling)[93] = 1.345;
+	(*scaling)[94] = 1.33;
+	(*scaling)[95] = 1.315;
+	(*scaling)[96] = 1.301;
+	(*scaling)[97] = 1.288;
+	(*scaling)[98] = 1.275;
+	(*scaling)[99] = 1.262;
+	(*scaling)[100] = 1.25;
 }
 
 static void	mid_high_init(double **scaling)
@@ -52,22 +52,22 @@ static void	mid_high_init(double **scaling)
 	(*scaling)[57] = 2.19;
 	(*scaling)[58] = 2.15;
 	(*scaling)[59] = 2.12;
-	(*scaling)[60] = 2.08;
+	(*scaling)[60] = 2.085;
 	(*scaling)[61] = 2.05;
-	(*scaling)[62] = 2.02;
-	(*scaling)[63] = 1.99;
-	(*scaling)[64] = 1.96;
-	(*scaling)[65] = 1.93;
-	(*scaling)[66] = 1.9;
-	(*scaling)[67] = 1.88;
-	(*scaling)[68] = 1.85;
-	(*scaling)[69] = 1.83;
-	(*scaling)[70] = 1.8;
-	(*scaling)[71] = 1.78;
-	(*scaling)[72] = 1.76;
-	(*scaling)[73] = 1.74;
-	(*scaling)[74] = 1.72;
-	(*scaling)[75] = 1.7;
+	(*scaling)[62] = 2.018;
+	(*scaling)[63] = 1.986;
+	(*scaling)[64] = 1.955;
+	(*scaling)[65] = 1.925;
+	(*scaling)[66] = 1.896;
+	(*scaling)[67] = 1.868;
+	(*scaling)[68] = 1.84;
+	(*scaling)[69] = 1.813;
+	(*scaling)[70] = 1.786;
+	(*scaling)[71] = 1.76;
+	(*scaling)[72] = 1.738;
+	(*scaling)[73] = 1.716;
+	(*scaling)[74] = 1.694;
+	(*scaling)[75] = 1.668;
 	high_init(scaling);
 }
 

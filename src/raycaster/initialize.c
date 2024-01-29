@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 14:44:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:25:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/raycast.h"
+#include <stdio.h>
 
 void	textures_init(t_data *data)
 {
@@ -57,7 +58,7 @@ static void	mlx_pointers_init(t_data *data)
 
 void	data_init(t_data *data)
 {
-	if (data->map_width > 50)
+	if (data->map_width > 100)
 		exit_error("Map width too big", data);
 	mlx_pointers_init(data);
 	set_player_spawn(data, map_get_player_pos(data->map));
