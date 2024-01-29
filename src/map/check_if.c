@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:39:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 14:04:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:22:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static	int	check_textures(char *map, char **tags, t_data *data)
 		if (!check.str)
 			return (-1);
 		check.valid = validate_file(&check, data);
+		if (check.valid < 0)
+			return (-1);
 	}
 	return (check.valid - 4);
 }

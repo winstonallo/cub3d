@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 13:56:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:16:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
+#include <stdio.h>
 
 char	*load_map(int fd)
 {
@@ -100,7 +101,7 @@ int	get_texture_helper(t_texture *texture, char *loaded, char **params)
 		walker = 0;
 		temp = ft_strdup(ft_strnstr(loaded, params[i], ft_strlen(loaded)) + 3);
 		if (!temp)
-			return (printf("Error\nAlloc failed for validating texture\n"), -1);
+			return (perror("Error\nAllocation failed\n"), -1);
 		while (temp[walker] && temp[walker] != ' ' && temp[walker] != '\n')
 			walker++;
 		temp[walker] = 0;

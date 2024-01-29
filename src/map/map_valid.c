@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:36:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:15:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static	char	*replace_hex(char *loaded)
 	pos = 0;
 	replace = (char *)malloc(ft_strlen(loaded) + 1);
 	if (!replace)
-		return (perror("Error\nAlloc failed in replace"), NULL);
+		return (perror("Error\nAllocation failed"), NULL);
 	while (loaded[pos])
 	{
 		if (loaded[pos] == '0')

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 13:48:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:14:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		len(char *str);
 char	*map_valid(char *loaded, t_data *data);
 int		*slice_map(char *map, t_data *data, int *nl);
 int		mpl(char *map);
+void	error(char *str);
 
 // Map valid helper functions //
 int		check_substring(char *s, int passed, int *pos, int comma);

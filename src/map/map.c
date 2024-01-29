@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 17:53:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:14:49 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_texture	map_get_textures(char *map)
 	close(fd);
 	params = fill_params(0);
 	if (!params)
-		return (printf("Error\nAlloc failed in get_texture_helper"), texture);
+		return (printf("Error\nAllocation failed"), texture);
 	if (get_texture_helper(&texture, loaded, params) < 0)
 		return (free(loaded), m_matrix_free(params), texture);
 	if (get_rgb_helper(&texture, loaded, params) < 0)

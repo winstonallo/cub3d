@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 14:01:00 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:21:17 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,8 @@ int	validate_file(t_check *check, t_data *data)
 			close(fd);
 		return (check->valid - 1);
 	}
-	if (fd < 0 && check->valid == 4)
-		perror("Error");
 	if (fd < 0)
-		return (perror("Error\ntexture path invalid"), check->valid - 1);
+		return (perror("Error\nTexture path invalid"), -1);
 	close(fd);
 	return (check->valid - 0);
 }
@@ -99,10 +97,7 @@ int	validate_rgb(char *str, int valid, t_data *data, int ident)
 	if (correct == -1)
 		return (-1);
 	if (dots != 2 || correct != 3)
-	{
-		ft_putstr_fd("Error\nRGB color code invalid\n", STDERR_FILENO);
 		return (valid - 1);
-	}
 	return (valid);
 }
 

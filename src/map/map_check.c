@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 14:09:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:15:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
+#include <unistd.h>
 
 static	char	*remove_textures_and_rgb(char *map, int *nl)
 {
@@ -72,9 +73,9 @@ static	int	check_for_multiple_player(char *origin)
 		pos++;
 	}
 	if (player_count == 0)
-		return (perror("Error\nNo player found"), -1);
+		return (ft_putstr_fd("Error\nNo player found", STDERR_FILENO), -1);
 	else if (player_count > 1)
-		return (perror("Error\nToo many players on map"), -1);
+		return (ft_putstr_fd("Error\nToo many players", STDERR_FILENO), -1);
 	return (1 - player_count);
 }
 

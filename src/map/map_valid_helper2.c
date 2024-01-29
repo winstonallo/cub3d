@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_helper2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:43:02 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/28 21:53:13 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/29 14:15:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	*slicer(char *map)
 	pos = 0;
 	arr = (int *)malloc(sizeof(int) * ft_strlen(map));
 	if (!arr)
-		return (perror("Error\nAlloc failed int slicer"), NULL);
+		return (perror("Error\nAllocation failed"), NULL);
 	while (map[++i])
 	{
 		if (map[i] == ' ')
