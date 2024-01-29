@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:31:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/28 22:01:33 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
 
-static	char	*remove_textures_and_rgb(char *map)
+static	char	*remove_textures_and_rgb(char *map, int *nl)
 {
 	char	*new;
+	int		nl_inner;
 	int		i;
 	int		j;
-	int		nl;
 
-	nl = 0;
+	nl_inner = 0;
 	i = 0;
 	while (map[i])
 	{
-		if (nl == 7)
+		if (nl_inner == *nl)
 			break ;
 		if (map[i] == '\n')
-			nl++;
+			nl_inner++;
 		i++;
 	}
 	new = (char *)malloc((ft_strlen(map) - (i + 1)) + 2);
@@ -41,17 +41,17 @@ static	char	*remove_textures_and_rgb(char *map)
 
 static int	check_for_invalid_textures(char *origin)
 {
-	int		pos;
+	int	pos;
 
 	pos = 0;
 	while (origin[pos])
 	{
-		if (!(origin[pos] == '1' || origin[pos] == '2' || origin[pos] == '0'
+		if (!(origin[pos] == '1' || origin[pos] == '0'
 				|| origin[pos] == 'N' || origin[pos] == 'W'
 				|| origin[pos] == 'S' || origin[pos] == 'E'
 				|| origin[pos] == '\n' || origin[pos] == ' '
 				|| origin[pos] == 0))
-			return (perror("Error\nMap invalid. Invalid character found"), -1);
+			return (ft_putstr_fd("Error\nInvalid character found\n", 2), -1);
 		pos++;
 	}
 	return (0);
@@ -78,13 +78,14 @@ static	int	check_for_multiple_player(char *origin)
 	return (1 - player_count);
 }
 
-static char	*check_map(char *map)
+static char	*check_map(char *map, int *nl)
 {
 	char	*modified;
 
-	modified = remove_textures_and_rgb(map);
+	modified = remove_textures_and_rgb(map, nl);
 	if (!modified)
 		return (NULL);
+	printf("%s\n", modified);
 	if (check_for_invalid_textures(modified) < 0)
 		return (free(modified), NULL);
 	if (check_for_multiple_player(modified) < 0)
@@ -92,7 +93,7 @@ static char	*check_map(char *map)
 	return (modified);
 }
 
-int	*slice_map(char *map, t_data *data)
+int	*slice_map(char *map, t_data *data, int *nl)
 {
 	char	*loaded_map;
 	char	*updated;
@@ -102,10 +103,8 @@ int	*slice_map(char *map, t_data *data)
 	fd = open(map, O_RDONLY);
 	loaded_map = load_map(fd);
 	if (!loaded_map)
-	{
 		return (close(fd), NULL);
-	}
-	updated = check_map(loaded_map);
+	updated = check_map(loaded_map, nl);
 	free(loaded_map);
 	if (!updated)
 		return (close(fd), NULL);

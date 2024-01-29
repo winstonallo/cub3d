@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:37:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 17:49:23 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/28 23:16:17 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,52 @@ char	**fill_params(int flag)
 	return (array);
 }
 
-int	check_if_all_textures_helper(char **params, char **err, char *loaded_map)
+int	check_identifier(char *map, char **params, int len)
 {
-	int	error;
-	int	line;
+	int	errors;
 
-	error = 0;
+	errors = 0;
+	if (ft_strnstr(map, params[0], len))
+		errors++;
+	if (ft_strnstr(map, params[1], len))
+		errors++;
+	if (ft_strnstr(map, params[2], len))
+		errors++;
+	if (ft_strnstr(map, params[3], len))
+		errors++;
+	if (ft_strnstr(map, params[4], len))
+		errors++;
+	if (ft_strnstr(map, params[5], len))
+		errors++;
+	return (-1 + errors);
+}
+
+int	check_if_all_textures_helper(char **params, char *map, int *nl)
+{
+	int	line;
+	int	pos;
+	int	len;
+
 	line = 0;
-	while (line < 6)
+	pos = -1;
+	while (map[++pos] && line < 6)
 	{
-		if (!ft_strnstr(loaded_map, params[line], ft_strlen(loaded_map)))
+		len = 0;
+		while (map[++len])
+			if (map[len] == 10)
+				break ;
+		if (len > 1)
 		{
-			if (!error)
-			{
-				printf("Error\n");
-				error++;
-			}
-			printf("%s texture is missing\n", err[line]);
+			if (check_identifier(map, params, len) < 0)
+				return (ft_putstr_fd("Error\nTexture is missing\n", 2), -1);
+			else
+				line++;
 		}
-		line++;
+		*nl = *nl + 1;
+		map = &map[len];
+		pos = 0;
 	}
-	return (0 - error);
+	return (0);
 }
 
 int	check_for(t_check *check, char *map, char **tags, int pos)
@@ -97,25 +122,83 @@ void	get_color(char **rgb, t_data *data, int ident)
 		data->ceiling_color = (r << 16) | (g << 8) | b;
 }
 
-int	check_if_rgb_correct(char *str, t_data *data, int ident)
+int	check_before_split(char *str)
+{
+	int	passed;
+	int	komma;
+	int	temp;
+	int	pos;
+
+	komma = 0;
+	pos = -1;
+	while (str[++pos] && str[pos] != '\n')
+		if (str[pos] == ',')
+			komma++;
+	if (komma != 2)
+		return (ft_putstr_fd("Error\nRGB code invalid\n", 2), -1);
+	pos = -1;
+	while (str[++pos])
+		if (str[pos] == ',' || str[pos] == 32 || (!(str[pos] >= '0' && str[pos] <= '9')))
+			break ;
+	if (str[pos] != ',')
+		return (-1);
+	if (pos == 0)
+		return (-1);
+	komma = pos;
+	komma++;
+	passed = 0;
+	while (str[++pos] && str[pos] != '\n' && passed < 2)
+	{
+		if (str[pos - 1] == ',')
+		{
+			if (str[pos - 2] == 32)
+				return (-1);
+			while (str[pos] && str[pos] != '\n' && str[pos] == 32)
+				pos++;
+			while (str[pos] && str[pos] != 32 && str[pos] != '\n' && str[pos] != ',')
+				str[komma++] = str[pos++];
+			if (str[pos] == ' ' && passed < 1)
+				return (-1);
+			temp = pos;
+			if (passed > 0)
+			{
+				while (str[temp] && str[temp] != 10)
+				{
+					if (str[temp] && str[temp] != 32 && str[temp] != 10)
+						return (-1);
+					temp++;
+				}
+			}
+			if (passed < 1)
+				str[komma++] = ',';
+			passed++;
+		}
+	}
+	str[komma] = 0;
+	return (0);
+}
+
+int	check_if_rgb_correct(char *s, t_data *data, int ident)
 {
 	char	**rgb;
 	int		correct;
 	int		g;
 
 	g = -1;
-	while (str[++g])
-		if (str[g] != ',' && (!(str[g] >= '0' && str[g] <= '9')))
+	while (s[++g])
+		if (s[g] != ',' && s[g] != ' ' && (!(s[g] >= '0' && s[g] <= '9')))
 			return (-1);
-	rgb = ft_split(str, ',');
+	correct = 0;
+	if (check_before_split(s) < 0)
+		return (correct);
+	rgb = ft_split(s, ',');
 	if (!rgb)
 		return (perror("Error\nAllocation failed in check_if_rgb_correct"), -1);
-	correct = 0;
 	if (ft_atoi(rgb[0]) >= 0 && ft_atoi(rgb[0]) < 256)
 		correct++;
 	if (ft_atoi(rgb[1]) >= 0 && ft_atoi(rgb[1]) < 256)
 		correct++;
-	if (ft_atoi(rgb[2]) >= 0 && ft_atoi(rgb[2]) < 256)
+	if (rgb[2] && (ft_atoi(rgb[2]) >= 0 && ft_atoi(rgb[2]) < 256))
 		correct++;
 	if (correct == 3)
 		get_color(rgb, data, ident);

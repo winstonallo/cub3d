@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:41:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/27 23:58:47 by yannis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	validate_rgb(char *str, int valid, t_data *data, int ident)
 	dots = 0;
 	while (index <= (int)ft_strlen(str))
 	{
-		if (str[index] && ((!(str[index] >= '0' && str[index] <= '9'))
+		if (str[index] && str[index] != ' ' && ((!(str[index] >= '0' && str[index] <= '9'))
 				&& str[index] != ','))
 			break ;
 		if (str[index] == ',')
@@ -101,7 +101,7 @@ int	validate_rgb(char *str, int valid, t_data *data, int ident)
 		return (-1);
 	if (dots != 2 || correct != 3)
 	{
-		ft_putstr_fd("Error\nRGB color code invalid", STDERR_FILENO);
+		ft_putstr_fd("Error\nRGB color code invalid\n", STDERR_FILENO);
 		return (valid - 1);
 	}
 	return (valid);

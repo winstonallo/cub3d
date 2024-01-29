@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:28:26 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:04:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ typedef struct s_fixed_struct
 // Check if functions //
 char	*load_map(int fd);
 int		check_if_exists(char *map);
-int		check_if_valid(char *map, t_data *data);
+int		check_if_valid(char *map, t_data *data, int *nl);
 
 // Check if helper functions //
 char	**fill_params(int flag);
-int		check_if_all_textures_helper(char **params, char **err, char *map);
+int		check_if_all_textures_helper(char **params, char *map, int *nl);
 int		check_for(t_check *check, char *map, char **tags, int pos);
 
 // General helper functions //
@@ -57,7 +57,7 @@ int		len(char *str);
 
 // Map functions //
 char	*map_valid(char *loaded, t_data *data);
-int		*slice_map(char *map, t_data *data);
+int		*slice_map(char *map, t_data *data, int *nl);
 int		mpl(char *map);
 
 // Map valid helper functions //
