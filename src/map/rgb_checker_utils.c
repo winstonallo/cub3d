@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:37:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 13:40:07 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:58:30 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,23 @@ int	check_code_order(char *s)
 	return (i + 1);
 }
 
-int	check_substring(char *s, int passed, int pos, int comma)
+int	check_substring(char *s, int passed, int *p, int comma)
 {
-	if (s[pos - 2] == SPACE)
+	if (s[(*p) - 2] == SPACE)
 		return (-1);
-	while (s[pos] && s[pos] != '\n' && s[pos] == SPACE)
-		pos++;
-	while (s[pos] && s[pos] != SPACE && s[pos] != '\n' && s[pos] != ',')
-		s[comma++] = s[pos++];
-	if (s[pos] == SPACE && passed < 1)
+	while (s[(*p)] && s[(*p)] != '\n' && s[(*p)] == SPACE)
+		(*p)++;
+	while (s[(*p)] && s[(*p)] != SPACE && s[(*p)] != '\n' && s[(*p)] != ',')
+		s[comma++] = s[(*p)++];
+	if (s[(*p)] == SPACE && passed < 1)
 		return (-1);
 	if (passed > 0)
 	{
-		while (s[pos] && s[pos] != 10)
+		while (s[(*p)] && s[(*p)] != 10)
 		{
-			if (s[pos] && s[pos] != 32 && s[pos] != 10)
+			if (s[(*p)] && s[(*p)] != 32 && s[(*p)] != 10)
 				return (-1);
-			pos++;
+			(*p)++;
 		}
 	}
 	if (passed < 1)
@@ -89,14 +89,15 @@ int	check_before_split(char *s, int pos, int passed)
 	comma = check_code_order(s);
 	if (comma == -1)
 		return (ft_putstr_fd("Error\nRGB code invalid\n", 2), -1);
-	while (s[++pos] && s[pos] != '\n' && passed < 2)
+	while (s[pos] && s[pos] != '\n' && passed < 2)
 	{
-		if (s[pos - 1] == ',')
+		if (pos > 0 && s[pos - 1] == ',')
 		{
-			comma = check_substring(s, passed, pos, comma);
-			if (comma == -1)
+			comma = check_substring(s, passed, &pos, comma);
+			if (comma < 0)
 				return (-1);
 		}
+		pos++;
 	}
 	s[comma] = 0;
 	return (0);

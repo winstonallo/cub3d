@@ -43,7 +43,7 @@ OBJS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -Iincludes -g
+CFLAGS = -Wall -Wextra -Werror -Iincludes -g 
 
 LDFLAGS = -Lminilibx-linux -L ./libft -lmlx -lXext -lX11 -lm -lft
 

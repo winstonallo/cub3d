@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 13:39:57 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:48:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		*slice_map(char *map, t_data *data, int *nl);
 int		mpl(char *map);
 
 // Map valid helper functions //
-int		check_substring(char *s, int passed, int pos, int comma);
+int		check_substring(char *s, int passed, int *pos, int comma);
 int		check_code_order(char *s);
 int		count_commas(char *s);
 void	get_color(char **rgb, t_data *data, int ident);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:37:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 13:39:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:42:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	check_if_rgb_correct(char *s, t_data *data, int ident)
 		if (s[g] != ',' && s[g] != ' ' && (!(s[g] >= '0' && s[g] <= '9')))
 			return (-1);
 	correct = 0;
-	if (check_before_split(s, -1, 0) < 0)
+	if (check_before_split(s, 0, 0) < 0)
 		return (correct);
 	rgb = ft_split(s, ',');
 	if (!rgb)

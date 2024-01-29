@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 17:55:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:56:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*copy(char *to_copy, int size)
 	char	*new;
 	int		pos;
 
-	new = (char *)malloc(size + 1);
+	new = (char *)ft_calloc(size + 2, sizeof(char));
 	if (!new)
 		return (perror("Error\nAlloc failed in copy"), NULL);
 	pos = 0;
