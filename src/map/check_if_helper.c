@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:37:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 16:10:46 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:41:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ char	**fill_params(int flag)
 	{
 		arr = ft_strdup("NO,SO,WE,EA,F,C");
 		if (!arr)
-			return (perror("Error\nAlloc failed in fill_params"), NULL);
+			return (perror("Error\nAllocation failed"), NULL);
 	}
 	else
 	{
 		arr = ft_strdup("North,South,West,East,Floor,Ceiling");
 		if (!arr)
-			return (perror("Error\nAlloc failed in fill_params"), NULL);
+			return (perror("Error\nAllocation failed"), NULL);
 	}
 	array = ft_split(arr, ',');
 	free(arr);
 	if (!array)
-		return (perror("Error\nAlloc failed in fill_params_split"), NULL);
+		return (perror("Error\nAllocation failed"), NULL);
 	return (array);
 }
 
@@ -80,7 +80,7 @@ int	check_if_all_textures_helper(char **params, char *map, int *nl)
 		}
 		*nl = *nl + 1;
 		map = &map[len];
-		pos = 0;
+		pos = -1;
 	}
 	return (0);
 }
@@ -95,7 +95,7 @@ int	check_for(t_check *check, char *map, char **tags, int pos)
 	check->str = ft_strdup(
 			ft_strnstr(map, tags[pos], ft_strlen(map)) + 3 - balancer);
 	if (!check->str)
-		return (perror("Error\nAlloc failed for validating texture"), -1);
+		return (perror("Error\nError\nAllocation failed"), -1);
 	check->fd = 0;
 	while (check->str[check->fd] && check->str[check->fd] != ' '
 		&& check->str[check->fd] != '\n')

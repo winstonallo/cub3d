@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 14:15:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:02:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
+#include <unistd.h>
 
 int	check_multiple_chars(char character, char *to_find)
 {
@@ -62,7 +63,7 @@ int	check_map_if_valid(char *m, int i, int leaks)
 				|| check_multiple_chars(m[i + mpl(m) + 1], "X1NWES") < 0)
 				leaks++;
 	if (leaks > 0)
-		return (printf("Error\n%i leaks found\n", leaks), -1);
+		return (ft_putendl_fd("Error\nLeaks found in map", STDERR_FILENO), -1);
 	return (0);
 }
 

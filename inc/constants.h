@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:19:30 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/29 16:17:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:06:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define SOUTH 'S'
 # define EAST 'E'
 # define WEST 'W'
+# define NEWLINE '\n'
 
 # define ESCAPE 65307
 # define W 119

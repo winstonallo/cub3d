@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 14:15:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:30:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static	int	check_for_multiple_player(char *origin)
 	int	player_count;
 	int	pos;
 
+	if (ft_strlen(origin) < 1)
+		return (ft_putendl_fd("Error\nNo map in file", STDERR_FILENO), -1);
 	player_count = 0;
 	pos = 0;
 	while (origin[pos])
@@ -73,9 +75,9 @@ static	int	check_for_multiple_player(char *origin)
 		pos++;
 	}
 	if (player_count == 0)
-		return (ft_putstr_fd("Error\nNo player found", STDERR_FILENO), -1);
+		return (ft_putendl_fd("Error\nNo player found", STDERR_FILENO), -1);
 	else if (player_count > 1)
-		return (ft_putstr_fd("Error\nToo many players", STDERR_FILENO), -1);
+		return (ft_putendl_fd("Error\nToo many players", STDERR_FILENO), -1);
 	return (1 - player_count);
 }
 
