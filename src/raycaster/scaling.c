@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 22:19:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 15:21:38 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:42:51 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,21 @@ static void	scale_array_init(double **scaling)
 	mid_init(scaling);
 }
 
-void	set_wall_scaling_factor(t_data *data)
+void	set_map_scale(t_data *data)
 {
 	double	*scaling;
 
+	if (data->map_width > 100)
+		exit_error("Map too big", data);
+	if (data->map_width < 3)
+		exit_error("Map too small", data);
+	printf("map_width: %d\n", data->map_width);
+	if (data->map_width > 25)
+		data->map_scale = 15;
+	if (data->map_width > 60)
+		data->map_scale = 10;
+	if (data->map_width > 80)
+		data->map_scale = 7;
 	scaling = (double *)ft_calloc(sizeof(double), 101);
 	if (!scaling)
 		exit_failure(data, "Error\nMalloc failure in set_wall_scaling_factor");

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:15:16 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/25 15:20:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:26:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ typedef struct s_data
 	int						line_color;
 	int						hit;
 	int						floors;
+	int						map_scale;
 	int						*map;
 	char					*no_txtr;
 	char					*so_txtr;

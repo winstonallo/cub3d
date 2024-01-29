@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 14:28:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:33:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			isdirection(char c);
 void		set_directions(t_data *data);
 bool		is_not_wall(int a, int b, int c, int d);
 void		get_texture_data(t_txtr *t, t_data *data, char *path);
-void		set_wall_scaling_factor(t_data *data);
+void		set_map_scale(t_data *data);
 void		vertical_vars_init(t_raycast *v_ray, t_player *p, double angle);
 void		horizontal_vars_init(t_raycast *h_ray, t_player *p, double angle);
 void		scan(t_raycast *ray, t_data *data, int max);
@@ -56,7 +56,7 @@ void		calculate_distance(t_data *data, t_line line1, t_line line2);
 double		dist(t_line line);
 bool		is_inside_circle(int x, int y, int size);
 void		set_line_vars(t_line *line, int size);
-void		scale_line_to_minimap(t_line *line);
+void		scale_line_to_minimap(t_line *line, t_data *data);
 
 //drawing_utils
 void		put_pixel(t_data *data, int x, int y, int color);

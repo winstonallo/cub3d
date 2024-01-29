@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:32:42 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 16:15:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:33:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	draw_line(t_data *data, t_line line, int color, int size)
 	int		length;
 
 	if (line.scale == MAPSIZE)
-		scale_line_to_minimap(&line);
+		scale_line_to_minimap(&line, data);
 	set_line_vars(&line, size);
 	while (line.step <= line.max)
 	{
