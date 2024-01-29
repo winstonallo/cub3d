@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:19:30 by yatabay           #+#    #+#             */
-/*   Updated: 2024/01/29 14:43:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:17:58 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define DR 0.00872665
 # define MAX_DIST 1000000
 # define WALL_HEIGHT 1.2
-# define COLL_SENS 0.3
+# define COLL_SENS 0.15
 # define SOME_LARGE_VALUE 1000000
 # define SCALE 125.0
 # define FOV_INCREMENT 1.04719755

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 22:19:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 15:42:51 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:17:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,11 @@ void	set_map_scale(t_data *data)
 		exit_error("Map too big", data);
 	if (data->map_width < 3)
 		exit_error("Map too small", data);
-	printf("map_width: %d\n", data->map_width);
-	if (data->map_width > 25)
+	if (data->map_width <= 60)
 		data->map_scale = 15;
-	if (data->map_width > 60)
+	else if (data->map_width <= 80)
 		data->map_scale = 10;
-	if (data->map_width > 80)
+	else
 		data->map_scale = 7;
 	scaling = (double *)ft_calloc(sizeof(double), 101);
 	if (!scaling)
