@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:37:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 16:41:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:14:53 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,11 @@ int	check_for(t_check *check, char *map, char **tags, int pos)
 	balancer = 0;
 	if (pos > 3)
 		balancer = 1;
+	if (!ft_strnstr(map, tags[pos], ft_strlen(map)) + 3 - balancer)
+		return (-1);
 	check->str = ft_strdup(
 			ft_strnstr(map, tags[pos], ft_strlen(map)) + 3 - balancer);
+	printf("<%s>\n",check->str);
 	if (!check->str)
 		return (perror("Error\nError\nAllocation failed"), -1);
 	check->fd = 0;
