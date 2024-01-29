@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 17:53:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:15:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,15 @@ static	char	*replace_hex(char *loaded)
 
 int	mpl(char *map);
 
-int	check_map_if_valid(char *m, int i, int leaks)
+int	check_map_if_valid(char *m, int i, int leaks, int nextline)
 {
-	int	len;
-	int	nextline;
+	int	lastline;
 
-	len = ft_strlen(m);
 	while (m[++i])
 	{
 		nextline = i + mpl(m) + 1;
-		int lastline = len / mpl(m);
-		if (i / mpl(m) == lastline && m[i] == 'X')
+		lastline = ft_strlen(m) / (mpl(m) + 1);
+		if ((i < mpl(m) + 1 || i / (mpl(m) + 1) == lastline) && m[i] == 'X')
 		{
 			leaks++;
 			break ;
@@ -75,13 +73,13 @@ int	check_map_if_valid(char *m, int i, int leaks)
 				|| check_multiple_chars(m[i + 1], "X1NWES") < 0
 				|| check_multiple_chars(m[i - mpl(m) - 1], "X1NWES") < 0)
 				leaks++;
-			if (nextline < len)
+			if ((size_t)nextline < ft_strlen(m))
 				if (check_multiple_chars(m[nextline], "X1NWES") < 0)
 					leaks++;
 		}
 	}
 	if (leaks > 0)
-		return (ft_putendl_fd("Error\nLeaks found in map", STDERR_FILENO), -1);
+		return (ft_putendl_fd("Error\nLeaks found in map", 2), -1);
 	return (0);
 }
 
@@ -110,7 +108,7 @@ char	*map_valid(char *loaded, t_data *data)
 {
 	char	*changed;
 	int		pos;
-	bool 	newline;
+	int		newline;
 
 	changed = replace_hex(loaded);
 	free(loaded);
@@ -123,8 +121,12 @@ char	*map_valid(char *loaded, t_data *data)
 	while (changed[pos])
 		pos++;
 	data->map_width = mpl(changed);
-	newline = changed[pos - 1] == NEWLINE;
-	printf("newline: %d\n", newline);
-	data->map_height = (pos / (data->map_width)) - newline - data->map_width;
+	if (changed[pos - 1] != NEWLINE)
+	{
+		newline = 1;
+	}
+	else
+		newline = 0;
+	data->map_height = (pos / (data->map_width + 1)) + newline;
 	return (changed);
 }

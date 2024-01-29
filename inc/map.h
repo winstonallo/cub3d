@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 16:22:07 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:13:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		len_till_space(char *str);
 char	*fixed(char *origin);
 char	*remove_nls(char *updated);
 int		*slicer(char *map);
-int		check_map_if_valid(char *map, int i, int leaks);
+int		check_map_if_valid(char *map, int i, int leaks, int newline);
 int		check_player_in_map(char *map);
 int		*map_main(char *map, t_data *data);
 int		line_len(char *map);

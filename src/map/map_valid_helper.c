@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 17:13:24 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:14:00 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*fixed(char *origin)
 	free(origin);
 	if (!new)
 		return (NULL);
-	if (check_map_if_valid(new, -1, 0) < 0)
+	if (check_map_if_valid(new, -1, 0, 0) < 0)
 		return (free(new), NULL);
 	if (check_player_in_map(new) < 0)
 		return (free(new), NULL);

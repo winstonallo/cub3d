@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:34:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 17:39:39 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:54:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	draw_map(t_data *data)
 	t_line	line;
 
 	y = -1;
-	printf("map_width: %d\n", data->map_width);
-	printf("map_height: %d\n", data->map_height);
 	while (++y < data->map_height)
 	{
 		x = -1;
