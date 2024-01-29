@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:37:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 14:00:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:15:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	check_code_order(char *s)
 	return (i + 1);
 }
 
-int	check_substring(char *s, int passed, int *p, int comma)
+int	check_substring(char *s, int *passed, int *p, int comma)
 {
 	if (s[(*p) - 2] == SPACE)
 		return (-1);
@@ -63,9 +63,9 @@ int	check_substring(char *s, int passed, int *p, int comma)
 		(*p)++;
 	while (s[(*p)] && s[(*p)] != SPACE && s[(*p)] != '\n' && s[(*p)] != ',')
 		s[comma++] = s[(*p)++];
-	if (s[(*p)] == SPACE && passed < 1)
+	if (s[(*p)] == SPACE && *passed < 1)
 		return (-1);
-	if (passed > 0)
+	if (*passed > 0)
 	{
 		while (s[(*p)] && s[(*p)] != 10)
 		{
@@ -74,9 +74,9 @@ int	check_substring(char *s, int passed, int *p, int comma)
 			(*p)++;
 		}
 	}
-	if (passed < 1)
+	if (*passed < 1)
 		s[comma++] = ',';
-	passed++;
+	(*passed)++;
 	return (comma);
 }
 
@@ -93,8 +93,8 @@ int	check_before_split(char *s, int pos, int passed)
 	{
 		if (pos > 0 && s[pos - 1] == ',')
 		{
-			comma = check_substring(s, passed, &pos, comma);
-			if (comma < 0)
+			comma = check_substring(s, &passed, &pos, comma);
+			if (comma == -1)
 				return (-1);
 		}
 		pos++;
