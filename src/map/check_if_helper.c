@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:37:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 19:16:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:19:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	check_for(t_check *check, char *map, char **tags, int pos)
 	balancer = 0;
 	if (pos > 3)
 		balancer = 1;
-	if (!ft_strnstr(map, tags[pos], ft_strlen(map)) + 3 - balancer)
+	if (ft_strlen(map) < 2)
 		return (ft_putendl_fd("Error\nFile content invalid", 2), -1);
 	check->str = ft_strdup(
 			ft_strnstr(map, tags[pos], ft_strlen(map)) + 3 - balancer);
