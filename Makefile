@@ -37,6 +37,7 @@ SRCS = 	${SRC_DIR}main.c \
 		${SRC_DIR}${MAP_DIR}map_valid_helper3.c \
 		${SRC_DIR}${MAP_DIR}map_valid.c \
 		${SRC_DIR}${MAP_DIR}map.c \
+		${SRC_DIR}${MAP_DIR}rgb_checker_utils.c \
 
 OBJS = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)/%.o, $(SRCS))
 

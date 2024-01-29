@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 13:04:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:39:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,12 @@ int		*slice_map(char *map, t_data *data, int *nl);
 int		mpl(char *map);
 
 // Map valid helper functions //
+int		check_substring(char *s, int passed, int pos, int comma);
+int		check_code_order(char *s);
+int		count_commas(char *s);
+void	get_color(char **rgb, t_data *data, int ident);
 char	*true_size(char *map, int height);
+int		len_till_space(char *str);
 char	*fixed(char *origin);
 char	*remove_nls(char *updated);
 int		*slicer(char *map);
@@ -72,5 +77,6 @@ int		line_len(char *map);
 int		longest_line(char *map, int height);
 int		after(char *map, int line);
 int		before(char *map, int height);
+int		check_before_split(char *s, int pos, int passed);
 
 #endif

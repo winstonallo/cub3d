@@ -3,7 +3,7 @@ SO ./src/textures/Wall7.xpm
 WE ./src/textures/Wall4.xpm
 EA ./src/textures/Wall8.xpm
 
-F 220,100,0
+F 220,100, 0
 C 225,30,0
 
 

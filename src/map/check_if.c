@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_if.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:39:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/28 22:42:56 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/29 13:36:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static	char	**check_if_all_textures_available(char *loaded_map, int *nl)
 	params = fill_params(0);
 	if (!params)
 		return (NULL);
-
 	*nl = 0;
 	pos = check_if_all_textures_helper(params, loaded_map, nl);
 	if (pos < 0)
@@ -66,16 +65,6 @@ static	int	check_textures(char *map, char **tags, t_data *data)
 		check.valid = validate_file(&check, data);
 	}
 	return (check.valid - 4);
-}
-
-int	len_till_space(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i] && str[i] != '\n')
-		;
-	return (i);
 }
 
 static	int	check_if_all_colors_valid(char *m, char **tags, t_data *data)
