@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 19:07:41 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:16:58 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ bool		collision(t_data *data, double new_x, double new_y);
 void		set_texture(t_data *data, t_txtr *texture);
 void		set_shortest_line(t_data *data, double min, t_line l, double hit);
 void		set_scaling_factor(t_data *data);
-
 
 //math_utils
 void		normalize_angle(double *angle, double increment);
