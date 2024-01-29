@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yannis <yannis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:41:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/28 22:01:33 by yannis           ###   ########.fr       */
+/*   Updated: 2024/01/29 14:09:37 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static char	*check_map(char *map, int *nl)
 	modified = remove_textures_and_rgb(map, nl);
 	if (!modified)
 		return (NULL);
-	printf("%s\n", modified);
 	if (check_for_invalid_textures(modified) < 0)
 		return (free(modified), NULL);
 	if (check_for_multiple_player(modified) < 0)
