@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:37:33 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 16:15:13 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:01:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	check_before_split(char *s, int pos, int passed)
 		{
 			comma = check_substring(s, &passed, &pos, comma);
 			if (comma == -1)
-				return (-1);
+				return (ft_putstr_fd("Error\nRGB code invalid\n", 2), -1);
 		}
 		pos++;
 	}

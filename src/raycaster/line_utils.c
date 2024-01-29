@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:50:31 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 15:33:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:03:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	get_3d_line(t_line *line, int i, t_data *data)
 
 void	scale_line_to_minimap(t_line *line, t_data *data)
 {
-	line->x0 = line->x0 / SCALE * data->map_scale;
-	line->x1 = line->x1 / SCALE * data->map_scale;
-	line->y0 = line->y0 / SCALE * data->map_scale;
-	line->y1 = line->y1 / SCALE * data->map_scale;
+	line->x0 = line->x0 / SCALE * data->map_scale_x;
+	line->x1 = line->x1 / SCALE * data->map_scale_x;
+	line->y0 = line->y0 / SCALE * data->map_scale_y;
+	line->y1 = line->y1 / SCALE * data->map_scale_y;
 }
