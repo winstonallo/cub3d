@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 18:38:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:52:48 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,14 @@ static	char	*replace_hex(char *loaded)
 
 int	mpl(char *map);
 
-int	check_map_if_valid(char *m, int i, int leaks, int nextline)
+int	check_map_if_valid(char *m, int i, int leaks, int nl)
 {
-	int	lastline;
+	int	ll;
 
 	while (m[++i])
 	{
-		nextline = i + mpl(m) + 1;
-		lastline = (ft_strlen(m)) / ((mpl(m)));
-		if ((i < mpl(m) + 1 || (i / (mpl(m) + 1)) >= lastline - 1) && m[i] == 'X')
+		ll = (ft_strlen(m) / (mpl(m) + 1));
+		if ((i < mpl(m) + 1 || (i / (mpl(m) + 1)) >= ll - nl) && m[i] == 'X')
 		{
 			leaks++;
 			break ;
@@ -73,8 +72,8 @@ int	check_map_if_valid(char *m, int i, int leaks, int nextline)
 				|| check_multiple_chars(m[i + 1], "X1NWES") < 0
 				|| check_multiple_chars(m[i - mpl(m) - 1], "X1NWES") < 0)
 				leaks++;
-			if ((size_t)nextline < ft_strlen(m))
-				if (check_multiple_chars(m[nextline], "X1NWES") < 0)
+			if ((size_t)(i + mpl(m) + 1) < ft_strlen(m))
+				if (check_multiple_chars(m[i + mpl(m) + 1], "X1NWES") < 0)
 					leaks++;
 		}
 	}
