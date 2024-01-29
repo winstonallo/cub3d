@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_helper2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 16:26:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:03:20 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*load_map(int fd)
 		if (!map)
 			return (perror("Error\nAllocation failed"), NULL);
 	}
-	return (map);
+	return (check_only_spaces(map));
 }
 
 char	*copy(char *to_copy, int size)

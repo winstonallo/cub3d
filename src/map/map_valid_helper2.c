@@ -3,16 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_helper2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:43:02 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 16:21:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:08:30 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
 
 int	new_lines(char *map);
+
+char	*check_only_spaces(char *map)
+{
+	int	error;
+	int	pos;
+
+	pos = -1;
+	error = 1;
+	while (map[++pos])
+	{
+		if (map[pos] != 32 && map[pos] != 10)
+			error = 0;
+	}
+	if (error != 0)
+		return (free(map), ft_putstr_fd("Error\nFile empty\n", 2), NULL);
+	return (map);
+}
 
 char	*remove_nls_subpart(char *updated, int nls)
 {

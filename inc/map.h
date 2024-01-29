@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yatabay <yatabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 18:13:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:07:21 by yatabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_fixed_struct
 char	*load_map(int fd);
 bool	check_if_exists(char *map);
 int		check_if_valid(char *map, t_data *data, int *nl);
+char	*check_only_spaces(char *map);
 
 // Check if helper functions //
 char	**fill_params(int flag);
