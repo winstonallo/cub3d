@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:40:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 14:16:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:26:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*load_map(int fd)
 
 	map = (char *)malloc(sizeof(char) * 1);
 	if (!map)
-		return (perror("Allocation in load_map failed"), NULL);
+		return (perror("Error\nAllocation failed"), NULL);
 	map[0] = 0;
 	while (1)
 	{
@@ -32,12 +32,12 @@ char	*load_map(int fd)
 			break ;
 		t_char = malloc(2);
 		if (!t_char)
-			return (free(map), perror("Error\nAllocation t_char failed"), NULL);
+			return (free(map), perror("Error\nAllocation failed"), NULL);
 		t_char[0] = single;
 		t_char[1] = 0;
 		map = str_join_block(map, t_char);
 		if (!map)
-			return (perror("Error\nAllocation str_join fail"), NULL);
+			return (perror("Error\nAllocation failed"), NULL);
 	}
 	return (map);
 }
@@ -49,7 +49,7 @@ char	*copy(char *to_copy, int size)
 
 	new = (char *)ft_calloc(size + 2, sizeof(char));
 	if (!new)
-		return (perror("Error\nAlloc failed in copy"), NULL);
+		return (perror("Error\nAllocation failed"), NULL);
 	pos = 0;
 	while (pos < size)
 	{
@@ -68,10 +68,10 @@ static	char	*convert_rgb_to_hex(char *before)
 
 	rgb = ft_split(before, ',');
 	if (!rgb)
-		return (perror("Error\nAlloc failed in convert_rgb_to_hex"), NULL);
+		return (perror("Error\nAllocation failed"), NULL);
 	value = (char *)malloc(9);
 	if (!value)
-		return (perror("Error\nAlloc failed in convert_rgb_to_hex"), NULL);
+		return (perror("Error\nAllocation failed"), NULL);
 	i[1] = -1;
 	while (rgb[++i[1]])
 	{
@@ -101,7 +101,7 @@ int	get_texture_helper(t_texture *texture, char *loaded, char **params)
 		walker = 0;
 		temp = ft_strdup(ft_strnstr(loaded, params[i], ft_strlen(loaded)) + 3);
 		if (!temp)
-			return (perror("Error\nAllocation failed\n"), -1);
+			return (perror("Error\nAllocation failed"), -1);
 		while (temp[walker] && temp[walker] != ' ' && temp[walker] != '\n')
 			walker++;
 		temp[walker] = 0;

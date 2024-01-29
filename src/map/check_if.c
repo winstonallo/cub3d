@@ -6,27 +6,29 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:39:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 16:15:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:28:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/map.h"
+#include <stdbool.h>
 
-int	check_if_exists(char *map)
+bool	check_if_exists(char *map)
 {
 	int	fd;
 	int	counter;
 
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
-		return (perror("Error\nMap-file invalid\n"), -1);
+		return (perror("Error\nCould not find map"), false);
 	counter = 0;
 	while (map[counter])
 		counter++;
 	if (!(map[counter - 4] == '.' && map[counter - 3] == 'c'
 			&& map[counter - 2] == 'u' && map[counter - 1] == 'b'))
-		return (ft_putstr_fd("Error\nMap-file not compatible ", 2), -1);
-	return (fd);
+		return (ft_putendl_fd("Error\nMap-file not compatible", 2), false);
+	close(fd);
+	return (fd > 0);
 }
 
 static	char	**check_if_all_textures_available(char *loaded_map, int *nl)
@@ -106,7 +108,7 @@ int	check_if_valid(char *map, t_data *data, int *nl)
 	fd = open(map, O_RDONLY);
 	o_m = load_map(fd);
 	if (!o_m)
-		return (close(fd), perror("Error\nAllocation failed\n"), -1);
+		return (close(fd), -1);
 	err_param = fill_params(1);
 	if (!err_param)
 		return (close(fd), free(o_m), -1);

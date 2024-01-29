@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:43:02 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 16:06:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:21:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	*map_main(char *map, t_data *data)
 	int	*sliced_map;
 	int	nl;
 
-	if (check_if_exists(map) < 0)
+	if (check_if_exists(map) == false)
 		return (NULL);
 	if (check_if_valid(map, data, &nl) < 0)
 		return (NULL);

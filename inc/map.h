@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:38:48 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/29 16:14:17 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:22:07 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_fixed_struct
 
 // Check if functions //
 char	*load_map(int fd);
-int		check_if_exists(char *map);
+bool	check_if_exists(char *map);
 int		check_if_valid(char *map, t_data *data, int *nl);
 
 // Check if helper functions //
