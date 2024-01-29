@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:36:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:16:41 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:28:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void		start_game(t_data *data);
 void		textures_init(t_data *data);
 void		exit_failure(t_data *data, char *msg);
 int			exit_success(t_data *data);
+void		exit_error(char *msg, t_data *data);
 void		new_image(t_data *data);
 void		free_textures(t_data *data);
 void		check_argument_count(int argc);

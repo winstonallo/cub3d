@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:33:56 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 18:00:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:29:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static void	mlx_pointers_init(t_data *data)
 
 void	data_init(t_data *data)
 {
+	if (data->map_width > 50)
+		exit_error("Map width too big", data);
 	mlx_pointers_init(data);
 	set_player_spawn(data, map_get_player_pos(data->map));
 	set_wall_scaling_factor(data);
