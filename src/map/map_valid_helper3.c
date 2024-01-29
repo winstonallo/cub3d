@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 21:15:10 by yannis            #+#    #+#             */
-/*   Updated: 2024/01/29 17:11:10 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:40:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char	*true_size(char *map, int height)
 
 	ll = longest_line(map, height);
 	pos = before(map, height) - 1;
-	str = (char *)malloc(((after(map, pos) - pos) * ll));
+	str = (char *)malloc(((after(map, pos) - pos) * ll) + 1);
 	if (!str)
 		return (perror("Error\nAllocation failed"), NULL);
 	pos2 = 0;

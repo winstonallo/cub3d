@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 12:42:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2024/01/25 15:29:17 by abied-ch         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:13:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static	char	*fixed_box(char *map, int height, t_fixed_struct f)
 		if (map[f.pos])
 			f.str[f.index++] = map[f.pos++];
 	}
-	f.str[f.index - 1] = 0;
+	f.str[f.index] = 0;
 	return (f.str);
 }
 
